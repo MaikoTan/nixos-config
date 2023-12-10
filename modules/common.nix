@@ -7,6 +7,7 @@
     vim
     wget
     git
+    (callPackage ./vscode.nix {})
   ];
 
   # Enable the OpenSSH daemon.

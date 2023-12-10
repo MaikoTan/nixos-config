@@ -6,6 +6,11 @@
     ./nix.nix
   ];
 
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
   users.mutableUsers = false;
   users.users.maiko = {
     isNormalUser = true;
