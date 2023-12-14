@@ -7,7 +7,7 @@
     vim
     wget
     git
-    (callPackage ./vscode.nix {})
+    (callPackage ./vscode/default.nix {})
     # Fonts
     noto-fonts
     noto-fonts-cjk-sans

@@ -7,37 +7,24 @@
   };
   outputs = { self, nixpkgs, home-manager, ... }:
     let
-      machines = ./machines/default.nix;
-    in
-    {
-      nixosConfigurations = {
-        nixos-vm = nixpkgs.lib.nixosSystem {
+      addMachineConfig = machine: {
+        nixosConfigurations.${machine} = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
-            ./config.nix
-            ./machines/nixos-vm/config.nix
+            ./modules/default.nix
+            ./machines/${machine}/config.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.maiko = import ./home.nix;
-            }
-          ];
-        };
-
-        work-vm = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./config.nix
-            ./machines/work-vm/config.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.maiko = import ./home.nix;
+              home-manager.users.maiko = import ./modules/home-manager;
             }
           ];
         };
       };
-    };
+
+      machineConfigs = map addMachineConfig (builtins.attrNames (builtins.readDir (toString ./machines)));
+
+    in
+    (builtins.foldl' (a: b: a // b) {} machineConfigs);
 }
