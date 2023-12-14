@@ -5,15 +5,13 @@
     enabled = "fcitx5";
     fcitx5.addons = with pkgs; [
       fcitx5-rime
+      fcitx5-mozc
     ];
   };
 
-  # setup rime chinese input
-  programs.rime = {
-    enable = true;
-    defaultInputMethod = "rime";
-    defaultInputMethodOptions = {
-      schema = "luna_pinyin_simp";
-    };
-  };
+  environment.systemPackages = with pkgs; [
+    # rime
+    fcitx5-rime
+    rime-data
+  ];
 }

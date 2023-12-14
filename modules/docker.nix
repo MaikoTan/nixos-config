@@ -4,7 +4,7 @@
   virtualisation.docker = {
     enable = true;
     rootless.enable = true;
-    daemon.settings = {
+    rootless.daemon.settings = {
       ipv6 = true;
     };
   };
