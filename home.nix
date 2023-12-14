@@ -6,13 +6,14 @@
 
   home.stateVersion = "23.11";
 
-  home.packages = [
-    pkgs.htop
-    pkgs.fortune
+  home.packages = with pkgs; [
+    htop
   ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  programs.direnv.enable = true;
 
   xsession.enable = true;
 
