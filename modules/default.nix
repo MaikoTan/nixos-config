@@ -6,6 +6,9 @@
     ./nix.nix
   ];
 
+  # Set your time zone.
+  time.timeZone = "Asia/Shanghai";
+
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;

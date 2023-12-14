@@ -8,6 +8,15 @@
     wget
     git
     (callPackage ./vscode.nix {})
+    # Fonts
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+    noto-fonts-emoji
+    roboto-mono
+    jetbrains-mono
+    ubuntu_font_family
+    fira-code
   ];
 
   # Enable the OpenSSH daemon.
