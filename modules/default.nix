@@ -3,6 +3,8 @@
 {
   imports = [
     ./common.nix
+    ./docker.nix
+    ./ime.nix
     ./nix.nix
   ];
 

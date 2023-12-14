@@ -8,6 +8,9 @@
 
   home.packages = with pkgs; [
     htop
+    rsync
+    transmission_4
+    libsForQt5.yakuake
   ];
 
   # Let Home Manager install and manage itself.
