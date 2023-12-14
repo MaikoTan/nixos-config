@@ -21,7 +21,7 @@ nixos-install --option experimental-features 'nix-command flakes' --flake "/usr/
 - If you are not using first-time installation, run the following command to switch to the new configuration.
 
 ```bash
-nixos-rebuild switch --experimental-features 'nix-command flakes' --flake ".#<hostname>"
+nixos-rebuild switch --option experimental-features 'nix-command flakes' --flake ".#<hostname>"
 ```
 
 - Reboot your system.
@@ -32,6 +32,4 @@ reboot
 
 ## License
 
-This project is licensed under [CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/) license.
-
-![CC-BY-SA-4.0](https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by-sa.svg)
+This project is licensed under [MIT License](./LICENSE).
