@@ -8,7 +8,7 @@
   outputs = { self, nixpkgs, home-manager, ... }:
     let
       addMachineConfig = machine: {
-        nixosConfigurations.${machine} = nixpkgs.lib.nixosSystem {
+        ${machine} = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
             ./modules/default.nix
@@ -26,5 +26,7 @@
       machineConfigs = map addMachineConfig (builtins.attrNames (builtins.readDir (toString ./machines)));
 
     in
-    (builtins.foldl' (a: b: a // b) {} machineConfigs);
+    {
+      nixosConfigurations = (builtins.foldl' (a: b: a // b) {} machineConfigs);
+    };
 }
