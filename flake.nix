@@ -4,8 +4,9 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    code-insiders.url = "github:iosmanthus/code-insiders-flake";
   };
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       addMachineConfig = machine: {
         ${machine} = nixpkgs.lib.nixosSystem {
@@ -17,6 +18,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = inputs;
               home-manager.users.maiko = import ./modules/home-manager;
             }
           ];
@@ -27,6 +29,6 @@
 
     in
     {
-      nixosConfigurations = (builtins.foldl' (a: b: a // b) {} machineConfigs);
+      nixosConfigurations = (builtins.foldl' (a: b: a // b) { } machineConfigs);
     };
 }

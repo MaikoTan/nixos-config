@@ -1,19 +1,13 @@
-{ pkgs, ... }:
+{ pkgs, code-insiders, ... }:
 
 {
   programs.vscode = {
     enable = true;
     enableExtensionUpdateCheck = false;
-    package = (pkgs.vscode.override { isInsiders = true; }).overrideAttrs (oldAttrs: rec {
-      src = (builtins.fetchTarball {
-        url = "https://code.visualstudio.com/sha/download?build=insider&os=linux-x64";
-        sha256 = "023ryfx9zj7d7ghh41xixsz3yyngc2y6znkvfsrswcij67jqm8cd";
-      });
-      version = "latest";
-
+    package = (code-insiders.packages."x86_64-linux".vscode-insider.overrideAttrs (oldAttrs: {
       buildInputs = oldAttrs.buildInputs ++ [ pkgs.krb5 ];
-    });
-  
+    }));
+
     extensions = with pkgs.vscode-extensions; [
       WakaTime.vscode-wakatime
       rust-lang.rust-analyzer
