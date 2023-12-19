@@ -6,7 +6,6 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
-    git
     # Fonts
     noto-fonts
     noto-fonts-cjk-sans
