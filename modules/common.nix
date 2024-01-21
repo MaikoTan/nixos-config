@@ -15,6 +15,7 @@
     jetbrains-mono
     ubuntu_font_family
     fira-code
+    fira-code-symbols
   ];
 
   # Enable the OpenSSH daemon.
