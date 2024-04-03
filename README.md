@@ -30,6 +30,20 @@ nixos-rebuild switch --option experimental-features 'nix-command flakes' --flake
 reboot
 ```
 
+## Update
+
+- Run the following command to update the system.
+
+```bash
+nixos-rebuild switch --flake .
+```
+
+If you have changed anything managed by `dconf`, make sure to run the following command (in fish shell) to update the `dconf` config.
+
+```bash
+./build.fish
+```
+
 ## License
 
 This project is licensed under [MIT License](./LICENSE).
