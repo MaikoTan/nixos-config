@@ -4,6 +4,7 @@
   imports =
     [
       ./vscode/default.nix
+      ./dconf.nix
     ];
 
   home.username = "maiko";
