@@ -5,6 +5,8 @@
     [
       ./vscode/default.nix
       ./dconf.nix
+      ./gnome.nix
+      ./ime.nix
     ];
 
   home.username = "maiko";

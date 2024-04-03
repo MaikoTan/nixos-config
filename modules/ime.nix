@@ -26,6 +26,8 @@
     # rime
     fcitx5-rime
     rime-data
+    # Rime Schema Repository
+    brise
 
     # GNOME Input Method Panel
     gnomeExtensions.kimpanel

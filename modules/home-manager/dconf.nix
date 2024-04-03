@@ -21,7 +21,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "power";
+      last-panel = "applications";
       window-state = mkTuple [ 980 640 false ];
     };
 
@@ -50,6 +50,11 @@ with lib.hm.gvariant;
       categories = [ "X-SuSE-YaST" ];
       name = "suse-yast.directory";
       translate = true;
+    };
+
+    "org/gnome/desktop/background" = {
+      primary-color = "#3a4ba0";
+      secondary-color = "#2f302f";
     };
 
     "org/gnome/desktop/datetime" = {
@@ -115,12 +120,20 @@ with lib.hm.gvariant;
       two-finger-scrolling-enabled = true;
     };
 
+    "org/gnome/desktop/screensaver" = {
+      color-shading-type = "solid";
+      picture-options = "zoom";
+      picture-uri = "file:///nix/store/l6mx02l80z4xzzq3my6qh4zjcr62q1ib-simple-blue-2016-02-19/share/backgrounds/nixos/nix-wallpaper-simple-blue.png";
+      primary-color = "#3a4ba0";
+      secondary-color = "#2f302f";
+    };
+
     "org/gnome/desktop/search-providers" = {
       sort-order = [ "org.gnome.Contacts.desktop" "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" ];
     };
 
     "org/gnome/desktop/session" = {
-      idle-delay = mkUint32 900;
+      idle-delay = mkUint32 0;
     };
 
     "org/gnome/desktop/sound" = {
@@ -197,7 +210,7 @@ with lib.hm.gvariant;
     "org/gtk/gtk4/settings/file-chooser" = {
       date-format = "regular";
       location-mode = "path-bar";
-      show-hidden = false;
+      show-hidden = true;
       show-size-column = true;
       show-type-column = true;
       sidebar-width = 140;
