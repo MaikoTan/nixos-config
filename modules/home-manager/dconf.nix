@@ -174,6 +174,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell" = {
+      enabled-extensions = [ "kimpanel@kde.org" ];
       welcome-dialog-last-shown-version = "45.1";
     };
 
