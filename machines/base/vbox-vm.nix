@@ -35,6 +35,8 @@
 
   virtualisation.virtualbox.guest = {
     enable = true;
-    x11 = true;
+    clipboard = true;
+    seamless = true;
+    draganddrop = true;
   };
 }
