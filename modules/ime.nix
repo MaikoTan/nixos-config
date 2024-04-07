@@ -12,19 +12,12 @@
       "zh_CN.UTF-8/UTF-8"
       "zh_TW.UTF-8/UTF-8"
     ];
-    inputMethod = {
-      enabled = "fcitx5";
-      fcitx5.addons = with pkgs; [
-        fcitx5-rime
-        fcitx5-mozc
-      ];
-    };
   };
 
   environment.systemPackages = with pkgs; [
-    fcitx5
-    # rime
-    fcitx5-rime
+    # fcitx5
+    # # rime
+    # fcitx5-rime
     rime-data
     # Rime Schema Repository
     brise
