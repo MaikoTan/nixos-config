@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   home.file = {
@@ -12,13 +12,5 @@
       '';
       target = "./.local/share/fcitx5/rime/default.custom.yaml";
     };
-  };
-
-  i18n.inputMethod = {
-    enabled = "fcitx5";
-    fcitx5.addons = with pkgs; [
-      fcitx5-rime
-      fcitx5-configtool
-    ];
   };
 }

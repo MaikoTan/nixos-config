@@ -5,6 +5,8 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     code-insiders.url = "github:iosmanthus/code-insiders-flake";
+
+    rime-japanese.url = "git+file:./rime-japanese";
   };
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
