@@ -6,7 +6,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     code-insiders.url = "github:iosmanthus/code-insiders-flake";
 
-    rime-japanese.url = "git+file:./rime-japanese";
+    rime-japanese.url = "github:MaikoTan/rime-japanese/nix";
   };
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
@@ -27,7 +27,7 @@
         };
       };
 
-      machineConfigs = map addMachineConfig (builtins.attrNames (builtins.readDir (toString ./machines)));
+      machineConfigs = map addMachineConfig (builtins.filter (machine: machine != "base") (builtins.attrNames (builtins.readDir (toString ./machines))));
 
     in
     {

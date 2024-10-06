@@ -106,16 +106,18 @@
         "rime-japanese": "rime-japanese_2"
       },
       "locked": {
-        "dirtyRev": "e4d71e5aa12d9d2f73aa375c0e1829210145624b-dirty",
-        "dirtyShortRev": "e4d71e5-dirty",
-        "lastModified": 1712561405,
+        "lastModified": 1728206659,
         "narHash": "sha256-oCXFtudx+XRxFvVtkogWqeXHWJqJGVe9bURfwnJo9ac=",
-        "type": "git",
-        "url": "file:./rime-japanese"
+        "owner": "MaikoTan",
+        "repo": "rime-japanese",
+        "rev": "ffd6e5968a1efa4a65f39c691e6925597f232ffa",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:./rime-japanese"
+        "owner": "MaikoTan",
+        "ref": "nix",
+        "repo": "rime-japanese",
+        "type": "github"
       }
     },
     "rime-japanese_2": {
