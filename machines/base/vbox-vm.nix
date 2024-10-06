@@ -18,6 +18,6 @@
     enable = true;
     clipboard = true;
     seamless = true;
-    draganddrop = true;
+    dragAndDrop = true;
   };
 }

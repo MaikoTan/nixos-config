@@ -13,7 +13,8 @@
       "zh_TW.UTF-8/UTF-8"
     ];
     inputMethod = {
-      enabled = "fcitx5";
+      enabled = true;
+      type = "fcitx5";
       fcitx5 = {
         addons = with pkgs; [
           fcitx5-rime

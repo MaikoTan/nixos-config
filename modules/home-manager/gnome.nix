@@ -2,8 +2,8 @@
 
 {
   home.packages = with pkgs; [
-    gnomeExtensions.dash-to-dock-animator
+    gnomeExtensions.dash-to-dock
     gnomeExtensions.unite
-    gnome.gnome-tweaks
+    gnome-tweaks
   ];
 }
