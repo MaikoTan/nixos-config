@@ -12,7 +12,7 @@
   home.username = "maiko";
   home.homeDirectory = "/home/maiko";
 
-  home.stateVersion = "23.11";
+  home.stateVersion = "24.11";
 
   home.packages = with pkgs; [
     htop
