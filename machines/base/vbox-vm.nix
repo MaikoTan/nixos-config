@@ -1,3 +1,13 @@
+# This file is acted as a nix module for configuring a VirtualBox VM.
+# In VM configs, you could enable VirtualBox guest additions and other VM-specific settings
+# by importing this file. For example, in machines/nixos-vm/config.nix:
+#
+# ```nix
+# {
+#   imports = [ ../base/vbox-vm.nix ];
+# }
+# ```
+
 { ... }:
 
 {
