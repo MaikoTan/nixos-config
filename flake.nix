@@ -31,7 +31,7 @@
       # but rather a base configuration that other machine configurations can inherit from.
       # Additionally, we need to ensure that the machine is a directory and not a file.
       machineNames = builtins.attrNames (builtins.readDir (toString ./machines));
-      filteredMachineNames = builtins.filter (machine: machine != "base" && builtins.pathIsDirectory ./machines/${machine}) machineNames;
+      filteredMachineNames = builtins.filter (machine: machine != "base" && (builtins.readFileType ./machines/${machine}) == "directory") machineNames;
       machineConfigs = map addMachineConfig filteredMachineNames;
 
     in
