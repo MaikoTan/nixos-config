@@ -20,6 +20,8 @@
         addons = with pkgs; [
           fcitx5-rime
           fcitx5-configtool
+          rime-data
+          fcitx5-gtk
         ];
         settings = {
           inputMethod = {
@@ -58,10 +60,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    # fcitx5
-    # # rime
-    # fcitx5-rime
-    rime-data
     # Rime Schema Repository
     brise
 
