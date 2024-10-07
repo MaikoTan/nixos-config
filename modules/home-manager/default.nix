@@ -15,10 +15,19 @@
   home.stateVersion = "24.11";
 
   home.packages = with pkgs; [
+    # System Utilities
     htop
     rsync
-    transmission_4
     libsForQt5.yakuake
+    jq
+    yq
+    # Media
+    vlc
+    # Documents
+    libreoffice-fresh
+    # Networks, Browsers, and Communication
+    google-chrome
+    transmission_4
   ];
 
   # Let Home Manager install and manage itself.
