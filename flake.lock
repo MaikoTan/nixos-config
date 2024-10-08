@@ -5,11 +5,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1728087244,
-        "narHash": "sha256-Y5HROTiJwP5bAURyjdSvzMX31e/7V6vIuyxrYVrdA6M=",
+        "lastModified": 1728346427,
+        "narHash": "sha256-3KHpVSxMbBA8JcRXCKgvcjsIkWTBQ5SnzEFpd8dRAMI=",
         "owner": "iosmanthus",
         "repo": "code-insiders-flake",
-        "rev": "0e90319165d281a885217316f990c1bbc554866b",
+        "rev": "15fb2a323b785575029398c875e5b152fd23c247",
         "type": "github"
       },
       "original": {
@@ -43,11 +43,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1728041527,
-        "narHash": "sha256-03liqiJtk9UP7YQHW4r8MduKCK242FQzud8iWvvlK+o=",
+        "lastModified": 1728337164,
+        "narHash": "sha256-VdRTjJFyq4Q9U7Z/UoC2Q5jK8vSo6E86lHc2OanXtvc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "509dbf8d45606b618e9ec3bbe4e936b7c5bc6c1e",
+        "rev": "038630363e7de57c36c417fd2f5d7c14773403e4",
         "type": "github"
       },
       "original": {
@@ -106,11 +106,11 @@
         "rime-japanese": "rime-japanese_2"
       },
       "locked": {
-        "lastModified": 1728206659,
-        "narHash": "sha256-oCXFtudx+XRxFvVtkogWqeXHWJqJGVe9bURfwnJo9ac=",
+        "lastModified": 1728272014,
+        "narHash": "sha256-tsEUCq499j7T4+xKQOi2VURDQHDG+0X68mkc6tur7sU=",
         "owner": "MaikoTan",
         "repo": "rime-japanese",
-        "rev": "ffd6e5968a1efa4a65f39c691e6925597f232ffa",
+        "rev": "f1be700e0b9aa8e3c9e4e11524a6d2a432fdbcc1",
         "type": "github"
       },
       "original": {
