@@ -19,7 +19,7 @@ nixos-install --option experimental-features 'nix-command flakes' --flake "/usr/
 ```
 
 - If you are not using first-time installation, run the following command to switch to the new configuration.
-    - If you encounter network issues, you may also need to configure the substituters, e.g. `--option substituters "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://cache.nixos.org/"`.
+    - If you encounter network issues, you may also try the mirror with option `--mirror`.
 
 ```bash
 nixos-rebuild switch --option experimental-features 'nix-command flakes' --flake ".#<hostname>"
@@ -36,7 +36,7 @@ reboot
 - Run the following command to update the system.
 
 ```bash
-nixos-rebuild switch --flake .
+./switch.fish
 ```
 
 If you have changed anything managed by `dconf`, make sure to run the following command (in fish shell) to update the `dconf` config.
