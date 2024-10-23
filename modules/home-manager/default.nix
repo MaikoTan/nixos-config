@@ -19,8 +19,10 @@
     htop
     rsync
     libsForQt5.yakuake
+    # Text
     jq
     yq
+    base16384 # https://github.com/fumiama/base16384
     # Media
     vlc
     # Documents
