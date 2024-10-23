@@ -29,6 +29,11 @@ jobs:
             experimental-features = nix-command flakes
           nix_path: nixpkgs=channel:nixos-unstable
 
+      - name: Allow Unfree Nixpkgs
+        run: |
+          mkdir -p $HOME/.config/nixpkgs
+          echo '{ allowUnfree = true; }' >> $HOME/.config/nixpkgs/config.nix
+
       - name: Cache Nix store
         uses: actions/cache@v2
         with:
