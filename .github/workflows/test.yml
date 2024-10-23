@@ -18,6 +18,9 @@ jobs:
           - nixos-vm
           - work-vm
 
+    env:
+      NIXPKGS_ALLOW_UNFREE: 1
+
     steps:
       - uses: actions/checkout@v4
 
@@ -39,13 +42,11 @@ jobs:
 
       - name: Test Nix Flake
         run: |
-          nix flake check
+          nix flake check --impure
 
       - name: Build NixOS configuration for ${{ matrix.system }}
         run: |
           nix build --impure .#nixosConfigurations.${{ matrix.system }}.config.system.build.vm
-        env:
-          NIXPKGS_ALLOW_UNFREE: 1
 
       - name: Run NixOS tests for ${{ matrix.system }}
         run: |
