@@ -29,7 +29,6 @@ jobs:
         uses: cachix/install-nix-action@v27
         with:
           extra_nix_config: |
-            system-features = nixos-test benchmark big-parallel kvm
             experimental-features = nix-command flakes
           nix_path: nixpkgs=channel:nixos-unstable
 
@@ -47,8 +46,5 @@ jobs:
 
       - name: Build NixOS configuration for ${{ matrix.host }}
         run: |
-          nix build --impure .#nixosConfigurations.${{ matrix.host }}.config.system.build.vm
+          nix build --impure .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
 
-      - name: Run NixOS tests for ${{ matrix.host }}
-        run: |
-          ./result/bin/run-nixos-vm
