@@ -32,6 +32,7 @@ jobs:
       - name: Cache Nix store
         uses: actions/cache@v2
         with:
+          path: /nix/store
           key: ${{ runner.os }}-nix-${{ hashFiles('**/flake.lock') }}
           restore-keys: |
             ${{ runner.os }}-nix-
