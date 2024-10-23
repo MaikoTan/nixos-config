@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
         host:
           - nixos-vm
@@ -44,10 +45,10 @@ jobs:
         run: |
           nix flake check --impure
 
-      - name: Build NixOS configuration for ${{ matrix.system }}
+      - name: Build NixOS configuration for ${{ matrix.host }}
         run: |
-          nix build --impure .#nixosConfigurations.${{ matrix.system }}.config.system.build.vm
+          nix build --impure .#nixosConfigurations.${{ matrix.host }}.config.system.build.vm
 
-      - name: Run NixOS tests for ${{ matrix.system }}
+      - name: Run NixOS tests for ${{ matrix.host }}
         run: |
           ./result/bin/run-nixos-vm
