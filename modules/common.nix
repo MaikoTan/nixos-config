@@ -4,8 +4,12 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim
+    # System Utilities
+    htop
+    rsync
     wget
+    # Text
+    vim
     # Fonts
     noto-fonts
     noto-fonts-cjk-sans

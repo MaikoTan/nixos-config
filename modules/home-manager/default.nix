@@ -16,8 +16,6 @@
 
   home.packages = with pkgs; [
     # System Utilities
-    htop
-    rsync
     libsForQt5.yakuake
     # Text
     jq
