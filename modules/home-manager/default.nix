@@ -76,6 +76,9 @@
         "git@e.coding.net:" = {
           insteadOf = "https://e.coding.net/";
         };
+        "git@ssh.gitgud.io:" = {
+          insteadOf = "https://gitgud.io/";
+        };
       };
     };
   };
