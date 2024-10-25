@@ -19,7 +19,7 @@
     libsForQt5.yakuake
     # Text
     jq
-    yq
+    yq-go # https://mikefarah.gitbook.io/yq/
     base16384 # https://github.com/fumiama/base16384
     # Media
     vlc
@@ -28,6 +28,8 @@
     # Networks, Browsers, and Communication
     google-chrome
     transmission_4
+    # Miscellaneous
+    neofetch
   ];
 
   # Let Home Manager install and manage itself.
