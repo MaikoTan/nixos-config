@@ -9,5 +9,6 @@
     target = "${config.home.homeDirectory}/.config/" +
       (if config.programs.vscode.isInsiders then "Code - Insiders" else "Code") +
       "/User/snippets";
+    recursive = true; # link recursively
   };
 }
