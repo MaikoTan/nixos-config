@@ -13,11 +13,6 @@
     enableSSHSupport = true;
   };
 
-  programs.fish = {
-    enable = true;
-  };
-
-  users.defaultUserShell = pkgs.fish;
   users.mutableUsers = false;
   users.users.maiko = {
     isNormalUser = true;
