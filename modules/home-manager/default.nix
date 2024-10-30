@@ -4,7 +4,7 @@
   imports =
     [
       ./vscode/default.nix
-      ./dconf.nix
+      # ./dconf.nix
       ./gnome.nix
       ./ime.nix
     ];
