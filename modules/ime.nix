@@ -22,33 +22,34 @@
           fcitx5-configtool
           rime-data
           fcitx5-gtk
+          fcitx5-mozc
         ];
         settings = {
           inputMethod = {
             "Groups/0" = {
-            "Name"="Default";
-            # Layout
-            "Default Layout"="us";
-            # Default Input Method
-            "DefaultIM"="rime";
+              "Name"="Default";
+              # Layout
+              "Default Layout"="us";
+              # Default Input Method
+              "DefaultIM"="rime";
             };
             "Groups/0/Items/0" = {
               "Name"="keyboard-us";
             };
             "Groups/0/Items/1" = {
-              "Name" = "keyboard-us-carpalx-altgr-intl";
-            };
-            "Groups/0/Items/2" = {
               "Name" = "keyboard-us-dvp";
             };
-            "Groups/0/Items/3" = {
+            "Groups/0/Items/2" = {
               "Name" = "keyboard-fr";
             };
-            "Groups/0/Items/4" = {
+            "Groups/0/Items/3" = {
               "Name" = "keyboard-de";
             };
-            "Groups/0/Items/5" = {
+            "Groups/0/Items/4" = {
               "Name" = "rime";
+            };
+            "Groups/0/Items/5" = {
+              "Name" = "mozc";
             };
             "GroupOrder" = {
               "0"="Default";
