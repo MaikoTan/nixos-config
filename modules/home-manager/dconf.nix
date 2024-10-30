@@ -9,9 +9,14 @@ with lib.hm.gvariant;
       last-used-version = "0.5.1";
     };
 
+    "com/uploadedlobster/peek" = {
+      persist-save-folder = "/home/maiko/workspaces/cactbot-highlight/images";
+      persist-window-geometry = mkTuple [ 305 91 ];
+    };
+
     "org/gnome/Console" = {
-      last-window-maximised = false;
-      last-window-size = mkTuple [ 840 604 ];
+      last-window-maximised = true;
+      last-window-size = mkTuple [ 360 294 ];
     };
 
     "org/gnome/Loupe" = {
@@ -48,7 +53,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "applications";
+      last-panel = "bluetooth";
       window-state = mkTuple [ 980 640 ];
     };
 
@@ -110,7 +115,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "org-gnome-software" "google-chrome" "org-gnome-console" "todesk" "gimp" "org-gnome-baobab" "org-gnome-nautilus" "firefox" "qq" "gnome-power-panel" "org-gnome-settings" ];
+      application-children = [ "org-gnome-software" "google-chrome" "org-gnome-console" "todesk" "gimp" "org-gnome-baobab" "org-gnome-nautilus" "firefox" "qq" "gnome-power-panel" "org-gnome-settings" "wemeetapp" "info-mumble-mumble" ];
     };
 
     "org/gnome/desktop/notifications/application/firefox" = {
@@ -155,6 +160,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/todesk" = {
       application-id = "todesk.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/wemeetapp" = {
+      application-id = "wemeetapp.desktop";
     };
 
     "org/gnome/desktop/peripherals/keyboard" = {
@@ -251,11 +260,11 @@ with lib.hm.gvariant;
     "org/gnome/nautilus/window-state" = {
       initial-size = mkTuple [ 890 550 ];
       initial-size-file-chooser = mkTuple [ 890 550 ];
-      maximized = true;
+      maximized = false;
     };
 
     "org/gnome/portal/filechooser/google-chrome" = {
-      last-folder-path = "/home/maiko/Pictures/Screenshots";
+      last-folder-path = "/home/maiko/Downloads";
     };
 
     "org/gnome/settings-daemon/plugins/color" = {
@@ -280,7 +289,7 @@ with lib.hm.gvariant;
       app-picker-layout = "[{'android-studio.desktop': <{'position': <0>}>, 'org.gnome.Contacts.desktop': <{'position': <1>}>, 'org.gnome.Weather.desktop': <{'position': <2>}>, 'org.gnome.clocks.desktop': <{'position': <3>}>, 'org.gnome.Maps.desktop': <{'position': <4>}>, 'org.kde.ark.desktop': <{'position': <5>}>, 'org.kde.audiotube.desktop': <{'position': <6>}>, 'org.gnome.Totem.desktop': <{'position': <7>}>, 'org.gnome.Calculator.desktop': <{'position': <8>}>, 'bssh.desktop': <{'position': <9>}>, 'simple-scan.desktop': <{'position': <10>}>, 'org.gnome.Settings.desktop': <{'position': <11>}>, 'bvnc.desktop': <{'position': <12>}>, 'avahi-discover.desktop': <{'position': <13>}>, 'Utilities': <{'position': <14>}>, 'blender-3.6.desktop': <{'position': <15>}>, 'yelp.desktop': <{'position': <16>}>, 'org.gnome.Snapshot.desktop': <{'position': <17>}>, 'cmake-gui.desktop': <{'position': <18>}>, 'com.alibabainc.dingtalk.desktop': <{'position': <19>}>, 'discord.desktop': <{'position': <20>}>, 'com.mattjakeman.ExtensionManager.desktop': <{'position': <21>}>}, {'org.gnome.Extensions.desktop': <{'position': <0>}>, 'org.fcitx.Fcitx5.desktop': <{'position': <1>}>, 'fcitx5-configtool.desktop': <{'position': <2>}>, 'org.fcitx.fcitx5-migrator.desktop': <{'position': <3>}>, 'firefox.desktop': <{'position': <4>}>, 'fish.desktop': <{'position': <5>}>, 'gimp.desktop': <{'position': <6>}>, 'lstopo.desktop': <{'position': <7>}>, 'htop.desktop': <{'position': <8>}>, 'org.inkscape.Inkscape.desktop': <{'position': <9>}>, 'kbd-layout-viewer5.desktop': <{'position': <10>}>, 'org.kde.konsole.desktop': <{'position': <11>}>, 'libreoffice-startcenter.desktop': <{'position': <12>}>, 'libreoffice-base.desktop': <{'position': <13>}>, 'libreoffice-calc.desktop': <{'position': <14>}>, 'libreoffice-draw.desktop': <{'position': <15>}>, 'libreoffice-impress.desktop': <{'position': <16>}>, 'libreoffice-math.desktop': <{'position': <17>}>, 'libreoffice-writer.desktop': <{'position': <18>}>, 'dev-pod.desktop': <{'position': <19>}>, 'org.gnome.Epiphany.desktop': <{'position': <20>}>, 'cups.desktop': <{'position': <21>}>, 'netease-cloud-music.desktop': <{'position': <22>}>, 'jconsole-java11-openjdk.desktop': <{'position': <23>}>}, {'jshell-java11-openjdk.desktop': <{'position': <0>}>, 'filezilla.desktop': <{'position': <1>}>, 'virtualbox.desktop': <{'position': <2>}>, 'com.uploadedlobster.peek.desktop': <{'position': <3>}>, 'playonlinux4.desktop': <{'position': <4>}>, 'postman.desktop': <{'position': <5>}>, 'system-config-printer.desktop': <{'position': <6>}>, 'org.rncbc.qpwgraph.desktop': <{'position': <7>}>, 'qq.desktop': <{'position': <8>}>, 'assistant.desktop': <{'position': <9>}>, 'org.ksnip.ksnip.desktop': <{'position': <10>}>, 'designer.desktop': <{'position': <11>}>, 'linguist.desktop': <{'position': <12>}>, 'qdbusviewer.desktop': <{'position': <13>}>, 'qv4l2.desktop': <{'position': <14>}>, 'qvidcap.desktop': <{'position': <15>}>, 'parsecd.desktop': <{'position': <16>}>, 'org.kde.spectacle.desktop': <{'position': <17>}>, 'steam.desktop': <{'position': <18>}>, 'sunlogin.desktop': <{'position': <19>}>, 'org.gnome.TextEditor.desktop': <{'position': <20>}>, 'todesk.desktop': <{'position': <21>}>, 'org.gnome.Tour.desktop': <{'position': <22>}>, 'transmission-qt.desktop': <{'position': <23>}>}, {'uxterm.desktop': <{'position': <0>}>, 'vim.desktop': <{'position': <1>}>, 'vlc.desktop': <{'position': <2>}>, 'winetricks.desktop': <{'position': <3>}>, 'xterm.desktop': <{'position': <4>}>, 'org.kde.yakuake.desktop': <{'position': <5>}>, 'org.gnome.Calendar.desktop': <{'position': <6>}>, 'org.gnome.Music.desktop': <{'position': <7>}>, 'org.gnome.Software.desktop': <{'position': <8>}>, 'org.gnome.SystemMonitor.desktop': <{'position': <9>}>}]";
       command-history = [ "r" ];
       disabled-extensions = [ "window-list@gnome-shell-extensions.gcampax.github.com" "windowsNavigator@gnome-shell-extensions.gcampax.github.com" ];
-      enabled-extensions = [ "apps-menu@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" "launch-new-instance@gnome-shell-extensions.gcampax.github.com" "auto-move-windows@gnome-shell-extensions.gcampax.github.com" "drive-menu@gnome-shell-extensions.gcampax.github.com" "screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com" "workspace-indicator@gnome-shell-extensions.gcampax.github.com" "dash-to-dock@micxgx.gmail.com" "unite@hardpixel.eu" "native-window-placement@gnome-shell-extensions.gcampax.github.com" "places-menu@gnome-shell-extensions.gcampax.github.com" "system-monitor@gnome-shell-extensions.gcampax.github.com" "wallhub@sakithb.github.io" "kimpanel@kde.org" "scroll-workspaces@gfxmonk.net" ];
+      enabled-extensions = [ "apps-menu@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" "launch-new-instance@gnome-shell-extensions.gcampax.github.com" "auto-move-windows@gnome-shell-extensions.gcampax.github.com" "drive-menu@gnome-shell-extensions.gcampax.github.com" "screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com" "workspace-indicator@gnome-shell-extensions.gcampax.github.com" "dash-to-dock@micxgx.gmail.com" "unite@hardpixel.eu" "native-window-placement@gnome-shell-extensions.gcampax.github.com" "places-menu@gnome-shell-extensions.gcampax.github.com" "system-monitor@gnome-shell-extensions.gcampax.github.com" "kimpanel@kde.org" "scroll-workspaces@gfxmonk.net" "wallhub@sakithb.github.io" ];
       favorite-apps = [ "google-chrome.desktop" "org.gnome.Nautilus.desktop" "visual-studio-code-insiders.desktop" ];
       welcome-dialog-last-shown-version = "45.4";
     };
@@ -329,10 +338,10 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/software" = {
-      check-timestamp = mkInt64 1728252019;
+      check-timestamp = mkInt64 1730253626;
       first-run = false;
-      flatpak-purge-timestamp = mkInt64 1728261732;
-      update-notification-timestamp = mkInt64 1728175345;
+      flatpak-purge-timestamp = mkInt64 1730252428;
+      update-notification-timestamp = mkInt64 1730253621;
     };
 
     "org/gnome/tweaks" = {
@@ -369,7 +378,7 @@ with lib.hm.gvariant;
       sort-directories-first = false;
       sort-order = "ascending";
       type-format = "category";
-      window-position = mkTuple [ 412 102 ];
+      window-position = mkTuple [ 412 121 ];
       window-size = mkTuple [ 1096 821 ];
     };
 
