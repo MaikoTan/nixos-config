@@ -13,6 +13,10 @@
       addMachineConfig = machine: {
         ${machine} = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config = { allowUnfree = true; };
+          };
           modules = [
             ./modules/default.nix
             ./machines/${machine}/config.nix
