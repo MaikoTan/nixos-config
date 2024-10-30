@@ -21,6 +21,8 @@ set cmd "nixos-rebuild switch"
 set dry_run false
 set host (uname -n)
 
+set should_sudo (test $host != (uname -n); and echo true; or echo false)
+
 for arg in $argv
     switch $arg
         case '-h' '--help'
@@ -43,6 +45,10 @@ end
 
 if test $dry_run = true
     set cmd "nixos-rebuild test"
+end
+
+if test $should_sudo = true
+    set cmd "sudo $cmd"
 end
 
 set cmd "$cmd --flake '.#$host'"
