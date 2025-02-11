@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, wechat-devtools, ... }:
 
 {
   imports =
@@ -28,6 +28,8 @@
     # Networks, Browsers, and Communication
     google-chrome
     transmission_4
+    # Development
+    wechat-devtools
     # Miscellaneous
     neofetch
   ];

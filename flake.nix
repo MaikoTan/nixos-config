@@ -7,6 +7,7 @@
     code-insiders.url = "github:iosmanthus/code-insiders-flake";
 
     rime-japanese.url = "github:MaikoTan/rime-japanese/nix";
+    wechat-devtools.url = "github:MaikoTan/wechat-devtools";
   };
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let

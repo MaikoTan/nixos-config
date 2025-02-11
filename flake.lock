@@ -36,6 +36,23 @@
         "type": "github"
       }
     },
+    "flake-utils_2": {
+      "inputs": {
+        "systems": "systems_2"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "id": "flake-utils",
+        "type": "indirect"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -99,6 +116,20 @@
         "type": "indirect"
       }
     },
+    "nixpkgs_4": {
+      "locked": {
+        "lastModified": 1728472043,
+        "narHash": "sha256-+fUCZ7C34cp+bY5E9Hw4biRyI+IINVsO+sXFCieWkZA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4fa56ac6d86a213b556d4db9b1cb43a51b3e40ec",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
     "rime-japanese": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -141,7 +172,8 @@
         "code-insiders": "code-insiders",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs_2",
-        "rime-japanese": "rime-japanese"
+        "rime-japanese": "rime-japanese",
+        "wechat-devtools": "wechat-devtools"
       }
     },
     "systems": {
@@ -156,6 +188,40 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_2": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "wechat-devtools": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": "nixpkgs_4"
+      },
+      "locked": {
+        "lastModified": 1739245759,
+        "narHash": "sha256-de1wE+1cMxiTBHdD8zW2XXOjIF1f9xLqvVYNfZQ2MPE=",
+        "owner": "MaikoTan",
+        "repo": "wechat-devtools",
+        "rev": "2cbc0e570d6aec408e42572b4805fd7588e12318",
+        "type": "github"
+      },
+      "original": {
+        "owner": "MaikoTan",
+        "repo": "wechat-devtools",
         "type": "github"
       }
     }
