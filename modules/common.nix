@@ -7,6 +7,7 @@
     # System Utilities
     htop
     rsync
+    curl
     wget
     # Text
     vim
