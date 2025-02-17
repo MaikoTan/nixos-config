@@ -29,6 +29,7 @@
     google-chrome
     transmission_4
     # Development
+    gh
     wechat-devtools
     # Miscellaneous
     neofetch
