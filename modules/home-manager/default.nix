@@ -20,7 +20,7 @@
     # Text
     jq
     yq-go # https://mikefarah.gitbook.io/yq/
-    base16384 # https://github.com/fumiama/base16384
+    # base16384 # https://github.com/fumiama/base16384
     # Media
     vlc
     # Documents
