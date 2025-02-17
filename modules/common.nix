@@ -21,6 +21,11 @@
     ubuntu_font_family
     fira-code
     fira-code-symbols
+    # Microsoft Fonts
+    corefonts
+    vistafonts
+    vistafonts-cht # Traditional Chinese
+    vistafonts-chs # Simplified Chinese
   ];
 
   # Enable the OpenSSH daemon.
