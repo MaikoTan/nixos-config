@@ -1,6 +1,9 @@
 { pkgs, code-insiders, ... }:
 
 {
+  imports = [
+    ./user.nix
+  ];
   programs.vscode = {
     enable = true;
     # isInsiders = true; # No need to set this option since the flake input already set it in their package definition.

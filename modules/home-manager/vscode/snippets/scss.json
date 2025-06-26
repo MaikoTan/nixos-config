@@ -1,9 +1,0 @@
-{
-  // UnoCSS presets
-  "unocss at-apply css variable": {
-    "prefix": "at",
-    "body": "--at-apply: $1;",
-    "description": "UnoCSS at-apply css variable style",
-    "isFileTemplate": false
-  }
-}
