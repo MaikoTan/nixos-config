@@ -13,9 +13,8 @@
       "zh_TW.UTF-8/UTF-8"
     ];
     inputMethod = {
-      # enabled = true;
-      # type = "fcitx5";
-      enabled = "fcitx5"; # FIXME: Should be replace to the above line in the next NixOS release?
+      enabled = true;
+      type = "fcitx5";
       fcitx5 = {
         addons = with pkgs; [
           fcitx5-rime
