@@ -36,6 +36,7 @@
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
   };
+  services.displayManager.defaultSession = "gnome";
 
   programs.dconf.enable = true;
 
