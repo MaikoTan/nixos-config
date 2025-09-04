@@ -1,4 +1,4 @@
-{ lib, pkgs, code-insiders, ... }:
+{ lib, pkgs, code-insiders, config, ... }:
 
 let
 
@@ -19,10 +19,10 @@ in
   };
 
   programs.git.settings = {
-    editor = lib.mkIf programs.git.enable editor;
+    editor = lib.mkIf config.programs.git.enable editor;
   };
 
   programs.gh.settings = {
-    editor = lib.mkIf programs.gh.enable editor;
+    editor = lib.mkIf config.programs.gh.enable editor;
   };
 }
