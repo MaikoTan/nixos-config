@@ -20,6 +20,7 @@
           fcitx5-rime
           fcitx5-configtool
           rime-data
+          rime-japanese
           fcitx5-gtk
           fcitx5-mozc
         ];
