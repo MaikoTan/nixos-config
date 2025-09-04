@@ -29,7 +29,6 @@
     google-chrome
     transmission_4
     # Development
-    gh
     wechat-devtools
     # Miscellaneous
     neofetch
@@ -85,6 +84,28 @@
           insteadOf = "https://gitgud.io/";
         };
       };
+    };
+  };
+
+  programs = {
+    gh = {
+      enable = true;
+      extensions = with pkgs; [
+        # https://github.com/github/gh-copilot
+        gh-copilot
+        # https://github.com/gennaro-tedesco/gh-f
+        gh-f
+      ];
+      settings = {
+        git_protocol = "ssh";
+        prompt = "enabled";
+      };
+    };
+
+    # https://github.com/dlvhdr/gh-dash
+    gh-dash = {
+      enable = true;
+      settings = {};
     };
   };
 
