@@ -54,9 +54,6 @@
     extraConfig = {
       init.defaultBranch = "master";
       core = {
-        # Use VSCode as the default editor.
-        editor = "${pkgs.vscode}/bin/code-insiders --wait";
-
         gpgsign = true;
       };
 
