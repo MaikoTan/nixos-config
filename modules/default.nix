@@ -17,6 +17,7 @@
   users.users.maiko = {
     isNormalUser = true;
     extraGroups = [ "wheel" ] ++ (if config.virtualisation.virtualbox.guest.enable then ["vboxsf"] else []);
-    hashedPassword = "$y$j9T$k81nRyY0poxbHmfDBwwCa0$XNHfeUWV1mnR3kqr7md2pVAenx/6yBOqPknp2vMxZ16";
+    # mkpasswd -m sha-512
+    hashedPassword = "$6$ghV5XrAdy1cLYxTi$CQKgb.ywKGlhsUBzV4WSCG9aioZOl0Q2NgV8f7f7akLizzKgRNSIXk7PIIO.zoJXKEH4fcLWusWIg6A7XX1Jv/";
   };
 }
