@@ -66,21 +66,14 @@
         conflictStyle = "diff3";
       };
 
-      url = {
-        # Use SSH instead of HTTPS.
-        "git@github.com:" = {
-          insteadOf = "https://github.com/";
-        };
-        "git@gitlab.com:" = {
-          insteadOf = "https://gitlab.com/";
-        };
-        "git@e.coding.net:" = {
-          insteadOf = "https://e.coding.net/";
-        };
-        "git@ssh.gitgud.io:" = {
-          insteadOf = "https://gitgud.io/";
-        };
-      };
+      url = builtins.foldl' (acc: { host, https }: acc // {
+        "${host}" = { insteadOf = https; };
+      }) {} [
+        { host = "git@github.com:"; https = "https://github.com/"; }
+        { host = "git@gitlab.com:"; https = "https://gitlab.com/"; }
+        { host = "git@e.coding.net:"; https = "https://e.coding.net/"; }
+        { host = "git@ssh.gitgud.io:"; https = "https://gitgud.io/"; }
+      ];
     };
   };
 
