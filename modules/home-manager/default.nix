@@ -16,7 +16,7 @@
 
   home.packages = with pkgs; [
     # System Utilities
-    libsForQt5.yakuake
+    kdePackages.yakuake
     # Text
     jq
     yq-go # https://mikefarah.gitbook.io/yq/
