@@ -2,13 +2,30 @@
   description = "Maiko's NixOS Config";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    code-insiders.url = "github:iosmanthus/code-insiders-flake";
 
-    wechat-devtools.url = "github:MaikoTan/wechat-devtools";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    code-insiders = {
+      url = "github:iosmanthus/code-insiders-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    wechat-devtools = {
+      url = "github:MaikoTan/wechat-devtools";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nixos-generators, home-manager, ... }@inputs:
     let
       addMachineConfig = machine: {
         ${machine} = nixpkgs.lib.nixosSystem {
@@ -20,6 +37,7 @@
           modules = [
             ./modules/default.nix
             ./machines/${machine}/config.nix
+            nixos-generators.nixosModules.all-formats
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
