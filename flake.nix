@@ -25,7 +25,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, nixos-generators, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nixos-generators, nixos-hardware, home-manager, ... }@inputs:
     let
       addMachineConfig = machine: {
         ${machine} = nixpkgs.lib.nixosSystem {
@@ -36,7 +36,7 @@
           };
           modules = [
             ./modules/default.nix
-            ./machines/${machine}/config.nix
+            (import ./machines/${machine}/config.nix { inherit nixos-hardware; })
             nixos-generators.nixosModules.all-formats
             home-manager.nixosModules.home-manager
             {
