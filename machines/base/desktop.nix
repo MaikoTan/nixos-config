@@ -1,18 +1,18 @@
-{ ... }:
+{ lib, ... }:
 
 {
   imports = [ ./config.nix ];
 
   # Desktop environment use GRUB as the boot loader.
   boot.loader.grub = {
-    enable = true;
-    efiSupport = true;
-    device = "nodev";
+    enable = lib.mkDefault true;
+    efiSupport = lib.mkDefault true;
+    device = lib.mkDefault "nodev";
   };
 
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
   console = {
-    font = "Lat2-Terminus16";
-    useXkbConfig = true; # use xkb.options in tty.
+    font = lib.mkDefault "Lat2-Terminus16";
+    useXkbConfig = lib.mkDefault true; # use xkb.options in tty.
   };
 }
