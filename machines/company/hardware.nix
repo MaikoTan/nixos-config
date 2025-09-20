@@ -3,9 +3,19 @@
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, modulesPath, ... }:
 
-{
-  imports = [ ];
+let
 
+  samba_credentials = {
+    sopsFile = ../../secrets/samba_credentials.yaml;
+  };
+  secrets = {
+    samba_device = samba_credentials // { key = "device";  };
+    samba_options = samba_credentials // { key = "options"; };
+  };
+
+in
+
+{
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usbhid" "rtsx_usb_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
@@ -14,7 +24,7 @@
   # use GRUB2 as boot loader
   boot.loader.grub = {
     enable = true;
-    device = "nodev";
+    device = lib.mkDefault "nodev";
     efiSupport = true;
   };
 
@@ -41,18 +51,23 @@
     };
 
   # Windows Share
-  fileSystems."/mnt/smbmount" =
-    { device = config.sops.samba_credencials.device;
-      fsType = "cifs";
-      options =
-        [
-          "vers=3.0"
-          "file_mode=0777"
-          "dir_mode=0777"
-        ]
-        # Credentials
-        ++ config.sops.samba_credencials.options;
-    };
+  # For mount.cifs, required unless domain name resolution is not needed.
+  environment.systemPackages = [ pkgs.cifs-utils ];
+  sops.secrets = secrets;
+
+  boot.postBootCommands = let
+    # this line prevents hanging on network split
+    automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+    in lib.mkDefault ''
+      mkdir -p /mnt/smbmount
+      # mount the samba share since we don't want to expose the name of the server/share in fstab
+      mount -t cifs \
+      -o ${automount_opts},credentials=${
+        config.sops.secrets.samba_options.path
+      },file_mode=0777,dir_mode=0777,vers=3.0 \
+      $(cat ${config.sops.secrets.samba_device.path})
+      /mnt/smbmount || true
+  '';
 
   swapDevices =
     [
