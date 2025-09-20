@@ -25,6 +25,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: wimpysworld/nothing-but-nix@main
+
       - name: Set up Nix
         uses: cachix/install-nix-action@v27
         with:
