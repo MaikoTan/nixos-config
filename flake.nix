@@ -15,6 +15,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     code-insiders = {
       url = "github:iosmanthus/code-insiders-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,7 +30,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, nixos-generators, nixos-hardware, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nixos-generators, nixos-hardware, home-manager, sops-nix, ... }@inputs:
     let
       addMachineConfig = machine: {
         ${machine} = nixpkgs.lib.nixosSystem {
@@ -34,9 +39,12 @@
             system = "x86_64-linux";
             config = { allowUnfree = true; };
           };
+          specialArgs = inputs;
           modules = [
+            sops-nix.nixosModules.sops
+            ./sops.nix
+            ./machines/${machine}/config.nix
             ./modules/default.nix
-            (import ./machines/${machine}/config.nix { inherit nixos-hardware; })
             nixos-generators.nixosModules.all-formats
             home-manager.nixosModules.home-manager
             {
