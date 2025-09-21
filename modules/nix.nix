@@ -1,8 +1,6 @@
 { config, lib, ... }:
 
 {
-  nixpkgs.config.allowUnfree = true;
-
   nix.settings = {
     /*
      * Configuration for trusted users in Nix.
