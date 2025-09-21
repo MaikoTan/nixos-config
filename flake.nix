@@ -20,15 +20,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    code-insiders = {
-      url = "github:iosmanthus/code-insiders-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    code-insiders.url = "github:iosmanthus/code-insiders-flake";
 
-    wechat-devtools = {
-      url = "github:MaikoTan/wechat-devtools";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    wechat-devtools.url = "github:MaikoTan/wechat-devtools";
   };
   outputs = { self, nixpkgs, nixos-generators, nixos-hardware, home-manager, sops-nix, ... }@inputs:
     let
