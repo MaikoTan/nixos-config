@@ -20,11 +20,16 @@
      * substituters from various Chinese university mirrors and the official NixOS cache.
      * Otherwise, it falls back to the default substituters specified in `config.nix.settings.substituters`.
      */
-    substituters = lib.mkIf (config.time.timeZone == "Asia/Shanghai") [
-      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-      "https://mirror.sjtu.edu.cn/nix-channels/store"
-      "https://mirrors.ustc.edu.cn/nix-channels/store"
-      "https://cache.nixos.org"
+    substituters = lib.mkMerge[
+      (lib.mkIf (config.time.timeZone == "Asia/Shanghai") [
+        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+        "https://mirror.sjtu.edu.cn/nix-channels/store"
+        "https://mirrors.ustc.edu.cn/nix-channels/store"
+      ])
+      [
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org"
+      ]
     ];
   };
 
