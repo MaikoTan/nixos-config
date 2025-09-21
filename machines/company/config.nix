@@ -27,11 +27,12 @@
     };
   };
 
+  # TODO: fix zerotier build issue
   # Automatically join the ZeroTier network.
-  services.zerotierone = {
-    enable = true;
-    joinNetworks = [
-      "35c192ce9bf3258b"
-    ];
-  };
+  # services.zerotierone = {
+  #   enable = true;
+  #   joinNetworks = [
+  #     "35c192ce9bf3258b"
+  #   ];
+  # };
 }
