@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 {
-  nix.settings = {
+  config.nix.settings = {
     /*
      * Configuration for trusted users in Nix.
      * 
@@ -15,13 +15,11 @@
     ];
 
     /*
-     * This configuration sets the `substituters` option for Nix package manager.
-     * If the system's time zone is set to "Asia/Shanghai", it uses a list of
-     * substituters from various Chinese university mirrors and the official NixOS cache.
-     * Otherwise, it falls back to the default substituters specified in `config.nix.settings.substituters`.
+     * Prepend China mirrors to the list of Nix substituters if the `use-china-mirrors` option is enabled.
+     * This is useful for users in China to improve download speeds and reliability when fetching packages.
      */
     substituters = lib.mkMerge[
-      (lib.mkIf (config.time.timeZone == "Asia/Shanghai") [
+      (lib.mkIf (config.nix.use-china-mirrors) [
         "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
         "https://mirror.sjtu.edu.cn/nix-channels/store"
         "https://mirrors.ustc.edu.cn/nix-channels/store"
@@ -33,7 +31,17 @@
     ];
   };
 
-  nix.extraOptions = ''
+  config.nix.extraOptions = ''
     experimental-features = nix-command flakes ca-derivations
   '';
+
+  options.nix.use-china-mirrors = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = ''
+      Whether to use China mirrors for Nix package management.
+      When enabled, it configures the `substituters` option to use
+      mirrors from Chinese universities and the official NixOS cache.
+    '';
+  };
 }

@@ -27,6 +27,8 @@
     };
   };
 
+  nix.use-china-mirrors = true;
+
   # TODO: fix zerotier build issue
   # Automatically join the ZeroTier network.
   # services.zerotierone = {
