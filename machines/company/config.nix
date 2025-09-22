@@ -1,4 +1,4 @@
-{ nixos-hardware, ... }:
+{ lib, nixos-hardware, ... }:
 
 {
   imports =
@@ -12,9 +12,8 @@
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";
 
-  networking.hostName = "company";
-
-  networking = {
+  networking = lib.mkDefault {
+    hostName = "company";
     interfaces.enp2s0 = {
       ipv4.addresses = [{
         address = "192.168.30.80";
