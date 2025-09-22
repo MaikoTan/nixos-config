@@ -13,6 +13,8 @@
 {
   imports = [ ./config.nix ];
 
+  boot.kernelModules = [ "virtio_rng" ];
+
   networking.networkmanager.enable = true;
 
   # Select internationalisation properties.
@@ -23,6 +25,7 @@
   };
 
   virtualisation.virtualbox.guest = {
+    enable = true;
     clipboard = true;
     seamless = true;
     dragAndDrop = true;
