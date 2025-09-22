@@ -12,9 +12,6 @@
 
 {
   imports = [ ./config.nix ];
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
 
   networking.networkmanager.enable = true;
 
@@ -26,9 +23,13 @@
   };
 
   virtualisation.virtualbox.guest = {
-    enable = true;
     clipboard = true;
     seamless = true;
     dragAndDrop = true;
+  };
+
+  virtualisation.vmVariant = {
+    virtualisation.cores = 2; # Number of CPU cores
+    virtualisation.memorySize = 2048; # RAM size in MB
   };
 }
