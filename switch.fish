@@ -27,7 +27,7 @@ for arg in $argv
             show_help
             exit 0
         case '--mirror'
-            set cmd "$cmd --option substituters 'https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store'"
+            set cmd "$cmd --option substituters 'https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://mirror.sjtu.edu.cn/nix-channels/store https://mirrors.ustc.edu.cn/nix-channels/store https://nix-community.cachix.org https://cache.nixos.org'"
         case '--vm'
             set dry_run true
         case '*'
@@ -52,4 +52,4 @@ end
 set cmd "$cmd --flake '.#$host'"
 
 echo "Running: $cmd"
-eval $cmd
+# eval $cmd
