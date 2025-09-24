@@ -26,14 +26,29 @@
   };
   outputs = { self, nixpkgs, nixos-generators, nixos-hardware, home-manager, sops-nix, ... }@inputs:
     let
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config = { allowUnfree = true; };
+      };
+      patchedSrc = pkgs.applyPatches {
+        name = "nixpkgs-rust-patched";
+        src = nixpkgs;
+        patches = [
+          (pkgs.fetchpatch {
+            url = "https://github.com/NixOS/nixpkgs/pull/438535.patch";
+            sha256 = "sha256-rbqKY6aLB+T6mJvWoTJure08T2XrGH8QP1CKQWwop/M=";
+          })
+        ];
+      };
+      patchedPkgs = import patchedSrc {
+        system = "x86_64-linux";
+        config = { allowUnfree = true; };
+      };
       addMachineConfig = machine: {
         ${machine} = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config = { allowUnfree = true; };
-          };
-          specialArgs = inputs;
+          inherit pkgs;
+          specialArgs = inputs // { inherit patchedPkgs; };
           modules = [
             sops-nix.nixosModules.sops
             ./sops.nix
