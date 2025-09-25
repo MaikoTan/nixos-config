@@ -17,5 +17,5 @@
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = lib.mkDefault "24.11"; # Did you read the comment?
+  system.stateVersion = lib.mkDefault "25.11"; # Did you read the comment?
 }
