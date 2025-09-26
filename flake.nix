@@ -24,11 +24,23 @@
 
     wechat-devtools.url = "github:MaikoTan/wechat-devtools";
   };
-  outputs = { self, nixpkgs, nixos-generators, nixos-hardware, home-manager, sops-nix, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixpkgs-2411,
+      nixos-generators,
+      nixos-hardware,
+      home-manager,
+      sops-nix,
+      ...
+    }@inputs:
     let
       pkgs = import nixpkgs {
         system = "x86_64-linux";
-        config = { allowUnfree = true; };
+        config = {
+          allowUnfree = true;
+        };
       };
       patchedSrc = pkgs.applyPatches {
         name = "nixpkgs-rust-patched";
@@ -42,13 +54,17 @@
       };
       patchedPkgs = import patchedSrc {
         system = "x86_64-linux";
-        config = { allowUnfree = true; };
+        config = {
+          allowUnfree = true;
+        };
       };
       addMachineConfig = machine: {
         ${machine} = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           inherit pkgs;
-          specialArgs = inputs // { inherit patchedPkgs; };
+          specialArgs = inputs // {
+            inherit patchedPkgs;
+          };
           modules = [
             sops-nix.nixosModules.sops
             ./sops.nix
@@ -70,7 +86,9 @@
       # but rather a base configuration that other machine configurations can inherit from.
       # Additionally, we need to ensure that the machine is a directory and not a file.
       machineNames = builtins.attrNames (builtins.readDir (toString ./machines));
-      filteredMachineNames = builtins.filter (machine: machine != "base" && (builtins.readFileType ./machines/${machine}) == "directory") machineNames;
+      filteredMachineNames = builtins.filter (
+        machine: machine != "base" && (builtins.readFileType ./machines/${machine}) == "directory"
+      ) machineNames;
       machineConfigs = map addMachineConfig filteredMachineNames;
 
     in

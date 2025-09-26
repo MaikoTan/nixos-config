@@ -1,10 +1,18 @@
-{ lib, pkgs, code-insiders, config, ... }:
+{
+  lib,
+  pkgs,
+  code-insiders,
+  config,
+  ...
+}:
 
 let
 
-  package = (code-insiders.packages."x86_64-linux".vscode-insider.overrideAttrs (oldAttrs: {
-    buildInputs = oldAttrs.buildInputs ++ [ pkgs.krb5 ];
-  }));
+  package = (
+    code-insiders.packages."x86_64-linux".vscode-insider.overrideAttrs (oldAttrs: {
+      buildInputs = oldAttrs.buildInputs ++ [ pkgs.krb5 ];
+    })
+  );
   editor = "${package}/bin/code-insiders --wait";
 
 in

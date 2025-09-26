@@ -1,13 +1,12 @@
 { pkgs, wechat-devtools, ... }:
 
 {
-  imports =
-    [
-      ./vscode/default.nix
-      ./dconf.nix
-      ./gnome.nix
-      ./ime.nix
-    ];
+  imports = [
+    ./vscode/default.nix
+    ./dconf.nix
+    ./gnome.nix
+    ./ime.nix
+  ];
 
   home.username = "maiko";
   home.homeDirectory = "/home/maiko";
@@ -66,14 +65,37 @@
         conflictStyle = "diff3";
       };
 
-      url = builtins.foldl' (acc: { host, https }: acc // {
-        "${host}" = { insteadOf = https; };
-      }) {} [
-        { host = "git@github.com:"; https = "https://github.com/"; }
-        { host = "git@gitlab.com:"; https = "https://gitlab.com/"; }
-        { host = "git@e.coding.net:"; https = "https://e.coding.net/"; }
-        { host = "git@ssh.gitgud.io:"; https = "https://gitgud.io/"; }
-      ];
+      url =
+        builtins.foldl'
+          (
+            acc:
+            { host, https }:
+            acc
+            // {
+              "${host}" = {
+                insteadOf = https;
+              };
+            }
+          )
+          { }
+          [
+            {
+              host = "git@github.com:";
+              https = "https://github.com/";
+            }
+            {
+              host = "git@gitlab.com:";
+              https = "https://gitlab.com/";
+            }
+            {
+              host = "git@e.coding.net:";
+              https = "https://e.coding.net/";
+            }
+            {
+              host = "git@ssh.gitgud.io:";
+              https = "https://gitgud.io/";
+            }
+          ];
     };
   };
 
@@ -95,7 +117,7 @@
     # https://github.com/dlvhdr/gh-dash
     gh-dash = {
       enable = true;
-      settings = {};
+      settings = { };
     };
   };
 

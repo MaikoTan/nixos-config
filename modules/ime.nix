@@ -27,14 +27,14 @@
         settings = {
           inputMethod = {
             "Groups/0" = {
-              "Name"="Default";
+              "Name" = "Default";
               # Layout
-              "Default Layout"="us";
+              "Default Layout" = "us";
               # Default Input Method
-              "DefaultIM"="rime";
+              "DefaultIM" = "rime";
             };
             "Groups/0/Items/0" = {
-              "Name"="keyboard-us";
+              "Name" = "keyboard-us";
             };
             "Groups/0/Items/1" = {
               "Name" = "keyboard-us-dvp";
@@ -52,7 +52,7 @@
               "Name" = "mozc";
             };
             "GroupOrder" = {
-              "0"="Default";
+              "0" = "Default";
             };
           };
         };

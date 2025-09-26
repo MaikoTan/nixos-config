@@ -1,4 +1,4 @@
-{}:
+{ pkgs, ... }:
 
 {
   # Ensure jq and xargs are installed

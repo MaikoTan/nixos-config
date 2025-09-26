@@ -1,13 +1,17 @@
-{ lib, nixos-hardware, patchedPkgs, ... }:
+{
+  lib,
+  nixos-hardware,
+  patchedPkgs,
+  ...
+}:
 
 {
-  imports =
-    [
-      # Import common configuration from nixos
-      nixos-hardware.nixosModules.common-cpu-intel
-      ../base/desktop.nix
-      ./hardware.nix
-    ];
+  imports = [
+    # Import common configuration from nixos
+    nixos-hardware.nixosModules.common-cpu-intel
+    ../base/desktop.nix
+    ./hardware.nix
+  ];
 
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";
@@ -15,10 +19,12 @@
   networking = lib.mkDefault {
     hostName = "company";
     interfaces.enp2s0 = {
-      ipv4.addresses = [{
-        address = "192.168.30.80";
-        prefixLength = 24;
-      }];
+      ipv4.addresses = [
+        {
+          address = "192.168.30.80";
+          prefixLength = 24;
+        }
+      ];
     };
     defaultGateway = {
       address = "192.168.30.254";

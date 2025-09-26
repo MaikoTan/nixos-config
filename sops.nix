@@ -8,5 +8,8 @@
   sops.defaultSopsFile = ./secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
 
-  environment.systemPackages = with pkgs; [sops age];
+  environment.systemPackages = with pkgs; [
+    sops
+    age
+  ];
 }
