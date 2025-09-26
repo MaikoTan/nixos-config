@@ -1,17 +1,16 @@
 { pkgs, ... }:
 
 {
-  # Ensure jq and xargs are installed
-  environment.systemPackages = with pkgs; [
+  # Install required packages for yarn workspace completion
+  home.packages = with pkgs; [
     jq
     findutils # Provides `xargs`
-    # grep and sort should already provided by coreutils that is installed by default
+    # grep and sort are already provided by coreutils
   ];
 
-  xdg.configFile.fishCompletionYarn = {
-    executable = true;
-    target = "fish/completions/yarn.fish";
-    text = ''
+  programs.fish.plugins.yarn-workspace-completion = {
+    name = "yarn-workspace-completion";
+    src = pkgs.writeTextDir "completions/yarn.fish" ''
       # Completions for `yarn workspace <TAB>` command
       # It lists all workspaces in the current directory based on the package.json file
       function __fish_yarn_get_workspaces

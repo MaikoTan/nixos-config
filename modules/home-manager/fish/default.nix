@@ -3,9 +3,9 @@
 {
   imports = [
     ./prompt.nix
+    ./ssh-agent.nix
+    ./yarn.nix
   ];
-
-  systemPackages = with pkgs; [ eza ];
 
   programs.fish = {
     enable = true;
@@ -15,8 +15,8 @@
     };
 
     shellAliases = {
-      ls = "eza";
-      ll = "eza -la";
+      ls = "${pkgs.eza}/bin/eza --color=auto";
+      ll = "${pkgs.eza}/bin/eza --long --header --git --color=auto";
     };
   };
 
