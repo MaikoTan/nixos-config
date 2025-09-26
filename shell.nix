@@ -9,10 +9,4 @@ pkgs.mkShell {
     nixfmt
     cachix
   ];
-  shellHook = ''
-    export EDITOR=vim
-    export VISUAL=vim
-
-    cachix use maiko-nixos-build || true
-  '';
 }
