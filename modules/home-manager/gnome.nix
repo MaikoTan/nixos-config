@@ -1,10 +1,20 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    gnomeExtensions.dash-to-dock
-    gnomeExtensions.unite
-    gnome-tweaks
-    dconf
-  ];
+  home.packages =
+    with pkgs;
+    lib.mkMerge [
+      (with gnomeExtensions; [
+        blur-my-shell # Blur effect for GNOME Shell
+        gsconnect # KDE Connect integration
+        dash-to-dock # Dock
+        unite # Window management
+        wallhub # Wallpaper changer
+      ])
+      [
+        gnome-shell-extensions # Core GNOME Shell extensions
+        gnome-tweaks
+        dconf
+      ]
+    ];
 }
