@@ -1,8 +1,8 @@
-{}:
+{ }:
 
 {
   programs.fish.functions = {
-    __ssh_agent_is_started = { 
+    __ssh_agent_is_started = {
       description = "check if ssh agent is already started";
       body = ''
         if begin; test -f $SSH_ENV; and test -z "$SSH_AGENT_PID"; end

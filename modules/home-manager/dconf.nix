@@ -11,7 +11,7 @@ with lib.hm.gvariant;
 
     "com/uploadedlobster/peek" = {
       persist-save-folder = "/home/maiko/workspaces/cactbot-highlight/images";
-      persist-window-geometry = mkTuple [ 305 91 ];
+      persist-window-geometry = mkTuple [ 305 91 993 675 ];
     };
 
     "org/gabmus/gfeeds" = {
@@ -28,8 +28,10 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/Console" = {
+      font-scale = 1.0;
       last-window-maximised = true;
       last-window-size = mkTuple [ 360 294 ];
+      theme = "night";
     };
 
     "org/gnome/Loupe" = {
@@ -71,8 +73,8 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "bluetooth";
-      window-state = mkTuple [ 980 640 ];
+      last-panel = "network";
+      window-state = mkTuple [ 760 510 false ];
     };
 
     "org/gnome/desktop/a11y/applications" = {
@@ -103,8 +105,19 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/background" = {
+      picture-options = "zoom";
       primary-color = "#3071AE";
       secondary-color = "#000000";
+    };
+
+    "org/gnome/desktop/break-reminders/eyesight" = {
+      play-sound = true;
+    };
+
+    "org/gnome/desktop/break-reminders/movement" = {
+      duration-seconds = mkUint32 300;
+      interval-seconds = mkUint32 1800;
+      play-sound = true;
     };
 
     "org/gnome/desktop/datetime" = {
@@ -133,7 +146,11 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "org-gnome-software" "google-chrome" "org-gnome-console" "todesk" "gimp" "org-gnome-baobab" "org-gnome-nautilus" "firefox" "qq" "gnome-power-panel" "org-gnome-settings" "wemeetapp" "info-mumble-mumble" "com-obsproject-studio" "org-gnome-extensions" "org-kde-spectacle" "libreoffice-calc" "com-alibabainc-dingtalk" "parsecd" ];
+      application-children = [ "org-gnome-software" "google-chrome" "org-gnome-console" "todesk" "gimp" "org-gnome-baobab" "org-gnome-nautilus" "firefox" "qq" "gnome-power-panel" "org-gnome-settings" "wemeetapp" "info-mumble-mumble" "com-obsproject-studio" "org-gnome-extensions" "org-kde-spectacle" "libreoffice-calc" "com-alibabainc-dingtalk" "parsecd" "org-gnome-shell-extensions" "org-gnome-shell-extensions-gsconnect" "virtualbox" "clash-verge" "gnome-about-panel" ];
+    };
+
+    "org/gnome/desktop/notifications/application/clash-verge" = {
+      application-id = "Clash Verge.desktop";
     };
 
     "org/gnome/desktop/notifications/application/com-alibabainc-dingtalk" = {
@@ -150,6 +167,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/gimp" = {
       application-id = "gimp.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/gnome-about-panel" = {
+      application-id = "gnome-about-panel.desktop";
     };
 
     "org/gnome/desktop/notifications/application/gnome-power-panel" = {
@@ -188,6 +209,14 @@ with lib.hm.gvariant;
       application-id = "org.gnome.Settings.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/org-gnome-shell-extensions-gsconnect" = {
+      application-id = "org.gnome.Shell.Extensions.GSConnect.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-shell-extensions" = {
+      application-id = "org.gnome.Shell.Extensions.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/org-gnome-software" = {
       application-id = "org.gnome.Software.desktop";
     };
@@ -208,6 +237,10 @@ with lib.hm.gvariant;
       application-id = "todesk.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/virtualbox" = {
+      application-id = "virtualbox.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/wemeetapp" = {
       application-id = "wemeetapp.desktop";
     };
@@ -225,10 +258,16 @@ with lib.hm.gvariant;
       two-finger-scrolling-enabled = true;
     };
 
+    "org/gnome/desktop/remote-desktop/rdp" = {
+      enable = false;
+      tls-cert = "/home/maiko/.local/share/gnome-remote-desktop/certificates/rdp-tls.crt";
+      tls-key = "/home/maiko/.local/share/gnome-remote-desktop/certificates/rdp-tls.key";
+      view-only = true;
+    };
+
     "org/gnome/desktop/screensaver" = {
       color-shading-type = "solid";
       picture-options = "zoom";
-      picture-uri = "file:///usr/share/backgrounds/gnome/adwaita-l.jxl";
       primary-color = "#3071AE";
       secondary-color = "#000000";
     };
@@ -238,11 +277,11 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/session" = {
-      idle-delay = mkUint32 300;
+      idle-delay = mkUint32 0;
     };
 
     "org/gnome/desktop/sound" = {
-      event-sounds = true;
+      event-sounds = false;
       theme-name = "__custom";
     };
 
@@ -293,7 +332,7 @@ with lib.hm.gvariant;
       col-26-visible = false;
       col-26-width = 0;
       columns-order = [ 0 1 2 3 4 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 ];
-      sort-col = 0;
+      sort-col = 8;
       sort-order = 0;
     };
 
@@ -306,6 +345,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/nautilus/list-view" = {
+      default-zoom-level = "large";
       use-tree-view = false;
     };
 
@@ -314,20 +354,47 @@ with lib.hm.gvariant;
       default-folder-viewer = "icon-view";
       migrated-gtk-settings = true;
       search-filter-time-type = "last_modified";
+      show-delete-permanently = true;
     };
 
     "org/gnome/nautilus/window-state" = {
       initial-size = mkTuple [ 890 550 ];
       initial-size-file-chooser = mkTuple [ 890 550 ];
-      maximized = true;
+      maximized = false;
+    };
+
+    "org/gnome/nm-applet/eap/90f4dba0-d7f6-448e-9d13-5c1325b2fd96" = {
+      ignore-ca-cert = false;
+      ignore-phase2-ca-cert = false;
+    };
+
+    "org/gnome/nm-applet/eap/cf3130d0-f073-415a-8426-fcbf1b10ed78" = {
+      ignore-ca-cert = false;
+      ignore-phase2-ca-cert = false;
+    };
+
+    "org/gnome/portal/filechooser/com/google/Chrome" = {
+      last-folder-path = "/home/maiko/Downloads";
     };
 
     "org/gnome/portal/filechooser/google-chrome" = {
       last-folder-path = "/home/maiko/Downloads";
     };
 
+    "org/gnome/portal/filechooser/virtualbox" = {
+      last-folder-path = "/home/maiko/workspaces/nixos-config/result";
+    };
+
+    "org/gnome/settings-daemon/global-shortcuts" = {
+      applications = [ "com.google.Chrome" ];
+    };
+
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-schedule-automatic = false;
+    };
+
+    "org/gnome/settings-daemon/plugins/housekeeping" = {
+      donation-reminder-last-shown = mkInt64 1758610629103889;
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
@@ -346,12 +413,71 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell" = {
-      app-picker-layout = "[{'android-studio.desktop': <{'position': <0>}>, 'org.gnome.Contacts.desktop': <{'position': <1>}>, 'org.gnome.Weather.desktop': <{'position': <2>}>, 'org.gnome.clocks.desktop': <{'position': <3>}>, 'org.gnome.Maps.desktop': <{'position': <4>}>, 'org.kde.ark.desktop': <{'position': <5>}>, 'org.kde.audiotube.desktop': <{'position': <6>}>, 'org.gnome.Totem.desktop': <{'position': <7>}>, 'org.gnome.Calculator.desktop': <{'position': <8>}>, 'bssh.desktop': <{'position': <9>}>, 'org.gnome.Settings.desktop': <{'position': <10>}>, 'bvnc.desktop': <{'position': <11>}>, 'avahi-discover.desktop': <{'position': <12>}>, 'Utilities': <{'position': <13>}>, 'blender-3.6.desktop': <{'position': <14>}>, 'yelp.desktop': <{'position': <15>}>, 'org.gnome.Snapshot.desktop': <{'position': <16>}>, 'cmake-gui.desktop': <{'position': <17>}>, 'com.alibabainc.dingtalk.desktop': <{'position': <18>}>, 'discord.desktop': <{'position': <19>}>, 'com.mattjakeman.ExtensionManager.desktop': <{'position': <20>}>}, {'org.gnome.Extensions.desktop': <{'position': <0>}>, 'org.fcitx.Fcitx5.desktop': <{'position': <1>}>, 'fcitx5-configtool.desktop': <{'position': <2>}>, 'org.fcitx.fcitx5-migrator.desktop': <{'position': <3>}>, 'firefox.desktop': <{'position': <4>}>, 'fish.desktop': <{'position': <5>}>, 'gimp.desktop': <{'position': <6>}>, 'lstopo.desktop': <{'position': <7>}>, 'htop.desktop': <{'position': <8>}>, 'org.inkscape.Inkscape.desktop': <{'position': <9>}>, 'kbd-layout-viewer5.desktop': <{'position': <10>}>, 'org.kde.konsole.desktop': <{'position': <11>}>, 'libreoffice-startcenter.desktop': <{'position': <12>}>, 'libreoffice-base.desktop': <{'position': <13>}>, 'libreoffice-calc.desktop': <{'position': <14>}>, 'libreoffice-draw.desktop': <{'position': <15>}>, 'libreoffice-impress.desktop': <{'position': <16>}>, 'libreoffice-math.desktop': <{'position': <17>}>, 'libreoffice-writer.desktop': <{'position': <18>}>, 'info.mumble.Mumble.desktop': <{'position': <19>}>, 'org.gnome.Epiphany.desktop': <{'position': <20>}>, 'cups.desktop': <{'position': <21>}>, 'netease-cloud-music.desktop': <{'position': <22>}>, 'jconsole-java11-openjdk.desktop': <{'position': <23>}>}, {'jshell-java11-openjdk.desktop': <{'position': <0>}>, 'filezilla.desktop': <{'position': <1>}>, 'virtualbox.desktop': <{'position': <2>}>, 'com.uploadedlobster.peek.desktop': <{'position': <3>}>, 'playonlinux4.desktop': <{'position': <4>}>, 'postman.desktop': <{'position': <5>}>, 'system-config-printer.desktop': <{'position': <6>}>, 'org.rncbc.qpwgraph.desktop': <{'position': <7>}>, 'qq.desktop': <{'position': <8>}>, 'assistant.desktop': <{'position': <9>}>, 'org.ksnip.ksnip.desktop': <{'position': <10>}>, 'designer.desktop': <{'position': <11>}>, 'linguist.desktop': <{'position': <12>}>, 'qdbusviewer.desktop': <{'position': <13>}>, 'qv4l2.desktop': <{'position': <14>}>, 'qvidcap.desktop': <{'position': <15>}>, 'parsecd.desktop': <{'position': <16>}>, 'org.kde.spectacle.desktop': <{'position': <17>}>, 'steam.desktop': <{'position': <18>}>, 'org.gnome.Characters.desktop': <{'position': <19>}>, 'org.gnome.TextEditor.desktop': <{'position': <20>}>, 'todesk.desktop': <{'position': <21>}>, 'org.gnome.Tour.desktop': <{'position': <22>}>, 'transmission-qt.desktop': <{'position': <23>}>}, {'uxterm.desktop': <{'position': <0>}>, 'vim.desktop': <{'position': <1>}>, 'vlc.desktop': <{'position': <2>}>, 'winetricks.desktop': <{'position': <3>}>, 'xterm.desktop': <{'position': <4>}>, 'org.kde.yakuake.desktop': <{'position': <5>}>, 'org.gnome.Calendar.desktop': <{'position': <6>}>, 'org.gnome.Music.desktop': <{'position': <7>}>, 'org.gnome.Software.desktop': <{'position': <8>}>, 'org.gnome.SystemMonitor.desktop': <{'position': <9>}>, 'com.obsproject.Studio.desktop': <{'position': <10>}>, 'org.freedesktop.MalcontentControl.desktop': <{'position': <11>}>, 'wechat-devtools.desktop': <{'position': <12>}>, 'wemeetapp.desktop': <{'position': <13>}>, 'org.gnome.Console.desktop': <{'position': <14>}>, 'org.gnome.SimpleScan.desktop': <{'position': <15>}>, 'org.gabmus.gfeeds.desktop': <{'position': <16>}>, 'org.gnome.font-viewer.desktop': <{'position': <17>}>, 'code-insiders.desktop': <{'position': <18>}>}]";
-      command-history = [ "r" ];
-      disabled-extensions = [ "window-list@gnome-shell-extensions.gcampax.github.com" "windowsNavigator@gnome-shell-extensions.gcampax.github.com" ];
-      enabled-extensions = [ "apps-menu@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" "launch-new-instance@gnome-shell-extensions.gcampax.github.com" "auto-move-windows@gnome-shell-extensions.gcampax.github.com" "drive-menu@gnome-shell-extensions.gcampax.github.com" "screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com" "workspace-indicator@gnome-shell-extensions.gcampax.github.com" "dash-to-dock@micxgx.gmail.com" "unite@hardpixel.eu" "native-window-placement@gnome-shell-extensions.gcampax.github.com" "places-menu@gnome-shell-extensions.gcampax.github.com" "system-monitor@gnome-shell-extensions.gcampax.github.com" "kimpanel@kde.org" "scroll-workspaces@gfxmonk.net" "wallhub@sakithb.github.io" ];
+      command-history = [ "r" "lg" ];
+      disable-user-extensions = false;
+      disabled-extensions = [ "window-list@gnome-shell-extensions.gcampax.github.com" "windowsNavigator@gnome-shell-extensions.gcampax.github.com" "status-icons@gnome-shell-extensions.gcampax.github.com" "backslide@codeisland.org" ];
+      enabled-extensions = [ "apps-menu@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" "launch-new-instance@gnome-shell-extensions.gcampax.github.com" "auto-move-windows@gnome-shell-extensions.gcampax.github.com" "drive-menu@gnome-shell-extensions.gcampax.github.com" "screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com" "workspace-indicator@gnome-shell-extensions.gcampax.github.com" "dash-to-dock@micxgx.gmail.com" "unite@hardpixel.eu" "native-window-placement@gnome-shell-extensions.gcampax.github.com" "places-menu@gnome-shell-extensions.gcampax.github.com" "system-monitor@gnome-shell-extensions.gcampax.github.com" "kimpanel@kde.org" "scroll-workspaces@gfxmonk.net" "blur-my-shell@aunetx" "gsconnect@andyholmes.github.io" "wallhub@sakithb.github.io" ];
       favorite-apps = [ "google-chrome.desktop" "org.gnome.Nautilus.desktop" "code-insiders.desktop" ];
       welcome-dialog-last-shown-version = "45.4";
+    };
+
+    "org/gnome/shell/extensions/backslide" = {
+      elapsed-time = 1;
+    };
+
+    "org/gnome/shell/extensions/blur-my-shell" = {
+      settings-version = 2;
+    };
+
+    "org/gnome/shell/extensions/blur-my-shell/appfolder" = {
+      brightness = 0.6;
+      sigma = 30;
+    };
+
+    "org/gnome/shell/extensions/blur-my-shell/applications" = {
+      blur = true;
+      blur-on-overview = true;
+      brightness = 0.6;
+      dynamic-opacity = false;
+      opacity = 200;
+      sigma = 1;
+      whitelist = [ "kgx" "Code - Insiders" ];
+    };
+
+    "org/gnome/shell/extensions/blur-my-shell/coverflow-alt-tab" = {
+      pipeline = "pipeline_default";
+    };
+
+    "org/gnome/shell/extensions/blur-my-shell/dash-to-dock" = {
+      blur = true;
+      brightness = 0.6;
+      pipeline = "pipeline_default_rounded";
+      sigma = 30;
+      static-blur = true;
+      style-dash-to-dock = 0;
+    };
+
+    "org/gnome/shell/extensions/blur-my-shell/lockscreen" = {
+      pipeline = "pipeline_default";
+    };
+
+    "org/gnome/shell/extensions/blur-my-shell/overview" = {
+      pipeline = "pipeline_default";
+    };
+
+    "org/gnome/shell/extensions/blur-my-shell/panel" = {
+      brightness = 0.6;
+      pipeline = "pipeline_default";
+      sigma = 30;
+    };
+
+    "org/gnome/shell/extensions/blur-my-shell/screenshot" = {
+      pipeline = "pipeline_default";
+    };
+
+    "org/gnome/shell/extensions/blur-my-shell/window-list" = {
+      brightness = 0.6;
+      sigma = 30;
     };
 
     "org/gnome/shell/extensions/dash-to-dock" = {
@@ -365,6 +491,56 @@ with lib.hm.gvariant;
       preferred-monitor-by-connector = "HDMI-1";
     };
 
+    "org/gnome/shell/extensions/gsconnect" = {
+      devices = [ "8434dc07a4584327b1ad4956050c45ad" ];
+      enabled = true;
+      keep-alive-when-locked = true;
+      missing-openssl = false;
+      name = "c-arch";
+      show-indicators = true;
+    };
+
+    "org/gnome/shell/extensions/gsconnect/device/8434dc07a4584327b1ad4956050c45ad" = {
+      certificate-pem = "-----BEGIN CERTIFICATE-----nMIIDFzCCAf+gAwIBAgIBATANBgkqhkiG9w0BAQ0FADBPMSkwJwYDVQQDDCA4NDM0nZGMwN2E0NTg0MzI3YjFhZDQ5NTYwNTBjNDVhZDEUMBIGA1UECwwLS0RFIENvbm5lnY3QxDDAKBgNVBAoMA0tERTAeFw0yNDA0MTIxNjAwMDBaFw0zNTA0MTIxNjAwMDBanME8xKTAnBgNVBAMMIDg0MzRkYzA3YTQ1ODQzMjdiMWFkNDk1NjA1MGM0NWFkMRQwnEgYDVQQLDAtLREUgQ29ubmVjdDEMMAoGA1UECgwDS0RFMIIBIjANBgkqhkiG9w0BnAQEFAAOCAQ8AMIIBCgKCAQEAsF3w0fBMax0FXv8PGnrV0u5gCxNX5KE3iJmO791unnHce6A7gELBqRYA7DrFb3apE1yQWieZk5vITmqHNgWm/5NX7z8ts/4R9pKa75HZLnfwcf8Zv8DgI0i75bRP8L9y+iIpcUmetf6xD5NiEoiX/N+m6N57KItCDGoKmTPkmfniVfdFLwap6i9ba/RxxH6wgDNsXngUlViUXyXH7YE9M2ULr5t4eBBqMRUNCqiGHAgnNXrHzE5NcyG75r61dMeplZo+O0DHT4kqLWXah981dX6eIw/uKbYmrCJle5dbY5zjnd5n7pr8qKUFVVyI7iNN3TMUcvkw/52ImVnqnfouqoSiv/QIDAQABMA0GCSqGSIb3nDQEBDQUAA4IBAQCLmJIqIGlA0L19DY0hjTNM7aQZLVQxK25AGrk7bpEPl/3x5xpDnpRWLzoUtbVjbfVX3ewDFyzrMYAEfmHDy+z14De8mG+iujsFPlflX+BrXyxHAAr25nLjBumwuTQvSckiMNC5oqT0tbXhKSYFwD/ifkAMLIbdm7wJFkZ9epBTwU4Y0VKeNAn9/hLvjIAggadpYbnudkm17icibTHTPRd3jK5cQ65x66TfNQ3CoWOVoUG3ST+i5hmnbLIAg9fWYwIsV9FU4X0Gsj889iIJSOiCwjaLS0WYxTQHZe0qmsJCaaY/updls9hZnW4jhKDw4SR4JTd4/kJdkLlzCRKCt7g/LBWkWn-----END CERTIFICATE-----n";
+      incoming-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.contacts.request_all_uids_timestamps" "kdeconnect.contacts.request_vcards_by_uid" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.action" "kdeconnect.notification.reply" "kdeconnect.notification.request" "kdeconnect.ping" "kdeconnect.runcommand" "kdeconnect.sftp.request" "kdeconnect.share.request" "kdeconnect.share.request.update" "kdeconnect.sms.request" "kdeconnect.sms.request_attachment" "kdeconnect.sms.request_conversation" "kdeconnect.sms.request_conversations" "kdeconnect.systemvolume" "kdeconnect.telephony.request" "kdeconnect.telephony.request_mute" ];
+      last-connection = "lan://192.168.148.197:1716";
+      name = "M2007J3SC";
+      outgoing-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.connectivity_report" "kdeconnect.contacts.response_uids_timestamps" "kdeconnect.contacts.response_vcards" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.echo" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.request" "kdeconnect.ping" "kdeconnect.presenter" "kdeconnect.runcommand.request" "kdeconnect.sftp" "kdeconnect.share.request" "kdeconnect.sms.attachment_file" "kdeconnect.sms.messages" "kdeconnect.systemvolume.request" "kdeconnect.telephony" ];
+      paired = true;
+      supported-plugins = [ "battery" "clipboard" "connectivity_report" "contacts" "findmyphone" "mousepad" "mpris" "notification" "ping" "presenter" "runcommand" "sftp" "share" "sms" "systemvolume" "telephony" ];
+      type = "phone";
+    };
+
+    "org/gnome/shell/extensions/gsconnect/device/8434dc07a4584327b1ad4956050c45ad/plugin/battery" = {
+      custom-battery-notification = true;
+      custom-battery-notification-value = mkUint32 80;
+      full-battery-notification = true;
+    };
+
+    "org/gnome/shell/extensions/gsconnect/device/8434dc07a4584327b1ad4956050c45ad/plugin/clipboard" = {
+      receive-content = true;
+      send-content = true;
+    };
+
+    "org/gnome/shell/extensions/gsconnect/device/8434dc07a4584327b1ad4956050c45ad/plugin/mousepad" = {
+      share-control = true;
+    };
+
+    "org/gnome/shell/extensions/gsconnect/device/8434dc07a4584327b1ad4956050c45ad/plugin/notification" = {
+      applications = ''
+        {"Printers":{"iconName":"org.gnome.Settings-printers-symbolic","enabled":true},"Events and Tasks Reminders":{"iconName":"org.gnome.Evolution-alarm-notify","enabled":true},"Zenity":{"iconName":"application-x-executable","enabled":true},"Disks":{"iconName":"org.gnome.DiskUtility","enabled":true},"Software":{"iconName":"org.gnome.Software","enabled":true},"Date & Time":{"iconName":"org.gnome.Settings-time-symbolic","enabled":true},"Disk Usage Analyzer":{"iconName":"org.gnome.baobab","enabled":true},"Power":{"iconName":"org.gnome.Settings-power-symbolic","enabled":true},"Console":{"iconName":"org.gnome.Console","enabled":true},"Color Management":{"iconName":"org.gnome.Settings-color-symbolic","enabled":true},"Files":{"iconName":"org.gnome.Nautilus","enabled":true},"Clocks":{"iconName":"org.gnome.clocks","enabled":true},"Google Chrome":{"iconName":"file:///tmp/.com.google.Chrome.xmvvZb/logo.png","enabled":true},"Fcitx 5":{"iconName":"fcitx","enabled":true},"GNOME":{"iconName":"","enabled":true}}
+      '';
+    };
+
+    "org/gnome/shell/extensions/gsconnect/device/8434dc07a4584327b1ad4956050c45ad/plugin/share" = {
+      receive-directory = "/home/maiko/Downloads";
+    };
+
+    "org/gnome/shell/extensions/gsconnect/preferences" = {
+      window-maximized = false;
+      window-size = mkTuple [ 733 460 ];
+    };
+
     "org/gnome/shell/extensions/kimpanel" = {
       vertical = true;
     };
@@ -375,14 +551,22 @@ with lib.hm.gvariant;
       scroll-delay = 20;
     };
 
+    "org/gnome/shell/extensions/system-monitor" = {
+      show-swap = false;
+    };
+
     "org/gnome/shell/extensions/unite" = {
       hide-activities-button = "auto";
       hide-window-titlebars = "maximized";
       show-window-title = "maximized";
     };
 
+    "org/gnome/shell/extensions/user-theme" = {
+      name = "";
+    };
+
     "org/gnome/shell/extensions/wallhub" = {
-      slideshow-interval = mkUint32 10;
+      slideshow-interval = mkUint32 30;
       slideshow-interval-unit = "Seconds";
       wallpaper-paths = [ "/home/maiko/Pictures/pixiv" ];
       wallpaper-paths-selected = 1;
@@ -394,19 +578,23 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/world-clocks" = {
-      locations = "@av []";
+      locations = [];
     };
 
     "org/gnome/software" = {
-      check-timestamp = mkInt64 1750906879;
+      check-timestamp = mkInt64 1758855618;
       first-run = false;
-      flatpak-purge-timestamp = mkInt64 1750900287;
-      install-timestamp = mkInt64 1750207122;
-      update-notification-timestamp = mkInt64 1750224059;
+      flatpak-purge-timestamp = mkInt64 1758851831;
+      install-timestamp = mkInt64 1756947325;
+      update-notification-timestamp = mkInt64 1757041696;
     };
 
     "org/gnome/tweaks" = {
       show-extensions-notice = false;
+    };
+
+    "org/gtk/gtk4/settings/debug" = {
+      inspector-warning = true;
     };
 
     "org/gtk/gtk4/settings/file-chooser" = {
@@ -425,7 +613,7 @@ with lib.hm.gvariant;
     };
 
     "org/gtk/settings/color-chooser" = {
-      selected-color = mkTuple [ true 1.0 ];
+      selected-color = mkTuple [ true 1.0 1.0 1.0 1.0 ];
     };
 
     "org/gtk/settings/file-chooser" = {
@@ -439,7 +627,7 @@ with lib.hm.gvariant;
       sort-directories-first = false;
       sort-order = "descending";
       type-format = "category";
-      window-position = mkTuple [ 412 120 ];
+      window-position = mkTuple [ 26 23 ];
       window-size = mkTuple [ 1096 821 ];
     };
 
