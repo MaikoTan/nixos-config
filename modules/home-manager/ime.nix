@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   home.file = {
@@ -13,4 +13,12 @@
       target = "./.local/share/fcitx5/rime/default.custom.yaml";
     };
   };
+
+  home.packages = with pkgs; [
+    # Rime Schema Repository
+    brise
+
+    # GNOME Input Method Panel
+    gnomeExtensions.kimpanel
+  ];
 }

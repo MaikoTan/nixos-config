@@ -59,12 +59,4 @@
       };
     };
   };
-
-  environment.systemPackages = with pkgs; [
-    # Rime Schema Repository
-    brise
-
-    # GNOME Input Method Panel
-    gnomeExtensions.kimpanel
-  ];
 }
