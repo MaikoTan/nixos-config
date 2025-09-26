@@ -19,6 +19,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: wimpysworld/nothing-but-nix@main
+        with:
+          hatchet-protocol: 'rampage'
 
       - name: Set up Nix
         uses: cachix/install-nix-action@v27
