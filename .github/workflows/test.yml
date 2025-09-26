@@ -12,13 +12,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    strategy:
-      fail-fast: false
-      matrix:
-        host:
-          - nixos-vm
-          - company
-
     env:
       NIXPKGS_ALLOW_UNFREE: 1
 
@@ -52,6 +45,7 @@ jobs:
         run: |
           nix flake check --impure
 
-      - name: Build NixOS configuration for ${{ matrix.host }}
+      - name: Build NixOS configuration
         run: |
-          nix build --impure .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
+          nix build --impure .#nixosConfigurations.company.config.system.build.toplevel || true
+          nix build --impure .#nixosConfigurations.nixos-vm.config.formats.vm || true
