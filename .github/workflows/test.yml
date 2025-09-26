@@ -34,6 +34,11 @@ jobs:
             experimental-features = nix-command flakes
           nix_path: nixpkgs=channel:nixos-unstable
 
+      - name: Use Cachix
+        uses: cachix/cachix-action@v16
+        with:
+          name: maiko-nixos-build
+
       - name: Cache Nix store
         uses: actions/cache@v4
         with:
@@ -49,4 +54,3 @@ jobs:
       - name: Build NixOS configuration for ${{ matrix.host }}
         run: |
           nix build --impure .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
-
