@@ -28,7 +28,6 @@
     {
       self,
       nixpkgs,
-      nixpkgs-2411,
       nixos-generators,
       nixos-hardware,
       home-manager,
