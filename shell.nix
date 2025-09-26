@@ -5,6 +5,8 @@ pkgs.mkShell {
   packages = with pkgs; [
     nixVersions.latest
     nixos-rebuild
+    fish
+    nixfmt
     cachix
   ];
   shellHook = ''
