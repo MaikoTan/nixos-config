@@ -30,9 +30,4 @@
     seamless = true;
     dragAndDrop = true;
   };
-
-  virtualisation.vmVariant = {
-    virtualisation.cores = 2; # Number of CPU cores
-    virtualisation.memorySize = 2048; # RAM size in MB
-  };
 }
