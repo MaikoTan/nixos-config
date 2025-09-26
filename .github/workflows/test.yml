@@ -33,14 +33,6 @@ jobs:
           name: maiko-nixos-build
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
-      - name: Cache Nix store
-        uses: actions/cache@v4
-        with:
-          path: /nix/store
-          key: ${{ runner.os }}-nix-${{ hashFiles('**/flake.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-nix-
-
       - name: Test Nix Flake
         run: |
           nix flake check --impure
