@@ -2,6 +2,7 @@
   description = "Maiko's NixOS Config";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-2411.url = "github:NixOS/nixpkgs/nixos-24.11";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
@@ -28,6 +29,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-2411,
       nixos-generators,
       nixos-hardware,
       home-manager,
@@ -35,11 +37,56 @@
       ...
     }@inputs:
     let
+      oldPkgs = import nixpkgs-2411 {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+      };
       pkgs = import nixpkgs {
         system = "x86_64-linux";
         config = {
           allowUnfree = true;
         };
+        # Override GNOME packages with older versions by using nixpkgs overlays
+        overlays = [
+          (final: prev: {
+            gnome = oldPkgs.gnome;
+            dconf = oldPkgs.dconf;
+            gnomeExtensions = oldPkgs.gnomeExtensions;
+            # other packages that depend on gnome
+            nautilus = oldPkgs.nautilus;
+            baobab = oldPkgs.baobab;
+            decibels = oldPkgs.decibels;
+            epic5 = oldPkgs.epic5;
+            gdm = oldPkgs.gdm;
+            grilo-plugins = oldPkgs.grilo-plugins;
+            loupe = oldPkgs.loupe;
+            malcontent = oldPkgs.malcontent;
+            orca = oldPkgs.orca;
+            papers = oldPkgs.papers;
+            rygel = oldPkgs.rygel;
+            showtime = oldPkgs.showtime;
+            simple-scan = oldPkgs.simple-scan;
+            snapshot = oldPkgs.snapshot;
+            sushi = oldPkgs.sushi;
+            tecla = oldPkgs.tecla;
+            yelp = oldPkgs.yelp;
+          })
+          # programmatically replace all packages starting with `gnome-` or `gvfs-` with the version from oldPkgs
+          (
+            final: prev:
+            let
+              shouldReplaceNames = builtins.filter (
+                name: prev.lib.strings.hasPrefix "gnome-" name || prev.lib.strings.hasPrefix "gvfs-" name
+              ) (builtins.attrNames prev);
+            in
+            builtins.listToAttrs (
+              map (name: {
+                name = name;
+                value = oldPkgs.${name};
+              }) shouldReplaceNames
+            )
+          )
+        ];
       };
       patchedSrc = pkgs.applyPatches {
         name = "nixpkgs-rust-patched";
