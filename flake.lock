@@ -31,8 +31,9 @@
         "type": "github"
       },
       "original": {
-        "id": "flake-utils",
-        "type": "indirect"
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
       }
     },
     "home-manager": {
@@ -140,16 +141,17 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1758294315,
-        "narHash": "sha256-H+C4c+jKCZpSJHODHFaY6b2ciB3Hv00V5QKA7yUVtis=",
+        "lastModified": 1759021703,
+        "narHash": "sha256-3Uix9yFOOu740PtK7xaSf48E3hm1sLiOHQyMzkbL+ZM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "90ade7da38aa49c2e2693a04a44662a0e61530e9",
+        "rev": "60df26f7e0c4a30692d4d7c17be8b8f5636648c7",
         "type": "github"
       },
       "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "root": {
@@ -204,11 +206,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1739245759,
-        "narHash": "sha256-de1wE+1cMxiTBHdD8zW2XXOjIF1f9xLqvVYNfZQ2MPE=",
+        "lastModified": 1759039019,
+        "narHash": "sha256-sm3jsw/d2CKmWNXO132Qms8nZInyl+h8IdnS9uEWjGM=",
         "owner": "MaikoTan",
         "repo": "wechat-devtools",
-        "rev": "2cbc0e570d6aec408e42572b4805fd7588e12318",
+        "rev": "386b9b95472933163234d85a761bfe9dd58e4b81",
         "type": "github"
       },
       "original": {
