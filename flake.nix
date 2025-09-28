@@ -57,6 +57,25 @@
           allowUnfree = true;
         };
       };
+
+      generatorFormats =
+        { config, ... }:
+        {
+          imports = [
+            nixos-generators.nixosModules.all-formats
+          ];
+
+          nixpkgs.hostPlatform = "x86_64-linux";
+
+          # Customize the VM format
+          formatConfigs.vm =
+            { config, ... }:
+            {
+              virtualisation.memorySize = 4096;
+              virtualisation.cores = 2;
+            };
+        };
+
       addMachineConfig = machine: {
         ${machine} = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -69,7 +88,7 @@
             ./sops.nix
             ./machines/${machine}/config.nix
             ./modules/default.nix
-            nixos-generators.nixosModules.all-formats
+            generatorFormats
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
