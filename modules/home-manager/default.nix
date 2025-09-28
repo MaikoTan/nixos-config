@@ -25,10 +25,11 @@
     # Networks, Browsers, and Communication
     google-chrome
     transmission_4
-    # Development
-    wechat-devtools
     # Miscellaneous
     neofetch
+  ] ++ [
+    # Development
+    wechat-devtools.packages.x86_64-linux.default
   ];
 
   # Let Home Manager install and manage itself.
