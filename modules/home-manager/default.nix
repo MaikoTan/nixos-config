@@ -22,8 +22,6 @@
     # base16384 # https://github.com/fumiama/base16384
     # Media
     vlc
-    # Documents
-    libreoffice-fresh
     # Networks, Browsers, and Communication
     google-chrome
     transmission_4
