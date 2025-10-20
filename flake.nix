@@ -41,22 +41,6 @@
           allowUnfree = true;
         };
       };
-      patchedSrc = pkgs.applyPatches {
-        name = "nixpkgs-rust-patched";
-        src = nixpkgs;
-        patches = [
-          (pkgs.fetchpatch {
-            url = "https://github.com/NixOS/nixpkgs/pull/438535.patch";
-            sha256 = "sha256-rbqKY6aLB+T6mJvWoTJure08T2XrGH8QP1CKQWwop/M=";
-          })
-        ];
-      };
-      patchedPkgs = import patchedSrc {
-        system = "x86_64-linux";
-        config = {
-          allowUnfree = true;
-        };
-      };
 
       generatorFormats =
         { config, ... }:
@@ -80,9 +64,7 @@
         ${machine} = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           inherit pkgs;
-          specialArgs = inputs // {
-            inherit patchedPkgs;
-          };
+          specialArgs = inputs;
           modules = [
             sops-nix.nixosModules.sops
             ./sops.nix

@@ -1,7 +1,6 @@
 {
   lib,
   nixos-hardware,
-  patchedPkgs,
   ...
 }:
 
@@ -40,6 +39,5 @@
     joinNetworks = [
       "35c192ce9bf3258b"
     ];
-    package = patchedPkgs.zerotierone;
   };
 }
