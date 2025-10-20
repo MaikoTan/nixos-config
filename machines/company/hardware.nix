@@ -84,14 +84,26 @@ in
       /mnt/smbmount || true
     '';
 
+  # Enable zram swap for better performance on systems with low RAM
+  zramSwap = {
+    enable = true;
+    memoryPercent = 150;
+    algorithm = "zstd";
+    priority = 100;
+  };
+
+  boot.kernel.sysctl = {
+    # Increase swappiness to use swap more aggressively
+    "vm.swappiness" = 120;
+    "vm.vfs_cache_pressure" = 100;
+  };
+
   swapDevices = [
     # create a 8 GB swap file
     {
       device = "/swapfile";
       size = 8 * 1024;
     }
-    # also use a swap partition
-    { device = "/dev/disk/by-label/swap"; }
   ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
