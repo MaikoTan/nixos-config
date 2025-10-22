@@ -5,21 +5,20 @@
   config,
   lib,
   pkgs,
-  modulesPath,
   ...
 }:
 
 let
 
-  samba_credentials = {
+  sambaSopsOpts = {
     sopsFile = ../../secrets/samba_credentials.yaml;
   };
   secrets = {
-    samba_device = samba_credentials // {
-      key = "device";
+    samba_env = sambaSopsOpts // {
+      key = "environmentVariables";
     };
-    samba_options = samba_credentials // {
-      key = "options";
+    samba_credentials = sambaSopsOpts // {
+      key = "credentials";
     };
   };
 
@@ -70,19 +69,32 @@ in
   environment.systemPackages = [ pkgs.cifs-utils ];
   sops.secrets = secrets;
 
-  boot.postBootCommands =
-    let
-      # this line prevents hanging on network split
-      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-    in
-    lib.mkDefault ''
-      mkdir -p /mnt/smbmount
-      # mount the samba share since we don't want to expose the name of the server/share in fstab
-      mount -t cifs \
-      -o ${automount_opts},credentials=${config.sops.secrets.samba_options.path},file_mode=0777,dir_mode=0777,vers=3.0 \
-      $(cat ${config.sops.secrets.samba_device.path})
-      /mnt/smbmount || true
-    '';
+  systemd.services."mount-smb" = {
+    description = "Mount SMB share using SOPS secrets";
+    after = [ "network-online.target" "sops-nix.service" ];
+    wants = [ "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      EnvironmentFile = config.sops.secrets.samba_env.path;
+      ExecStart = pkgs.writeShellScript "mount-smb" ''
+        set -a
+        if [ ! -d /mnt/smbmount ]; then
+          mkdir -p /mnt/smbmount
+        fi
+        /run/current-system/sw/bin/mount -t cifs "//$SMB_HOST/$SMB_SHARE" /mnt/smbmount -o ${lib.strings.concatStringsSep "," [
+          "credentials=${config.sops.secrets.samba_credentials.path}"
+          "vers=3.0"
+          "uid=1000"
+          "gid=1000"
+          "file_mode=0777"
+          "dir_mode=0777"
+        ]}
+      '';
+      ExecStop = "/run/current-system/sw/bin/umount /mnt/smbmount";
+    };
+  };
 
   # Enable zram swap for better performance on systems with low RAM
   zramSwap = {
