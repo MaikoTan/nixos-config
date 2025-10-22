@@ -86,10 +86,11 @@ in
         /run/current-system/sw/bin/mount -t cifs "//$SMB_HOST/$SMB_SHARE" /mnt/smbmount -o ${lib.strings.concatStringsSep "," [
           "credentials=${config.sops.secrets.samba_credentials.path}"
           "vers=3.0"
-          "uid=1000"
-          "gid=1000"
-          "file_mode=0777"
-          "dir_mode=0777"
+          # uid and gid can be name or id
+          "uid=${config.users.users.maiko.name}"
+          "gid=${config.users.users.maiko.group}"
+          "file_mode=0644"
+          "dir_mode=0755"
         ]}
       '';
       ExecStop = "/run/current-system/sw/bin/umount /mnt/smbmount";
