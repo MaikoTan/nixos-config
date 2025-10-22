@@ -5,11 +5,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1760746482,
-        "narHash": "sha256-O/2KA1JN/X/r9RGCRebwWSmqJ4MVwAZRWTUOW7BsUuM=",
+        "lastModified": 1761092204,
+        "narHash": "sha256-MDrIFpO99VxRarY8aFXzWNgsSP5hKHzYFjp129NNFc8=",
         "owner": "iosmanthus",
         "repo": "code-insiders-flake",
-        "rev": "66c326fd9cdb7982e7025e23abc8365afbd85335",
+        "rev": "99a6c0c40125b1babc2f6d5f7b946835cb39d861",
         "type": "github"
       },
       "original": {
@@ -141,11 +141,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1759021703,
-        "narHash": "sha256-3Uix9yFOOu740PtK7xaSf48E3hm1sLiOHQyMzkbL+ZM=",
+        "lastModified": 1761099155,
+        "narHash": "sha256-I7Byccu8nnFmL8E+rVFH+4guD3oEua6ng+RpnvVRqko=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "60df26f7e0c4a30692d4d7c17be8b8f5636648c7",
+        "rev": "1de59a586345e9c9edcc712848abc05836cdbaca",
         "type": "github"
       },
       "original": {
@@ -206,11 +206,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1759039019,
-        "narHash": "sha256-sm3jsw/d2CKmWNXO132Qms8nZInyl+h8IdnS9uEWjGM=",
+        "lastModified": 1761116548,
+        "narHash": "sha256-NcPYIcZ1jgqiXj9YVNOcRe348qmG4npir5jCjyFTsYc=",
         "owner": "MaikoTan",
         "repo": "wechat-devtools",
-        "rev": "386b9b95472933163234d85a761bfe9dd58e4b81",
+        "rev": "db5800f143f446ae3d557dcce744d7ad088c21c4",
         "type": "github"
       },
       "original": {
