@@ -18,6 +18,7 @@
 
   networking = lib.mkDefault {
     hostName = "company";
+    networkmanager.enable = true;
     interfaces.enp2s0 = {
       ipv4.addresses = [
         {
