@@ -1,27 +1,20 @@
 { pkgs, ... }:
 
 {
-  # Install required packages for yarn workspace completion
-  home.packages = with pkgs; [
-    jq
-    findutils # Provides `xargs`
-    # grep and sort are already provided by coreutils
-  ];
-
   programs.fish.plugins.yarn-workspace-completion = {
     name = "yarn-workspace-completion";
     src = pkgs.writeTextDir "completions/yarn.fish" ''
       # Completions for `yarn workspace <TAB>` command
       # It lists all workspaces in the current directory based on the package.json file
       function __fish_yarn_get_workspaces
-        if type -q jq && test -f package.json
+        if type -q ${pkgs.jq}/bin/jq && test -f package.json
           command \
             # List all workspaces glob patterns in the current workspaces
-            jq -r '.workspaces | .[]' package.json 2>/dev/null |\
+            ${pkgs.jq}/bin/jq -r '.workspaces | .[]' package.json 2>/dev/null |\
             # list nested package.json files in every glob pattern
-            xargs -I {} -- fish -c "ls {}/package.json 2>/dev/null" |\
+            ${pkgs.findutils}/bin/xargs -I {} -- fish -c "ls {}/package.json 2>/dev/null" |\
             # get name of the workspace from the package.json
-            xargs -I {} -- fish -c "jq -r '.name' {} 2>/dev/null" |\
+            ${pkgs.findutils}/bin/xargs -I {} -- fish -c "${pkgs.jq}/bin/jq -r '.name' {} 2>/dev/null" |\
             # remove empty lines
             grep -v '^$' 2>/dev/null |\
             # remove duplicates
