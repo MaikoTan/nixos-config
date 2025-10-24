@@ -51,6 +51,7 @@
 
     extraConfig = {
       init.defaultBranch = "master";
+      user.signingkey = "970A6794990C52AE";
       core = {
         gpgsign = true;
       };
