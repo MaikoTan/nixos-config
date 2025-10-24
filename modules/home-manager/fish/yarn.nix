@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  programs.fish.plugins.yarn-workspace-completion = {
+  programs.fish.plugins = [{
     name = "yarn-workspace-completion";
     src = pkgs.writeTextDir "completions/yarn.fish" ''
       # Completions for `yarn workspace <TAB>` command
@@ -24,5 +24,5 @@
 
       complete -f -c yarn -n '__fish_seen_subcommand_from workspace' -a "(__fish_yarn_get_workspaces)"
     '';
-  };
+  }];
 }

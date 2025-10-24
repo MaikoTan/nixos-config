@@ -3,6 +3,7 @@
 {
   imports = [
     ./vscode/default.nix
+    # ./fish/default.nix
     ./dconf.nix
     ./gnome.nix
     ./ime.nix

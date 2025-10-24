@@ -19,6 +19,4 @@
       ll = "${pkgs.eza}/bin/eza --long --header --git --color=auto";
     };
   };
-
-  users.defaultUserShell = pkgs.fish;
 }
