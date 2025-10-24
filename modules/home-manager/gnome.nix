@@ -15,6 +15,8 @@
         gnome-shell-extensions # Core GNOME Shell extensions
         gnome-tweaks
         dconf
+        # Several useful desktop applications
+        remmina # remote desktop client
       ]
     ];
 }
