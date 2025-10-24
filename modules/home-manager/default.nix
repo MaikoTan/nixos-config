@@ -3,7 +3,7 @@
 {
   imports = [
     ./vscode/default.nix
-    # ./fish/default.nix
+    ./fish/default.nix
     ./dconf.nix
     ./gnome.nix
     ./ime.nix
@@ -38,7 +38,6 @@
 
   programs.direnv = {
     enable = true;
-    enableFishIntegration = true;
     nix-direnv.enable = true;
   };
 

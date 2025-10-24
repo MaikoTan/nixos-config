@@ -18,6 +18,8 @@
     enableSSHSupport = true;
   };
 
+  programs.fish.enable = true;
+
   users.mutableUsers = false;
   users.users.maiko = {
     isNormalUser = true;
@@ -27,5 +29,8 @@
     ];
     # mkpasswd -m sha-512
     hashedPassword = "$6$ghV5XrAdy1cLYxTi$CQKgb.ywKGlhsUBzV4WSCG9aioZOl0Q2NgV8f7f7akLizzKgRNSIXk7PIIO.zoJXKEH4fcLWusWIg6A7XX1Jv/";
+
+    # set fish as default shell
+    shell = pkgs.fish;
   };
 }
