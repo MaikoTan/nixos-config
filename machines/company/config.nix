@@ -53,4 +53,10 @@
       fi
     '';
   };
+
+  # Enable Tailscale
+  # Note that Tailscale has no configuration here; it is all managed via the Tailscale admin console.
+  services.tailscale = {
+    enable = true;
+  };
 }
