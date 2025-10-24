@@ -10,6 +10,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,6 +32,7 @@
       nixpkgs,
       nixos-generators,
       nixos-hardware,
+      nixos-wsl,
       home-manager,
       sops-nix,
       ...
