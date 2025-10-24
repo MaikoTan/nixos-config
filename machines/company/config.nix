@@ -18,7 +18,12 @@
 
   networking = lib.mkDefault {
     hostName = "company";
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      dns = "none";
+    };
+    useDHCP = false;
+    dhcpcd.enable = false;
     interfaces.enp2s0 = {
       ipv4.addresses = [
         {
@@ -31,9 +36,15 @@
       address = "192.168.30.254";
       interface = "enp2s0";
     };
+    nameservers = ["192.168.30.254"];
   };
 
   nix.use-china-mirrors = true;
+
+  programs.clash-verge = {
+    enable = true;
+    autoStart = true;
+  };
 
   # Automatically join the ZeroTier network.
   services.zerotierone = {
