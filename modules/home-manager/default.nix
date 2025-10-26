@@ -14,24 +14,27 @@
 
   home.stateVersion = "24.11";
 
-  home.packages = with pkgs; [
-    # System Utilities
-    kdePackages.yakuake
-    # Text
-    jq
-    yq-go # https://mikefarah.gitbook.io/yq/
-    # base16384 # https://github.com/fumiama/base16384
-    # Media
-    vlc
-    # Networks, Browsers, and Communication
-    google-chrome
-    transmission_4
-    # Miscellaneous
-    neofetch
-  ] ++ [
-    # Development
-    wechat-devtools.packages.x86_64-linux.default
-  ];
+  home.packages =
+    (with pkgs;
+    [
+      # System Utilities
+      kdePackages.yakuake
+      # Text
+      jq
+      yq-go # https://mikefarah.gitbook.io/yq/
+      # base16384 # https://github.com/fumiama/base16384
+      # Media
+      vlc
+      # Networks, Browsers, and Communication
+      google-chrome
+      transmission_4
+      # Miscellaneous
+      neofetch
+    ])
+    ++ [
+      # Development
+      wechat-devtools.packages.x86_64-linux.default
+    ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

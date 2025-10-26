@@ -73,7 +73,10 @@ in
 
   systemd.services."mount-smb" = {
     description = "Mount SMB share using SOPS secrets";
-    after = [ "network-online.target" "sops-nix.service" ];
+    after = [
+      "network-online.target"
+      "sops-nix.service"
+    ];
     wants = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
@@ -85,15 +88,17 @@ in
         if [ ! -d /mnt/smbmount ]; then
           mkdir -p /mnt/smbmount
         fi
-        /run/current-system/sw/bin/mount -t cifs "//$SMB_HOST/$SMB_SHARE" /mnt/smbmount -o ${lib.strings.concatStringsSep "," [
-          "credentials=${config.sops.secrets.samba_credentials.path}"
-          "vers=3.0"
-          # uid and gid can be name or id
-          "uid=${config.users.users.maiko.name}"
-          "gid=${config.users.users.maiko.group}"
-          "file_mode=0644"
-          "dir_mode=0755"
-        ]}
+        /run/current-system/sw/bin/mount -t cifs "//$SMB_HOST/$SMB_SHARE" /mnt/smbmount -o ${
+          lib.strings.concatStringsSep "," [
+            "credentials=${config.sops.secrets.samba_credentials.path}"
+            "vers=3.0"
+            # uid and gid can be name or id
+            "uid=${config.users.users.maiko.name}"
+            "gid=${config.users.users.maiko.group}"
+            "file_mode=0644"
+            "dir_mode=0755"
+          ]
+        }
       '';
       ExecStop = "/run/current-system/sw/bin/umount /mnt/smbmount";
     };

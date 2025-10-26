@@ -5,7 +5,13 @@
 # NixOS-WSL specific options are documented on the NixOS-WSL repository:
 # https://github.com/nix-community/NixOS-WSL
 
-{ config, lib, nixos-wsl, pkgs, ... }:
+{
+  config,
+  lib,
+  nixos-wsl,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -15,7 +21,8 @@
 
   wsl.enable = true;
   wsl.defaultUser = "nixos";
-  users.users.${config.wsl.defaultUser}.hashedPassword = "$y$j9T$uW.4l5bEUVn/ti07zAo.F.$41YQzEWa7WO05WjSzC/S1XVHKbeDTjNiQ2d4lF6ecX4";
+  users.users.${config.wsl.defaultUser}.hashedPassword =
+    "$y$j9T$uW.4l5bEUVn/ti07zAo.F.$41YQzEWa7WO05WjSzC/S1XVHKbeDTjNiQ2d4lF6ecX4";
 
   nix.extraOptions = ''
     experimental-features = nix-command flakes ca-derivations

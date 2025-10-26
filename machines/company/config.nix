@@ -37,7 +37,7 @@
       address = "192.168.30.254";
       interface = "enp2s0";
     };
-    nameservers = ["192.168.30.254"];
+    nameservers = [ "192.168.30.254" ];
     firewall.allowedTCPPorts = [ 3389 ];
   };
 
