@@ -1,22 +1,33 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
-  home.packages =
-    with pkgs;
-    lib.mkMerge [
-      (with gnomeExtensions; [
-        blur-my-shell # Blur effect for GNOME Shell
-        gsconnect # KDE Connect integration
-        dash-to-dock # Dock
-        unite # Window management
-        wallhub # Wallpaper changer
-      ])
-      [
-        gnome-shell-extensions # Core GNOME Shell extensions
-        gnome-tweaks
-        dconf
-        # Several useful desktop applications
-        remmina # remote desktop client
-      ]
-    ];
+  home.packages = lib.mkMerge [
+    # GNOME Shell extensions
+    (with pkgs.gnomeExtensions; [
+      blur-my-shell # Blur effect for GNOME Shell
+      gsconnect # KDE Connect integration
+      dash-to-dock # Dock
+      unite # Window management
+    ])
+    # Custom overrides for GNOME Shell extensions
+    [
+      # wallhub # Wallpaper changer
+      (pkgs.gnomeExtensions.wallhub.overrideAttrs
+        (oldAttrs: {
+          # modify the metadata.json to bump the gnome version to 48
+          postPatch = ''
+            substituteInPlace metadata.json --replace '"47"' '"47", "48"'
+          '';
+        })
+      )
+    ]
+    # Other GNOME related packages
+    (with pkgs; [
+      gnome-shell-extensions # Core GNOME Shell extensions
+      gnome-tweaks
+      dconf
+      # Several useful desktop applications
+      remmina # remote desktop client
+    ])
+  ];
 }
