@@ -23,6 +23,7 @@
     };
 
     code-insiders.url = "github:iosmanthus/code-insiders-flake";
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     wechat-devtools.url = "github:MaikoTan/wechat-devtools";
   };
@@ -35,6 +36,7 @@
       nixos-wsl,
       home-manager,
       sops-nix,
+      vscode-server,
       ...
     }@inputs:
     let
@@ -71,6 +73,7 @@
           modules = [
             sops-nix.nixosModules.sops
             ./sops.nix
+            vscode-server.nixosModules.default
             ./machines/${machine}/config.nix
             ./modules/default.nix
             generatorFormats

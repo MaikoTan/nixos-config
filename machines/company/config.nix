@@ -88,4 +88,8 @@
   # Disable autologin to avoid session conflicts
   services.displayManager.autoLogin.enable = false;
   services.getty.autologinUser = null;
+
+  # Enable VSCode remote server support
+  services.vscode-server.enable = true;
+  programs.nix-ld.enable = true;
 }
