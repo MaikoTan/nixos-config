@@ -259,11 +259,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1761116548,
-        "narHash": "sha256-NcPYIcZ1jgqiXj9YVNOcRe348qmG4npir5jCjyFTsYc=",
+        "lastModified": 1761316770,
+        "narHash": "sha256-Pwf6GXrftvXTdmfy+yOoQs9whn+1xl22/QTYtoUJ75I=",
         "owner": "MaikoTan",
         "repo": "wechat-devtools",
-        "rev": "db5800f143f446ae3d557dcce744d7ad088c21c4",
+        "rev": "31a30dd24abde9e69b3a7a590951e4ffc83722e1",
         "type": "github"
       },
       "original": {
