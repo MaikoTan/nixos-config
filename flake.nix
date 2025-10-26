@@ -1,8 +1,11 @@
 {
   description = "Maiko's NixOS Config";
+
   inputs = {
+    # NixOS channels
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    # Nix community projects
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     nixos-generators = {
@@ -22,17 +25,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    code-insiders.url = "github:iosmanthus/code-insiders-flake";
     vscode-server.url = "github:nix-community/nixos-vscode-server";
+
+    # Development tools
+    code-insiders.url = "github:iosmanthus/code-insiders-flake";
 
     wechat-devtools.url = "github:MaikoTan/wechat-devtools";
   };
+
   outputs =
     {
       self,
       nixpkgs,
       nixos-generators,
-      nixos-hardware,
       nixos-wsl,
       home-manager,
       sops-nix,
@@ -40,13 +45,6 @@
       ...
     }@inputs:
     let
-      pkgs = import nixpkgs {
-        system = "x86_64-linux";
-        config = {
-          allowUnfree = true;
-        };
-      };
-
       generatorFormats =
         { config, ... }:
         {
@@ -68,9 +66,21 @@
       addMachineConfig = machine: {
         ${machine} = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          inherit pkgs;
-          specialArgs = inputs;
+          specialArgs = with inputs; {
+            inherit
+              nixos-generators
+              nixos-hardware
+              nixos-wsl
+              home-manager
+              sops-nix
+              vscode-server
+              ;
+          };
           modules = [
+            {
+              nixpkgs.config.allowUnfree = true;
+              nixpkgs.config.allowUnfreePredicate = _: true;
+            }
             sops-nix.nixosModules.sops
             ./sops.nix
             vscode-server.nixosModules.default
@@ -81,7 +91,9 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = inputs;
+              home-manager.extraSpecialArgs = with inputs; {
+                inherit code-insiders wechat-devtools;
+              };
               home-manager.users.maiko = import ./modules/home-manager;
             }
           ];
