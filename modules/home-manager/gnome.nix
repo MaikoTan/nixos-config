@@ -12,14 +12,14 @@
     # Custom overrides for GNOME Shell extensions
     [
       # wallhub # Wallpaper changer
-      (pkgs.gnomeExtensions.wallhub.overrideAttrs
-        (oldAttrs: {
-          # modify the metadata.json to bump the gnome version to 48
-          postPatch = ''
-            substituteInPlace metadata.json --replace '"47"' '"47", "48"'
-          '';
-        })
-      )
+      (pkgs.gnomeExtensions.wallhub.overrideAttrs (oldAttrs: {
+        # modify the metadata.json to bump the gnome version to 48
+        nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ pkgs.jq ];
+        postPatch = (oldAttrs.postPatch or "") + ''
+          # add "48" to shell-version only if it's missing
+          jq 'if (.["shell-version"] | index("48")) then . else .["shell-version"] += ["48"] end' metadata.json > metadata.json.tmp && mv metadata.json.tmp metadata.json
+        '';
+      }))
     ]
     # Other GNOME related packages
     (with pkgs; [
