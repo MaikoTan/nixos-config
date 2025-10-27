@@ -26,6 +26,7 @@
       ])
       [
         "https://nix-community.cachix.org"
+        "https://maiko-nixos-build.cachix.org"
         "https://cache.nixos.org"
       ]
     ];

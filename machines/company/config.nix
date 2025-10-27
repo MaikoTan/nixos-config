@@ -19,25 +19,32 @@
 
   networking = lib.mkDefault {
     hostName = "company";
+
+    # While it would be simplier to just use networking.interfaces.<name>.ipv4.routes
+    # to define custom routes, but GNOME desktop requires NetworkManager to be enabled, so we can
+    # only use this method. After activate this flake, user should manually switch the profile on the
+    # top-right in GNOME desktop.
     networkmanager = {
       enable = true;
-      dns = "none";
+
+      ensureProfiles.profiles = {
+        company-network = {
+          connection = {
+            id = "company-ethernet";
+            type = "ethernet";
+            interface-name = "enp2s0";
+          };
+          ipv4 = {
+            method = "manual";
+            addresses = "192.168.30.80/24";
+            gateway = "192.168.30.254";
+            routes = "192.168.100.0/24,192.168.30.254";
+            dns = "192.168.30.254";
+          };
+          ipv6.method = "ignore";
+        };
+      };
     };
-    useDHCP = false;
-    dhcpcd.enable = false;
-    interfaces.enp2s0 = {
-      ipv4.addresses = [
-        {
-          address = "192.168.30.80";
-          prefixLength = 24;
-        }
-      ];
-    };
-    defaultGateway = {
-      address = "192.168.30.254";
-      interface = "enp2s0";
-    };
-    nameservers = [ "192.168.30.254" ];
     firewall.allowedTCPPorts = [ 3389 ];
   };
 
