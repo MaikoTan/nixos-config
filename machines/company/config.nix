@@ -46,6 +46,8 @@
   programs.clash-verge = {
     enable = true;
     autoStart = true;
+    serviceMode = true;
+    # tunMode = false; # Service Mode and TUN Mode are mutually exclusive
   };
 
   # Automatically join the ZeroTier network.
