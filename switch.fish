@@ -10,7 +10,7 @@ function show_help
     echo ""
     echo "Options:"
     echo "  -h, --help       Show this help message"
-    echo "  --mirror         Use Tsinghua University TUNA substituters"
+    echo "  --mirror         Use mirror substituters for China users"
     echo "  --vm             Use nixos-rebuild test (dry-run)"
     echo ""
     echo "Examples:"
@@ -28,7 +28,7 @@ for arg in $argv
             exit 0
         case '--mirror'
             set cmd "$cmd --option substituters 'https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://mirror.sjtu.edu.cn/nix-channels/store https://mirrors.ustc.edu.cn/nix-channels/store https://nix-community.cachix.org https://cache.nixos.org'"
-        case '--vm'
+        case '--dry'
             set dry_run true
         case '*'
             # if $arg is not start with '--', it should be the host name
@@ -52,4 +52,4 @@ end
 set cmd "$cmd --flake '.#$host'"
 
 echo "Running: $cmd"
-# eval $cmd
+eval $cmd
