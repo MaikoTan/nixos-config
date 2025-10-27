@@ -28,7 +28,10 @@
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     # Development tools
-    code-insiders.url = "github:iosmanthus/code-insiders-flake";
+    code-insiders = {
+      url = "github:iosmanthus/code-insiders-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     wechat-devtools.url = "github:MaikoTan/wechat-devtools";
   };
