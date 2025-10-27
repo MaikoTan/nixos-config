@@ -4,6 +4,7 @@
   home.packages = lib.mkMerge [
     # GNOME Shell extensions
     (with pkgs.gnomeExtensions; [
+      appindicator # Tray icons support
       blur-my-shell # Blur effect for GNOME Shell
       gsconnect # KDE Connect integration
       dash-to-dock # Dock
