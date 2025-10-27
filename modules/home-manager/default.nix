@@ -1,4 +1,4 @@
-{ pkgs, wechat-devtools, ... }:
+{ inputs, pkgs, ... }:
 
 {
   imports = [
@@ -33,7 +33,7 @@
     ])
     ++ [
       # Development
-      wechat-devtools.packages.x86_64-linux.default
+      inputs.wechat-devtools.packages.x86_64-linux.default
     ];
 
   # Let Home Manager install and manage itself.

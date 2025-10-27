@@ -1,15 +1,15 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
-  nixos-hardware,
   ...
 }:
 
 {
   imports = [
     # Import common configuration from nixos
-    nixos-hardware.nixosModules.common-cpu-intel
+    inputs.nixos-hardware.nixosModules.common-cpu-intel
     ../base/desktop.nix
     ./hardware.nix
   ];

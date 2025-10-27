@@ -66,15 +66,8 @@
       addMachineConfig = machine: {
         ${machine} = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = with inputs; {
-            inherit
-              nixos-generators
-              nixos-hardware
-              nixos-wsl
-              home-manager
-              sops-nix
-              vscode-server
-              ;
+          specialArgs = {
+            inherit inputs;
           };
           modules = [
             {
@@ -91,9 +84,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = with inputs; {
-                inherit code-insiders wechat-devtools;
-              };
+              home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.maiko = import ./modules/home-manager;
             }
           ];
