@@ -41,10 +41,7 @@
       self,
       nixpkgs,
       nixos-generators,
-      nixos-wsl,
-      home-manager,
       sops-nix,
-      vscode-server,
       ...
     }@inputs:
     let
@@ -79,17 +76,8 @@
             }
             sops-nix.nixosModules.sops
             ./sops.nix
-            vscode-server.nixosModules.default
             ./machines/${machine}/config.nix
-            ./modules/default.nix
             generatorFormats
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
-              home-manager.users.maiko = import ./modules/home-manager;
-            }
           ];
         };
       };
