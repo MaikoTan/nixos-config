@@ -20,7 +20,7 @@ with lib.hm.gvariant;
       dark-mode = false;
       enable-js = true;
       feeds = ''
-        {"https://nitter.space/m_daichi_fx_/rss": {}}
+        {"https://nitter.space/m_daichi_fx_/rss": {}}\n
       '';
       read-items = "[]";
       window-height = 650;
@@ -28,7 +28,9 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/Console" = {
+      custom-font = "FiraCode Nerd Font Mono 10";
       font-scale = 1.0;
+      ignore-scrollback-limit = true;
       last-window-maximised = true;
       last-window-size = mkTuple [ 360 294 ];
       theme = "night";
@@ -363,6 +365,11 @@ with lib.hm.gvariant;
       maximized = false;
     };
 
+    "org/gnome/nm-applet/eap/0e18a83a-7255-3371-b689-a4dd3427eacd" = {
+      ignore-ca-cert = false;
+      ignore-phase2-ca-cert = false;
+    };
+
     "org/gnome/nm-applet/eap/90f4dba0-d7f6-448e-9d13-5c1325b2fd96" = {
       ignore-ca-cert = false;
       ignore-phase2-ca-cert = false;
@@ -416,9 +423,17 @@ with lib.hm.gvariant;
       command-history = [ "r" "lg" ];
       disable-user-extensions = false;
       disabled-extensions = [ "window-list@gnome-shell-extensions.gcampax.github.com" "windowsNavigator@gnome-shell-extensions.gcampax.github.com" "status-icons@gnome-shell-extensions.gcampax.github.com" "backslide@codeisland.org" ];
-      enabled-extensions = [ "apps-menu@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" "launch-new-instance@gnome-shell-extensions.gcampax.github.com" "auto-move-windows@gnome-shell-extensions.gcampax.github.com" "drive-menu@gnome-shell-extensions.gcampax.github.com" "screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com" "workspace-indicator@gnome-shell-extensions.gcampax.github.com" "dash-to-dock@micxgx.gmail.com" "unite@hardpixel.eu" "native-window-placement@gnome-shell-extensions.gcampax.github.com" "places-menu@gnome-shell-extensions.gcampax.github.com" "system-monitor@gnome-shell-extensions.gcampax.github.com" "kimpanel@kde.org" "scroll-workspaces@gfxmonk.net" "blur-my-shell@aunetx" "gsconnect@andyholmes.github.io" "wallhub@sakithb.github.io" ];
+      enabled-extensions = [ "apps-menu@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" "launch-new-instance@gnome-shell-extensions.gcampax.github.com" "auto-move-windows@gnome-shell-extensions.gcampax.github.com" "drive-menu@gnome-shell-extensions.gcampax.github.com" "screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com" "workspace-indicator@gnome-shell-extensions.gcampax.github.com" "dash-to-dock@micxgx.gmail.com" "unite@hardpixel.eu" "native-window-placement@gnome-shell-extensions.gcampax.github.com" "places-menu@gnome-shell-extensions.gcampax.github.com" "system-monitor@gnome-shell-extensions.gcampax.github.com" "kimpanel@kde.org" "scroll-workspaces@gfxmonk.net" "blur-my-shell@aunetx" "gsconnect@andyholmes.github.io" "wallhub@sakithb.github.io" "appindicatorsupport@rgcjonas.gmail.com" ];
       favorite-apps = [ "google-chrome.desktop" "org.gnome.Nautilus.desktop" "code-insiders.desktop" ];
       welcome-dialog-last-shown-version = "45.4";
+    };
+
+    "org/gnome/shell/extensions/appindicator" = {
+      icon-brightness = 0.0;
+      icon-contrast = 0.0;
+      icon-opacity = 240;
+      icon-saturation = 0.0;
+      icon-size = 0;
     };
 
     "org/gnome/shell/extensions/backslide" = {
@@ -441,7 +456,7 @@ with lib.hm.gvariant;
       dynamic-opacity = false;
       opacity = 200;
       sigma = 1;
-      whitelist = [ "kgx" "Code - Insiders" ];
+      whitelist = [ "kgx" "Code - Insiders" "org.remmina.Remmina" "org.gnome.Console" ];
     };
 
     "org/gnome/shell/extensions/blur-my-shell/coverflow-alt-tab" = {
@@ -528,7 +543,7 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/gsconnect/device/8434dc07a4584327b1ad4956050c45ad/plugin/notification" = {
       applications = ''
-        {"Printers":{"iconName":"org.gnome.Settings-printers-symbolic","enabled":true},"Events and Tasks Reminders":{"iconName":"org.gnome.Evolution-alarm-notify","enabled":true},"Zenity":{"iconName":"application-x-executable","enabled":true},"Disks":{"iconName":"org.gnome.DiskUtility","enabled":true},"Software":{"iconName":"org.gnome.Software","enabled":true},"Date & Time":{"iconName":"org.gnome.Settings-time-symbolic","enabled":true},"Disk Usage Analyzer":{"iconName":"org.gnome.baobab","enabled":true},"Power":{"iconName":"org.gnome.Settings-power-symbolic","enabled":true},"Console":{"iconName":"org.gnome.Console","enabled":true},"Color Management":{"iconName":"org.gnome.Settings-color-symbolic","enabled":true},"Files":{"iconName":"org.gnome.Nautilus","enabled":true},"Clocks":{"iconName":"org.gnome.clocks","enabled":true},"Google Chrome":{"iconName":"file:///tmp/.com.google.Chrome.xmvvZb/logo.png","enabled":true},"Fcitx 5":{"iconName":"fcitx","enabled":true},"GNOME":{"iconName":"","enabled":true}}
+        {"Printers":{"iconName":"org.gnome.Settings-printers-symbolic","enabled":true},"Events and Tasks Reminders":{"iconName":"org.gnome.Evolution-alarm-notify","enabled":true},"Zenity":{"iconName":"application-x-executable","enabled":true},"Disks":{"iconName":"org.gnome.DiskUtility","enabled":true},"Software":{"iconName":"org.gnome.Software","enabled":true},"Date & Time":{"iconName":"org.gnome.Settings-time-symbolic","enabled":true},"Disk Usage Analyzer":{"iconName":"org.gnome.baobab","enabled":true},"Power":{"iconName":"org.gnome.Settings-power-symbolic","enabled":true},"Console":{"iconName":"org.gnome.Console","enabled":true},"Color Management":{"iconName":"org.gnome.Settings-color-symbolic","enabled":true},"Files":{"iconName":"org.gnome.Nautilus","enabled":true},"Clocks":{"iconName":"org.gnome.clocks","enabled":true},"Google Chrome":{"iconName":"file:///tmp/.com.google.Chrome.xmvvZb/logo.png","enabled":true},"Fcitx 5":{"iconName":"fcitx","enabled":true},"GNOME":{"iconName":"","enabled":true}}\n
       '';
     };
 
@@ -575,6 +590,10 @@ with lib.hm.gvariant;
     "org/gnome/shell/extensions/window-list" = {
       display-all-workspaces = false;
       show-on-all-monitors = false;
+    };
+
+    "org/gnome/shell/extensions/workspace-indicator" = {
+      embed-previews = false;
     };
 
     "org/gnome/shell/world-clocks" = {
