@@ -15,8 +15,7 @@
   home.stateVersion = "24.11";
 
   home.packages =
-    (with pkgs;
-    [
+    (with pkgs; [
       # System Utilities
       kdePackages.yakuake
       # Text
@@ -122,6 +121,10 @@
       enable = true;
       settings = { };
     };
+  };
+
+  programs.zoxide = {
+    enable = true;
   };
 
   xsession.enable = true;

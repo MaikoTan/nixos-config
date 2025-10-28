@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -15,8 +15,41 @@
     };
 
     shellAliases = {
-      ls = "${pkgs.eza}/bin/eza --color=auto";
-      ll = "${pkgs.eza}/bin/eza --long --header --git --color=auto";
+      # ----- ls replacements -----
+      ls = "${pkgs.eza}/bin/eza --color=auto --icons";
+      ll = "${pkgs.eza}/bin/eza --long --header --git --color=auto --icons";
+      la = "${pkgs.eza}/bin/eza -la --header --git --color=auto --icons";
+      tree = "${pkgs.eza}/bin/eza --tree --icons";
+
+      # ----- cat replacement -----
+      cat = "${pkgs.bat}/bin/bat --paging=never";
+
+      # ----- find replacement -----
+      find = "${pkgs.fd}/bin/fd";
+
+      # ----- grep replacement -----
+      grep = "${pkgs.ripgrep}/bin/rg --color=auto";
+
+      # ----- du / df replacements -----
+      du = "${pkgs.dust}/bin/dust";
+      df = "${pkgs.duf}/bin/duf";
+
+      # ----- sed replacement -----
+      sed = "${pkgs.sd}/bin/sd";
+
+      # ----- diff replacement -----
+      diff = "${pkgs.diff-so-fancy}/bin/diff-so-fancy";
+
+      # ----- cd replacement (zoxide) -----
+      cd = "${pkgs.zoxide}/bin/zoxide cd";
+
+      # ----- misc / quality of life -----
+      top = "${pkgs.bottom}/bin/btm"; # fancy top replacement
+      ps = "${pkgs.procs}/bin/procs"; # pretty process viewer
+      ping = "${pkgs.gping}/bin/gping"; # ping with graph
     };
   };
+
+  # Enable zoxide fish integration only if zoxide is enabled
+  programs.zoxide.enableFishIntegration = lib.mkIf config.programs.zoxide.enable true;
 }

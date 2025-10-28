@@ -22,6 +22,7 @@
     roboto-mono
     jetbrains-mono
     ubuntu_font_family
+    nerd-fonts.fira-code
     fira-code
     fira-code-symbols
     # Microsoft Fonts
