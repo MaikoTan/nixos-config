@@ -10,6 +10,7 @@
     ./common.nix
     ./docker.nix
     ./ime.nix
+    ./miku-cursors.nix
     ./nix.nix
   ];
 
