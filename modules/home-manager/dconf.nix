@@ -20,7 +20,7 @@ with lib.hm.gvariant;
       dark-mode = false;
       enable-js = true;
       feeds = ''
-        {"https://nitter.space/m_daichi_fx_/rss": {}}\n
+        {"https://nitter.space/m_daichi_fx_/rss": {}}\\n\n
       '';
       read-items = "[]";
       window-height = 650;
@@ -225,6 +225,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/org-kde-spectacle" = {
       application-id = "org.kde.spectacle.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-remmina-remmina" = {
+      application-id = "org.remmina.Remmina.desktop";
     };
 
     "org/gnome/desktop/notifications/application/parsecd" = {
@@ -452,10 +456,10 @@ with lib.hm.gvariant;
     "org/gnome/shell/extensions/blur-my-shell/applications" = {
       blur = true;
       blur-on-overview = true;
-      brightness = 0.6;
+      brightness = 0.75;
       dynamic-opacity = false;
-      opacity = 200;
-      sigma = 1;
+      opacity = 235;
+      sigma = 0;
       whitelist = [ "kgx" "Code - Insiders" "org.remmina.Remmina" "org.gnome.Console" ];
     };
 
@@ -543,7 +547,7 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/gsconnect/device/8434dc07a4584327b1ad4956050c45ad/plugin/notification" = {
       applications = ''
-        {"Printers":{"iconName":"org.gnome.Settings-printers-symbolic","enabled":true},"Events and Tasks Reminders":{"iconName":"org.gnome.Evolution-alarm-notify","enabled":true},"Zenity":{"iconName":"application-x-executable","enabled":true},"Disks":{"iconName":"org.gnome.DiskUtility","enabled":true},"Software":{"iconName":"org.gnome.Software","enabled":true},"Date & Time":{"iconName":"org.gnome.Settings-time-symbolic","enabled":true},"Disk Usage Analyzer":{"iconName":"org.gnome.baobab","enabled":true},"Power":{"iconName":"org.gnome.Settings-power-symbolic","enabled":true},"Console":{"iconName":"org.gnome.Console","enabled":true},"Color Management":{"iconName":"org.gnome.Settings-color-symbolic","enabled":true},"Files":{"iconName":"org.gnome.Nautilus","enabled":true},"Clocks":{"iconName":"org.gnome.clocks","enabled":true},"Google Chrome":{"iconName":"file:///tmp/.com.google.Chrome.xmvvZb/logo.png","enabled":true},"Fcitx 5":{"iconName":"fcitx","enabled":true},"GNOME":{"iconName":"","enabled":true}}\n
+        {}
       '';
     };
 

@@ -9,11 +9,10 @@
       gsconnect # KDE Connect integration
       dash-to-dock # Dock
       unite # Window management
-    ])
-    # Custom overrides for GNOME Shell extensions
-    [
+
       # wallhub # Wallpaper changer
-      (pkgs.gnomeExtensions.wallhub.overrideAttrs (oldAttrs: {
+      # TODO: unmaintained, but still works with GNOME 48 with a patch
+      (wallhub.overrideAttrs (oldAttrs: {
         # modify the metadata.json to bump the gnome version to 48
         nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ pkgs.jq ];
         postPatch = (oldAttrs.postPatch or "") + ''
@@ -21,7 +20,7 @@
           jq 'if (.["shell-version"] | index("48")) then . else .["shell-version"] += ["48"] end' metadata.json > metadata.json.tmp && mv metadata.json.tmp metadata.json
         '';
       }))
-    ]
+    ])
     # Other GNOME related packages
     (with pkgs; [
       gnome-shell-extensions # Core GNOME Shell extensions
