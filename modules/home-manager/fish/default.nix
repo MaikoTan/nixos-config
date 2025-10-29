@@ -3,6 +3,12 @@
 let
 
   nodejs = pkgs.nodejs_22;
+  yarn = pkgs.writeShellScriptBin "yarn" ''
+    exec ${nodejs}/bin/corepack yarn@4 "$@"
+  '';
+  pnpm = pkgs.writeShellScriptBin "pnpm" ''
+    exec ${nodejs}/bin/corepack pnpm@latest "$@"
+  '';
 
 in
 
@@ -59,10 +65,10 @@ in
       npm = "${nodejs}/bin/npm";
       npx = "${nodejs}/bin/npx";
       corepack = "${nodejs}/bin/corepack";
-      yarn = "${nodejs}/bin/corepack yarn@4";
-      pnpm = "${nodejs}/bin/corepack pnpm@latest";
     };
   };
+
+  home.packages = [ yarn pnpm ];
 
   # Enable zoxide fish integration only if zoxide is enabled
   programs.zoxide.enableFishIntegration = lib.mkIf config.programs.zoxide.enable true;
