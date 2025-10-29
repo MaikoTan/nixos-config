@@ -54,7 +54,7 @@
     enable = true;
     autoStart = true;
     serviceMode = true;
-    # tunMode = false; # Service Mode and TUN Mode are mutually exclusive
+    tunMode = true;
   };
 
   # Automatically join the ZeroTier network.
