@@ -1,5 +1,11 @@
 { config, lib, pkgs, ... }:
 
+let
+
+  nodejs = pkgs.nodejs_22;
+
+in
+
 {
   imports = [
     ./prompt.nix
@@ -47,6 +53,14 @@
       top = "${pkgs.bottom}/bin/btm"; # fancy top replacement
       ps = "${pkgs.procs}/bin/procs"; # pretty process viewer
       ping = "${pkgs.gping}/bin/gping"; # ping with graph
+
+      # ----- development -----
+      node = "${nodejs}/bin/node";
+      npm = "${nodejs}/bin/npm";
+      npx = "${nodejs}/bin/npx";
+      corepack = "${nodejs}/bin/corepack";
+      yarn = "${nodejs}/bin/corepack yarn@4";
+      pnpm = "${nodejs}/bin/corepack pnpm@latest";
     };
   };
 
