@@ -7,6 +7,7 @@
     ./dconf.nix
     ./gnome.nix
     ./ime.nix
+    ./shells.nix
   ];
 
   home.username = "maiko";
