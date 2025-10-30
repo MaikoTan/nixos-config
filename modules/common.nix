@@ -9,6 +9,7 @@
     rsync
     curl
     wget
+    lsof
     # Text
     vim
   ];
