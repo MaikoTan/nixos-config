@@ -17,36 +17,34 @@
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";
 
-  networking = lib.mkDefault {
-    hostName = "company";
+  networking.hostName = lib.mkDefault "company";
 
-    # While it would be simplier to just use networking.interfaces.<name>.ipv4.routes
-    # to define custom routes, but GNOME desktop requires NetworkManager to be enabled, so we can
-    # only use this method. After activate this flake, user should manually switch the profile on the
-    # top-right in GNOME desktop.
-    networkmanager = {
-      enable = true;
+  # While it would be simplier to just use networking.interfaces.<name>.ipv4.routes
+  # to define custom routes, but GNOME desktop requires NetworkManager to be enabled, so we can
+  # only use this method. After activate this flake, user should manually switch the profile on the
+  # top-right in GNOME desktop.
+  networking.networkmanager = {
+    enable = true;
 
-      ensureProfiles.profiles = {
-        company-network = {
-          connection = {
-            id = "company-ethernet";
-            type = "ethernet";
-            interface-name = "enp2s0";
-          };
-          ipv4 = {
-            method = "manual";
-            addresses = "192.168.30.80/24";
-            gateway = "192.168.30.254";
-            routes = "192.168.100.0/24,192.168.30.254";
-            dns = "192.168.30.254";
-          };
-          ipv6.method = "ignore";
+    ensureProfiles.profiles = {
+      company-network = {
+        connection = {
+          id = "company-ethernet";
+          type = "ethernet";
+          interface-name = "enp2s0";
         };
+        ipv4 = {
+          method = "manual";
+          addresses = "192.168.30.80/24";
+          gateway = "192.168.30.254";
+          routes = "192.168.100.0/24,192.168.30.254";
+          dns = "192.168.30.254";
+        };
+        ipv6.method = "ignore";
       };
     };
-    firewall.allowedTCPPorts = [ 3389 ];
   };
+  networking.firewall.allowedTCPPorts = [ 22 3389 7890 ];
 
   nix.use-china-mirrors = true;
 
