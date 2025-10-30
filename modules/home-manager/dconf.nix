@@ -14,19 +14,6 @@ with lib.hm.gvariant;
       persist-window-geometry = mkTuple [ 305 91 993 675 ];
     };
 
-    "org/gabmus/gfeeds" = {
-      auto-refresh-enabled = true;
-      blocklist-last-update = 1.741829758965503e9;
-      dark-mode = false;
-      enable-js = true;
-      feeds = ''
-        {"https://nitter.space/m_daichi_fx_/rss": {}}\\n\n
-      '';
-      read-items = "[]";
-      window-height = 650;
-      window-width = 366;
-    };
-
     "org/gnome/Console" = {
       custom-font = "FiraCode Nerd Font Mono 10";
       font-scale = 1.0;

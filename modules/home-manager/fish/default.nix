@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
 
@@ -70,7 +75,10 @@ in
     };
   };
 
-  home.packages = [ yarn pnpm ];
+  home.packages = [
+    yarn
+    pnpm
+  ];
 
   # Enable zoxide fish integration only if zoxide is enabled
   programs.zoxide.enableFishIntegration = lib.mkIf config.programs.zoxide.enable true;
