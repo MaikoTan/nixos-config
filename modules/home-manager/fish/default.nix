@@ -53,7 +53,9 @@ in
       diff = "${pkgs.diff-so-fancy}/bin/diff-so-fancy";
 
       # ----- cd replacement (zoxide) -----
-      cd = "${pkgs.zoxide}/bin/zoxide cd";
+      cd = lib.mkIf (
+        config.programs.zoxide.enable && config.programs.zoxide.enableFishIntegration
+      ) "z";
 
       # ----- misc / quality of life -----
       top = "${pkgs.bottom}/bin/btm"; # fancy top replacement
