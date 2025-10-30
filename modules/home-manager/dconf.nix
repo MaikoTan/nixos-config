@@ -122,7 +122,7 @@ with lib.hm.gvariant;
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
       cursor-size = 24;
-      cursor-theme = "Adwaita";
+      cursor-theme = "miku-cursor";
       enable-animations = true;
       font-antialiasing = "grayscale";
       font-hinting = "slight";
