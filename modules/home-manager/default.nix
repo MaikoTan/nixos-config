@@ -19,6 +19,7 @@
     (with pkgs; [
       # System Utilities
       kdePackages.yakuake
+      quickemu # Simple CLI virtual machine manager
       # Text
       jq
       yq-go # https://mikefarah.gitbook.io/yq/
