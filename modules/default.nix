@@ -34,4 +34,9 @@
     # set fish as default shell
     shell = pkgs.fish;
   };
+
+  sops.secrets.companyGitHubToken = {
+    sopsFile = ../secrets/github_tokens.yaml;
+    key = "company";
+  };
 }

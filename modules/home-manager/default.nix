@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, osConfig, pkgs, ... }:
 
 {
   imports = [
@@ -104,26 +104,28 @@
     };
   };
 
-  programs = {
-    gh = {
-      enable = true;
-      extensions = with pkgs; [
-        # https://github.com/github/gh-copilot
-        gh-copilot
-        # https://github.com/gennaro-tedesco/gh-f
-        gh-f
-      ];
-      settings = {
-        git_protocol = "ssh";
-        prompt = "enabled";
-      };
+  programs.gh = {
+    enable = true;
+    extensions = with pkgs; [
+      # https://github.com/github/gh-copilot
+      gh-copilot
+      # https://github.com/gennaro-tedesco/gh-f
+      gh-f
+    ];
+    settings = {
+      git_protocol = "ssh";
+      prompt = "enabled";
     };
+  };
 
-    # https://github.com/dlvhdr/gh-dash
-    gh-dash = {
-      enable = true;
-      settings = { };
-    };
+  home.sessionVariablesExtra = ''
+    export GH_TOKEN="$(cat ${osConfig.sops.secrets.companyGitHubToken.path})"
+  '';
+
+  # https://github.com/dlvhdr/gh-dash
+  programs.gh-dash = {
+    enable = true;
+    settings = { };
   };
 
   programs.zoxide = {
