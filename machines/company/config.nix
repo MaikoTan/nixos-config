@@ -1,17 +1,21 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
-  nixos-hardware,
   ...
 }:
 
 {
   imports = [
     # Import common configuration from nixos
-    nixos-hardware.nixosModules.common-cpu-intel
+    inputs.nixos-hardware.nixosModules.common-cpu-intel
+    inputs.vscode-server.nixosModules.default
+    inputs.home-manager.nixosModules.home-manager
+
     ../base/desktop.nix
     ./hardware.nix
+    ../../modules/default.nix
   ];
 
   # Set your time zone.
@@ -99,4 +103,9 @@
   # Enable VSCode remote server support
   services.vscode-server.enable = true;
   programs.nix-ld.enable = true;
+
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+  home-manager.extraSpecialArgs = { inherit inputs; };
+  home-manager.users.maiko = import ../../modules/home-manager;
 }

@@ -1,7 +1,7 @@
 {
+  inputs,
   lib,
   pkgs,
-  code-insiders,
   config,
   ...
 }:
@@ -9,7 +9,7 @@
 let
 
   package = (
-    code-insiders.packages."x86_64-linux".vscode-insider.overrideAttrs (oldAttrs: {
+    inputs.code-insiders.packages."x86_64-linux".vscode-insider.overrideAttrs (oldAttrs: {
       buildInputs = oldAttrs.buildInputs ++ [ pkgs.krb5 ];
     })
   );

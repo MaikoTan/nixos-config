@@ -41,10 +41,7 @@
       self,
       nixpkgs,
       nixos-generators,
-      nixos-wsl,
-      home-manager,
       sops-nix,
-      vscode-server,
       ...
     }@inputs:
     let
@@ -69,15 +66,8 @@
       addMachineConfig = machine: {
         ${machine} = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = with inputs; {
-            inherit
-              nixos-generators
-              nixos-hardware
-              nixos-wsl
-              home-manager
-              sops-nix
-              vscode-server
-              ;
+          specialArgs = {
+            inherit inputs;
           };
           modules = [
             {
@@ -86,19 +76,8 @@
             }
             sops-nix.nixosModules.sops
             ./sops.nix
-            vscode-server.nixosModules.default
             ./machines/${machine}/config.nix
-            ./modules/default.nix
             generatorFormats
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = with inputs; {
-                inherit code-insiders wechat-devtools;
-              };
-              home-manager.users.maiko = import ./modules/home-manager;
-            }
           ];
         };
       };
