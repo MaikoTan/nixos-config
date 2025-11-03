@@ -47,13 +47,14 @@
 
   programs.git = {
     enable = true;
-    userName = "Maiko Tan";
-    userEmail = "maiko.tan.coding@gmail.com";
 
     # Enable Git LFS
     lfs.enable = true;
 
-    extraConfig = {
+    settings = {
+      user.name = "Maiko Tan";
+      user.email = "maiko.tan.coding@gmail.com";
+
       init.defaultBranch = "master";
       user.signingkey = "970A6794990C52AE";
       core = {

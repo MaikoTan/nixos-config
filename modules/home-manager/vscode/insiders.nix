@@ -26,7 +26,7 @@ in
     inherit package;
   };
 
-  programs.git.extraConfig = {
+  programs.git.settings = {
     core = {
       inherit editor;
     };
