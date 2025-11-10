@@ -104,6 +104,12 @@
   services.vscode-server.enable = true;
   programs.nix-ld.enable = true;
 
+  programs.adb.enable = true;
+  users.users.maiko.extraGroups = [
+    "samba"
+    "adbusers"
+  ];
+
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.extraSpecialArgs = { inherit inputs; };

@@ -135,7 +135,11 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "org-gnome-software" "google-chrome" "org-gnome-console" "todesk" "gimp" "org-gnome-baobab" "org-gnome-nautilus" "firefox" "qq" "gnome-power-panel" "org-gnome-settings" "wemeetapp" "info-mumble-mumble" "com-obsproject-studio" "org-gnome-extensions" "org-kde-spectacle" "libreoffice-calc" "com-alibabainc-dingtalk" "parsecd" "org-gnome-shell-extensions" "org-gnome-shell-extensions-gsconnect" "virtualbox" "clash-verge" "gnome-about-panel" ];
+      application-children = [ "org-gnome-software" "google-chrome" "org-gnome-console" "todesk" "gimp" "org-gnome-baobab" "org-gnome-nautilus" "firefox" "qq" "gnome-power-panel" "org-gnome-settings" "wemeetapp" "info-mumble-mumble" "com-obsproject-studio" "org-gnome-extensions" "org-kde-spectacle" "libreoffice-calc" "com-alibabainc-dingtalk" "parsecd" "org-gnome-shell-extensions" "org-gnome-shell-extensions-gsconnect" "virtualbox" "clash-verge" "gnome-about-panel" "org-remmina-remmina" ];
+    };
+
+    "org/gnome/desktop/notifications/application/android-studio" = {
+      application-id = "android-studio.desktop";
     };
 
     "org/gnome/desktop/notifications/application/clash-verge" = {
@@ -447,7 +451,7 @@ with lib.hm.gvariant;
       dynamic-opacity = false;
       opacity = 235;
       sigma = 0;
-      whitelist = [ "kgx" "Code - Insiders" "org.remmina.Remmina" "org.gnome.Console" ];
+      whitelist = [ "kgx" "Code - Insiders" "org.remmina.Remmina" "org.gnome.Console" "jetbrains-studio" ];
     };
 
     "org/gnome/shell/extensions/blur-my-shell/coverflow-alt-tab" = {

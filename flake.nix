@@ -73,6 +73,7 @@
             {
               nixpkgs.config.allowUnfree = true;
               nixpkgs.config.allowUnfreePredicate = _: true;
+              nixpkgs.config.android_sdk.accept_license = true;
             }
             sops-nix.nixosModules.sops
             ./sops.nix

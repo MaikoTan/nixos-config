@@ -1,7 +1,21 @@
-{ inputs, osConfig, pkgs, ... }:
+{
+  inputs,
+  osConfig,
+  pkgs,
+  ...
+}:
+
+let
+  androidSdkModule = import ((builtins.fetchGit {
+    url = "https://github.com/tadfisher/android-nixpkgs.git";
+    ref = "stable";  # Or "stable", "beta", "preview", "canary"
+  }) + "/hm-module.nix");
+
+in
 
 {
   imports = [
+    androidSdkModule
     ./vscode/default.nix
     ./fish/default.nix
     ./dconf.nix
@@ -35,7 +49,17 @@
     ++ [
       # Development
       inputs.wechat-devtools.packages.x86_64-linux.default
+      pkgs.android-studio
     ];
+
+  android-sdk.packages = sdkPkgs: with sdkPkgs; [
+    build-tools-36-1-0
+    cmdline-tools-latest
+    emulator
+    system-images-android-36-google-apis-x86-64
+    platforms-android-36
+    sources-android-36
+  ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
