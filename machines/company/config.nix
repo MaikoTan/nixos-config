@@ -100,6 +100,31 @@
   services.displayManager.autoLogin.enable = false;
   services.getty.autologinUser = null;
 
+  services.samba = {
+    package = pkgs.samba4Full;
+    usershares.enable = true;
+    enable = true;
+    openFirewall = true;
+
+    settings = {
+      maikoHome = {
+        path = "/home/maiko";
+        comment = "Maiko's Home Folder";
+        browseable = true;
+        "read only" = false;
+        "guest ok" = false;
+        "valid users" = [ "maiko" ];
+        "create mask" = "0644";
+        "directory mask" = "0755";
+      };
+    };
+  };
+  # To be discoverable with windows
+  services.samba-wsdd = {
+    enable = true;
+    openFirewall = true;
+  };
+
   # Enable VSCode remote server support
   services.vscode-server.enable = true;
   programs.nix-ld.enable = true;
