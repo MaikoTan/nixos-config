@@ -48,7 +48,11 @@
       };
     };
   };
-  networking.firewall.allowedTCPPorts = [ 22 3389 7890 ];
+  networking.firewall.allowedTCPPorts = [
+    22
+    3389
+    7890
+  ];
 
   nix.use-china-mirrors = true;
 
@@ -58,6 +62,17 @@
     serviceMode = true;
     tunMode = true;
   };
+
+  networking.proxy =
+    let
+      cfg = config.programs.clash-verge;
+      endpoint = "http://127.0.0.1:7890";
+    in
+    lib.mkIf (cfg.enable && cfg.autoStart) {
+      httpProxy = endpoint;
+      httpsProxy = endpoint;
+      noProxy = "localhost,127.0.0.0/8,::1";
+    };
 
   # Automatically join the ZeroTier network.
   services.zerotierone = {
@@ -123,6 +138,16 @@
   services.samba-wsdd = {
     enable = true;
     openFirewall = true;
+  };
+
+  services.create_ap = {
+    enable = true;
+    settings = {
+      INTERNET_IFACE = "enp2s0";
+      WIFI_IFACE = "wlp3s0";
+      SSID = "company";
+      PASSPHRASE = "aa113115";
+    };
   };
 
   # Enable VSCode remote server support
