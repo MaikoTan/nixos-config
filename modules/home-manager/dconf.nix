@@ -337,6 +337,10 @@ with lib.hm.gvariant;
       workspaces-only-on-primary = true;
     };
 
+    "org/gnome/nautilus/compression" = {
+      default-compression-format = "tar.xz";
+    };
+
     "org/gnome/nautilus/icon-view" = {
       default-zoom-level = "medium";
     };
@@ -361,6 +365,16 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/nm-applet/eap/0e18a83a-7255-3371-b689-a4dd3427eacd" = {
+      ignore-ca-cert = false;
+      ignore-phase2-ca-cert = false;
+    };
+
+    "org/gnome/nm-applet/eap/89594f6a-fb17-3d3e-9c2d-d9c13a7118ec" = {
+      ignore-ca-cert = false;
+      ignore-phase2-ca-cert = false;
+    };
+
+    "org/gnome/nm-applet/eap/8d22b66d-28af-41e7-b40d-36dfc0756ae9" = {
       ignore-ca-cert = false;
       ignore-phase2-ca-cert = false;
     };
@@ -436,6 +450,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/blur-my-shell" = {
+      hacks-level = 2;
       settings-version = 2;
     };
 
@@ -473,6 +488,7 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/blur-my-shell/overview" = {
       pipeline = "pipeline_default";
+      style-components = 3;
     };
 
     "org/gnome/shell/extensions/blur-my-shell/panel" = {

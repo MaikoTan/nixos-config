@@ -40,11 +40,13 @@ in
       # base16384 # https://github.com/fumiama/base16384
       # Media
       vlc
+      inkscape
       # Networks, Browsers, and Communication
       google-chrome
       transmission_4
       # Miscellaneous
       neofetch
+      xc
     ])
     ++ [
       # Development
