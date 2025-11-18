@@ -19,7 +19,7 @@ with lib.hm.gvariant;
       font-scale = 1.0;
       ignore-scrollback-limit = true;
       last-window-maximised = true;
-      last-window-size = mkTuple [ 360 294 ];
+      last-window-size = mkTuple [ 754 549 ];
       theme = "night";
     };
 
@@ -62,7 +62,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "network";
+      last-panel = "wifi";
       window-state = mkTuple [ 760 510 false ];
     };
 
@@ -361,7 +361,7 @@ with lib.hm.gvariant;
     "org/gnome/nautilus/window-state" = {
       initial-size = mkTuple [ 890 550 ];
       initial-size-file-chooser = mkTuple [ 890 550 ];
-      maximized = false;
+      maximized = true;
     };
 
     "org/gnome/nm-applet/eap/0e18a83a-7255-3371-b689-a4dd3427eacd" = {
@@ -659,6 +659,27 @@ with lib.hm.gvariant;
       type-format = "category";
       window-position = mkTuple [ 26 23 ];
       window-size = mkTuple [ 1096 821 ];
+    };
+
+    "system/proxy" = {
+      autoconfig-url = "http://127.0.0.1:33331/commands/pac";
+      ignore-hosts = [ "localhost" "127.0.0.1" "192.168.0.0/16" "10.0.0.0/8" "172.16.0.0/12" "172.29.0.0/16" "::1" ];
+      mode = "auto";
+    };
+
+    "system/proxy/http" = {
+      host = "127.0.0.1";
+      port = 7890;
+    };
+
+    "system/proxy/https" = {
+      host = "127.0.0.1";
+      port = 7890;
+    };
+
+    "system/proxy/socks" = {
+      host = "127.0.0.1";
+      port = 7890;
     };
 
   };
