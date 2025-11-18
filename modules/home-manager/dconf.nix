@@ -466,7 +466,7 @@ with lib.hm.gvariant;
       dynamic-opacity = false;
       opacity = 235;
       sigma = 0;
-      whitelist = [ "kgx" "Code - Insiders" "org.remmina.Remmina" "org.gnome.Console" "jetbrains-studio" ];
+      whitelist = [ "kgx" "code-insiders" "org.remmina.Remmina" "org.gnome.Console" "jetbrains-studio" ];
     };
 
     "org/gnome/shell/extensions/blur-my-shell/coverflow-alt-tab" = {
