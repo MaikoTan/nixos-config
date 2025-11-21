@@ -41,6 +41,13 @@
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
   };
+
+  # KDE Connect integration
+  programs.kdeconnect = {
+    enable = true;
+    package = pkgs.gnomeExtensions.gsconnect;
+  };
+
   programs.xwayland.enable = true;
   services.displayManager.defaultSession = "gnome";
 

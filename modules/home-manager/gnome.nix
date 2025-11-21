@@ -6,7 +6,6 @@
     (with pkgs.gnomeExtensions; [
       appindicator # Tray icons support
       blur-my-shell # Blur effect for GNOME Shell
-      gsconnect # KDE Connect integration
       dash-to-dock # Dock
       unite # Window management
 
