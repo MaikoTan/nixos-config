@@ -22,7 +22,7 @@
     noto-fonts-color-emoji
     roboto-mono
     jetbrains-mono
-    ubuntu_font_family
+    ubuntu-classic
     nerd-fonts.fira-code
     fira-code
     fira-code-symbols
