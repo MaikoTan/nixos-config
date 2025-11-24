@@ -122,7 +122,7 @@
   services.getty.autologinUser = null;
 
   services.samba = {
-    package = pkgs.samba4Full;
+    # package = pkgs.samba4Full; # Full featured samba with AD support break the Python bindings
     usershares.enable = true;
     enable = true;
     openFirewall = true;
