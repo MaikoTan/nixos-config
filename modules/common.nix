@@ -28,9 +28,9 @@
     fira-code-symbols
     # Microsoft Fonts
     corefonts
-    vistafonts
-    vistafonts-cht # Traditional Chinese
-    vistafonts-chs # Simplified Chinese
+    vista-fonts
+    vista-fonts-cht # Traditional Chinese
+    vista-fonts-chs # Simplified Chinese
   ];
 
   # Enable the OpenSSH daemon.
