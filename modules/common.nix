@@ -19,7 +19,7 @@
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     roboto-mono
     jetbrains-mono
     ubuntu_font_family
