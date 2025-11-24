@@ -37,6 +37,11 @@
     };
 
     wechat-devtools.url = "github:MaikoTan/wechat-devtools";
+
+    android-nixpkgs = {
+      url = "github:tadfisher/android-nixpkgs/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -48,6 +53,10 @@
       ...
     }@inputs:
     let
+      overlays = [
+        inputs.android-nixpkgs.overlays.default
+      ];
+
       generatorFormats =
         { config, ... }:
         {
@@ -73,6 +82,9 @@
             inherit inputs;
           };
           modules = [
+            {
+              nixpkgs.overlays = overlays;
+            }
             {
               nixpkgs.config.allowUnfree = true;
               nixpkgs.config.allowUnfreePredicate = _: true;

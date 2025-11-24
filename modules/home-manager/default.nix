@@ -1,21 +1,14 @@
 {
   inputs,
+  config,
   osConfig,
   pkgs,
   ...
 }:
 
-let
-  androidSdkModule = import ((builtins.fetchGit {
-    url = "https://github.com/tadfisher/android-nixpkgs.git";
-    ref = "stable";  # Or "stable", "beta", "preview", "canary"
-  }) + "/hm-module.nix");
-
-in
-
 {
   imports = [
-    androidSdkModule
+    inputs.android-nixpkgs.hmModule
     ./vscode/default.nix
     ./fish/default.nix
     ./dconf.nix
@@ -54,7 +47,9 @@ in
       pkgs.android-studio
     ];
 
-  android-sdk.packages = sdkPkgs: with sdkPkgs; [
+  android-sdk.enable = true;
+  android-sdk.path = "${config.home.homeDirectory}/.android/sdk";
+  android-sdk.packages = sdk: with sdk; [
     build-tools-36-1-0
     cmdline-tools-latest
     emulator
