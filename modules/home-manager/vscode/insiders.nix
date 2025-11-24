@@ -10,7 +10,12 @@ let
 
   package = (
     inputs.code-insiders.packages."x86_64-linux".vscode-insider.overrideAttrs (oldAttrs: {
-      buildInputs = oldAttrs.buildInputs ++ [ pkgs.krb5 ];
+      buildInputs = oldAttrs.buildInputs ++ [
+        pkgs.webkitgtk_4_1
+        pkgs.libsoup_3
+        pkgs.openssl
+        pkgs.curl
+      ];
     })
   );
   editor = "${package}/bin/code-insiders --wait";
