@@ -60,7 +60,7 @@
     { from = 8080; to = 8090; } # Common dev server port
   ];
 
-  nix.use-china-mirrors = true;
+  maiko.nix.useChinaMirrors = true;
 
   programs.clash-verge = {
     enable = true;

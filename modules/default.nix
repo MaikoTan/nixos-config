@@ -11,7 +11,7 @@
     ./docker.nix
     ./ime.nix
     ./miku-cursors.nix
-    ./nix.nix
+    ./nix/default.nix
   ];
 
   programs.gnupg.agent = {
