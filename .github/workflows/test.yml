@@ -21,6 +21,8 @@ jobs:
       - uses: wimpysworld/nothing-but-nix@main
         with:
           hatchet-protocol: 'rampage'
+          witness-carnage: true
+          nix-permission-edict: true
 
       - name: Set up Nix
         uses: cachix/install-nix-action@v27
