@@ -41,6 +41,26 @@
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
   };
+  # Exclude unwanted GNOME applications
+  environment.gnome.excludePackages = with pkgs; [
+    baobab  # Disk usage analyzer
+    epiphany  # Web browser
+    evince  # Document viewer
+    gedit  # Text editor
+    gnome-calculator  # Calculator
+    gnome-calendar  # Calendar
+    gnome-characters  # Character map
+    gnome-clocks  # Clocks
+    gnome-contacts  # Contacts
+    gnome-maps  # Maps
+    gnome-music  # Music
+    gnome-photos  # Photos
+    gnome-software  # Software
+    gnome-weather  # Weather
+    simple-scan  # Scanner
+    totem  # Video player
+    yelp  # Help documentation
+  ];
 
   # KDE Connect integration
   programs.kdeconnect = {
