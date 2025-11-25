@@ -90,8 +90,7 @@
               nixpkgs.config.allowUnfreePredicate = _: true;
               nixpkgs.config.android_sdk.accept_license = true;
             }
-            sops-nix.nixosModules.sops
-            ./sops.nix
+            ./modules/sops.nix
             ./machines/${machine}/config.nix
             generatorFormats
           ];
