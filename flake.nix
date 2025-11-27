@@ -45,23 +45,23 @@
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      nixos-generators,
-      sops-nix,
-      ...
-    }@inputs:
+    inputs@{ nixpkgs, ... }:
     let
       overlays = [
         inputs.android-nixpkgs.overlays.default
       ];
 
+      config = {
+        allowUnfree = true;
+        allowUnfreePredicate = _: true;
+        android_sdk.accept_license = true;
+      };
+
       generatorFormats =
         { config, ... }:
         {
           imports = [
-            nixos-generators.nixosModules.all-formats
+            inputs.nixos-generators.nixosModules.all-formats
           ];
 
           nixpkgs.hostPlatform = "x86_64-linux";
@@ -84,11 +84,7 @@
           modules = [
             {
               nixpkgs.overlays = overlays;
-            }
-            {
-              nixpkgs.config.allowUnfree = true;
-              nixpkgs.config.allowUnfreePredicate = _: true;
-              nixpkgs.config.android_sdk.accept_license = true;
+              nixpkgs.config = config;
             }
             ./modules/sops.nix
             ./machines/${machine}/config.nix
@@ -109,6 +105,20 @@
     in
     {
       nixosConfigurations = (builtins.foldl' (a: b: a // b) { } machineConfigs);
+
+      homeConfigurations = {
+        maiko = inputs.home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            overlays = overlays;
+            config = config;
+          };
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./modules/home-manager
+          ];
+        };
+      };
 
       devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
         buildInputs = with nixpkgs.legacyPackages.x86_64-linux; [
