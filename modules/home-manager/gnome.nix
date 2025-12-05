@@ -15,8 +15,9 @@
         # modify the metadata.json to bump the gnome version to 48
         nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ pkgs.jq ];
         postPatch = (oldAttrs.postPatch or "") + ''
-          # add "48" to shell-version only if it's missing
+          # add "48" and "49 to shell-version only if it's missing
           jq 'if (.["shell-version"] | index("48")) then . else .["shell-version"] += ["48"] end' metadata.json > metadata.json.tmp && mv metadata.json.tmp metadata.json
+          jq 'if (.["shell-version"] | index("49")) then . else .["shell-version"] += ["49"] end' metadata.json > metadata.json.tmp && mv metadata.json.tmp metadata.json
         '';
       }))
     ])

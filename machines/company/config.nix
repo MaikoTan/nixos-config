@@ -21,6 +21,11 @@
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";
 
+  # TODO: Fix GTK4 apps rendering issue with Intel UHD 630
+  environment.sessionVariables = {
+    GSK_RENDERER = "gl";
+  };
+
   networking.hostName = lib.mkDefault "company";
 
   # While it would be simplier to just use networking.interfaces.<name>.ipv4.routes
