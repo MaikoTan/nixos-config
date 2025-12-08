@@ -291,7 +291,7 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/wm/preferences" = {
       button-layout = "close,maximize,minimize:icon";
-      workspace-names = [];
+      workspace-names = [ "Browser" "Coding" "Coding - 1" "Remote" ];
     };
 
     "org/gnome/evince/default" = {
@@ -309,6 +309,20 @@ with lib.hm.gvariant;
 
     "org/gnome/evolution-data-server" = {
       migrated = true;
+    };
+
+    "org/gnome/file-roller/listing" = {
+      list-mode = "as-folder";
+      name-column-width = 1370;
+      show-path = false;
+      sort-method = "name";
+      sort-type = "ascending";
+    };
+
+    "org/gnome/file-roller/ui" = {
+      sidebar-width = 200;
+      window-height = 480;
+      window-width = 600;
     };
 
     "org/gnome/gnome-system-monitor" = {
@@ -334,6 +348,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/mutter" = {
+      experimental-features = [];
       workspaces-only-on-primary = true;
     };
 
@@ -387,6 +402,21 @@ with lib.hm.gvariant;
     "org/gnome/nm-applet/eap/cf3130d0-f073-415a-8426-fcbf1b10ed78" = {
       ignore-ca-cert = false;
       ignore-phase2-ca-cert = false;
+    };
+
+    "org/gnome/papers" = {
+      night-mode = false;
+    };
+
+    "org/gnome/papers/default" = {
+      annot-color = "yellow";
+      continuous = true;
+      dual-page = false;
+      dual-page-odd-left = false;
+      enable-spellchecking = true;
+      show-sidebar = true;
+      sizing-mode = "automatic";
+      window-height = 1051;
     };
 
     "org/gnome/portal/filechooser/com/google/Chrome" = {
