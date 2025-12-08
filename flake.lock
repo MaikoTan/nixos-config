@@ -30,15 +30,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1763748493,
-        "narHash": "sha256-9xlxiqw2Tx64GakSbJQ2GN6/S8oDzoqSeV8+WzZXepc=",
-        "owner": "Wassaaa",
+        "lastModified": 1764980179,
+        "narHash": "sha256-wxC4A6T2eX4uWIgl6CwcZsotjYkaw3lUdPWyys9G6hA=",
+        "owner": "iosmanthus",
         "repo": "code-insiders-flake",
-        "rev": "13d593d45acd26ad4bf1432577db7b400554f09b",
+        "rev": "6cf2c4ba8683a6253954eca43ee6eb401cd275ee",
         "type": "github"
       },
       "original": {
-        "owner": "Wassaaa",
+        "owner": "iosmanthus",
         "repo": "code-insiders-flake",
         "type": "github"
       }

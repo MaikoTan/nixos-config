@@ -29,10 +29,7 @@
 
     # Development tools
     code-insiders = {
-      url = "github:Wassaaa/code-insiders-flake";
-      # TODO: iosmanthus's version didn't update for a long time, switch back when
-      # https://github.com/iosmanthus/code-insiders-flake/pull/2 is merged.
-      # url = "github:iosmanthus/code-insiders-flake";
+      url = "github:iosmanthus/code-insiders-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
