@@ -58,15 +58,10 @@ in
     top = "${pkgs.bottom}/bin/btm"; # fancy top replacement
     ps = "${pkgs.procs}/bin/procs"; # pretty process viewer
     ping = "${pkgs.gping}/bin/gping"; # ping with graph
-
-    # ----- development -----
-    node = "${nodejs}/bin/node";
-    npm = "${nodejs}/bin/npm";
-    npx = "${nodejs}/bin/npx";
-    corepack = "${nodejs}/bin/corepack";
   };
 
   home.packages = [
+    nodejs
     yarn
     pnpm
   ];

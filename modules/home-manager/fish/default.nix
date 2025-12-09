@@ -5,18 +5,6 @@
   ...
 }:
 
-let
-
-  nodejs = pkgs.nodejs_22;
-  yarn = pkgs.writeShellScriptBin "yarn" ''
-    exec ${nodejs}/bin/corepack yarn@4 "$@"
-  '';
-  pnpm = pkgs.writeShellScriptBin "pnpm" ''
-    exec ${nodejs}/bin/corepack pnpm@latest "$@"
-  '';
-
-in
-
 {
   imports = [
     ./prompt.nix
