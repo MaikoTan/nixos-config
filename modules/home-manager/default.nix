@@ -49,14 +49,15 @@
 
   android-sdk.enable = true;
   android-sdk.path = "${config.home.homeDirectory}/.android/sdk";
-  android-sdk.packages = sdk: with sdk; [
-    build-tools-36-1-0
-    cmdline-tools-latest
-    emulator
-    system-images-android-36-google-apis-x86-64
-    platforms-android-36
-    sources-android-36
-  ];
+  android-sdk.packages =
+    sdk: with sdk; [
+      build-tools-36-1-0
+      cmdline-tools-latest
+      emulator
+      system-images-android-36-google-apis-x86-64
+      platforms-android-36
+      sources-android-36
+    ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

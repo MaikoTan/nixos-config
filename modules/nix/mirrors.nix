@@ -17,7 +17,6 @@ in
     '';
   };
 
-
   /*
     Prepend China mirrors to the list of Nix substituters if the `use-china-mirrors` option is enabled.
     This is useful for users in China to improve download speeds and reliability when fetching packages.

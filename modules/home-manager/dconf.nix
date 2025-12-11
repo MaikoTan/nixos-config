@@ -11,7 +11,12 @@ with lib.hm.gvariant;
 
     "com/uploadedlobster/peek" = {
       persist-save-folder = "/home/maiko/workspaces/cactbot-highlight/images";
-      persist-window-geometry = mkTuple [ 305 91 993 675 ];
+      persist-window-geometry = mkTuple [
+        305
+        91
+        993
+        675
+      ];
     };
 
     "org/gnome/Console" = {
@@ -19,7 +24,10 @@ with lib.hm.gvariant;
       font-scale = 1.0;
       ignore-scrollback-limit = true;
       last-window-maximised = true;
-      last-window-size = mkTuple [ 754 549 ];
+      last-window-size = mkTuple [
+        754
+        549
+      ];
       theme = "night";
     };
 
@@ -28,14 +36,31 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/Totem" = {
-      active-plugins = [ "skipto" "autoload-subtitles" "variable-rate" "screenshot" "screensaver" "apple-trailers" "save-file" "mpris" "movie-properties" "rotation" "vimeo" "recent" "open-directory" ];
+      active-plugins = [
+        "skipto"
+        "autoload-subtitles"
+        "variable-rate"
+        "screenshot"
+        "screensaver"
+        "apple-trailers"
+        "save-file"
+        "mpris"
+        "movie-properties"
+        "rotation"
+        "vimeo"
+        "recent"
+        "open-directory"
+      ];
       subtitle-encoding = "UTF-8";
     };
 
     "org/gnome/baobab/ui" = {
       active-chart = "rings";
       is-maximized = false;
-      window-size = mkTuple [ 960 600 ];
+      window-size = mkTuple [
+        960
+        600
+      ];
     };
 
     "org/gnome/calculator" = {
@@ -51,19 +76,29 @@ with lib.hm.gvariant;
       target-currency = "";
       target-units = "radian";
       window-maximized = false;
-      window-size = mkTuple [ 360 666 ];
+      window-size = mkTuple [
+        360
+        666
+      ];
       word-size = 64;
     };
 
     "org/gnome/calendar" = {
       active-view = "month";
       window-maximized = true;
-      window-size = mkTuple [ 646 600 ];
+      window-size = mkTuple [
+        646
+        600
+      ];
     };
 
     "org/gnome/control-center" = {
       last-panel = "wifi";
-      window-state = mkTuple [ 760 510 false ];
+      window-state = mkTuple [
+        760
+        510
+        false
+      ];
     };
 
     "org/gnome/desktop/a11y/applications" = {
@@ -71,7 +106,11 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/app-folders" = {
-      folder-children = [ "Utilities" "YaST" "Pardus" ];
+      folder-children = [
+        "Utilities"
+        "YaST"
+        "Pardus"
+      ];
     };
 
     "org/gnome/desktop/app-folders/folders/Pardus" = {
@@ -81,7 +120,24 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/app-folders/folders/Utilities" = {
-      apps = [ "gnome-abrt.desktop" "gnome-system-log.desktop" "nm-connection-editor.desktop" "org.gnome.baobab.desktop" "org.gnome.Connections.desktop" "org.gnome.DejaDup.desktop" "org.gnome.Dictionary.desktop" "org.gnome.DiskUtility.desktop" "org.gnome.Evince.desktop" "org.gnome.FileRoller.desktop" "org.gnome.fonts.desktop" "org.gnome.Loupe.desktop" "org.gnome.seahorse.Application.desktop" "org.gnome.tweaks.desktop" "org.gnome.Usage.desktop" "vinagre.desktop" ];
+      apps = [
+        "gnome-abrt.desktop"
+        "gnome-system-log.desktop"
+        "nm-connection-editor.desktop"
+        "org.gnome.baobab.desktop"
+        "org.gnome.Connections.desktop"
+        "org.gnome.DejaDup.desktop"
+        "org.gnome.Dictionary.desktop"
+        "org.gnome.DiskUtility.desktop"
+        "org.gnome.Evince.desktop"
+        "org.gnome.FileRoller.desktop"
+        "org.gnome.fonts.desktop"
+        "org.gnome.Loupe.desktop"
+        "org.gnome.seahorse.Application.desktop"
+        "org.gnome.tweaks.desktop"
+        "org.gnome.Usage.desktop"
+        "vinagre.desktop"
+      ];
       categories = [ "X-GNOME-Utilities" ];
       name = "X-GNOME-Utilities.directory";
       translate = true;
@@ -114,8 +170,18 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/input-sources" = {
-      mru-sources = [ (mkTuple [ "xkb" "us" ]) ];
-      sources = [ (mkTuple [ "xkb" "us" ]) ];
+      mru-sources = [
+        (mkTuple [
+          "xkb"
+          "us"
+        ])
+      ];
+      sources = [
+        (mkTuple [
+          "xkb"
+          "us"
+        ])
+      ];
       xkb-options = [ "compose:ins" ];
     };
 
@@ -135,7 +201,33 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "org-gnome-software" "google-chrome" "org-gnome-console" "todesk" "gimp" "org-gnome-baobab" "org-gnome-nautilus" "firefox" "qq" "gnome-power-panel" "org-gnome-settings" "wemeetapp" "info-mumble-mumble" "com-obsproject-studio" "org-gnome-extensions" "org-kde-spectacle" "libreoffice-calc" "com-alibabainc-dingtalk" "parsecd" "org-gnome-shell-extensions" "org-gnome-shell-extensions-gsconnect" "virtualbox" "clash-verge" "gnome-about-panel" "org-remmina-remmina" ];
+      application-children = [
+        "org-gnome-software"
+        "google-chrome"
+        "org-gnome-console"
+        "todesk"
+        "gimp"
+        "org-gnome-baobab"
+        "org-gnome-nautilus"
+        "firefox"
+        "qq"
+        "gnome-power-panel"
+        "org-gnome-settings"
+        "wemeetapp"
+        "info-mumble-mumble"
+        "com-obsproject-studio"
+        "org-gnome-extensions"
+        "org-kde-spectacle"
+        "libreoffice-calc"
+        "com-alibabainc-dingtalk"
+        "parsecd"
+        "org-gnome-shell-extensions"
+        "org-gnome-shell-extensions-gsconnect"
+        "virtualbox"
+        "clash-verge"
+        "gnome-about-panel"
+        "org-remmina-remmina"
+      ];
     };
 
     "org/gnome/desktop/notifications/application/android-studio" = {
@@ -270,7 +362,11 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/search-providers" = {
-      sort-order = [ "org.gnome.Contacts.desktop" "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" ];
+      sort-order = [
+        "org.gnome.Contacts.desktop"
+        "org.gnome.Documents.desktop"
+        "org.gnome.Nautilus.desktop"
+      ];
     };
 
     "org/gnome/desktop/session" = {
@@ -291,7 +387,12 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/wm/preferences" = {
       button-layout = "close,maximize,minimize:icon";
-      workspace-names = [ "Browser" "Coding" "Coding - 1" "Remote" ];
+      workspace-names = [
+        "Browser"
+        "Coding"
+        "Coding - 1"
+        "Remote"
+      ];
     };
 
     "org/gnome/evince/default" = {
@@ -342,13 +443,40 @@ with lib.hm.gvariant;
     "org/gnome/gnome-system-monitor/proctree" = {
       col-26-visible = false;
       col-26-width = 0;
-      columns-order = [ 0 1 2 3 4 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 ];
+      columns-order = [
+        0
+        1
+        2
+        3
+        4
+        6
+        7
+        8
+        9
+        10
+        11
+        12
+        13
+        14
+        15
+        16
+        17
+        18
+        19
+        20
+        21
+        22
+        23
+        24
+        25
+        26
+      ];
       sort-col = 8;
       sort-order = 0;
     };
 
     "org/gnome/mutter" = {
-      experimental-features = [];
+      experimental-features = [ ];
       workspaces-only-on-primary = true;
     };
 
@@ -374,8 +502,14 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/nautilus/window-state" = {
-      initial-size = mkTuple [ 890 550 ];
-      initial-size-file-chooser = mkTuple [ 890 550 ];
+      initial-size = mkTuple [
+        890
+        550
+      ];
+      initial-size-file-chooser = mkTuple [
+        890
+        550
+      ];
       maximized = true;
     };
 
@@ -444,7 +578,9 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
-      custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" ];
+      custom-keybindings = [
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+      ];
     };
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
@@ -459,11 +595,42 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell" = {
-      command-history = [ "r" "lg" ];
+      command-history = [
+        "r"
+        "lg"
+      ];
       disable-user-extensions = false;
-      disabled-extensions = [ "window-list@gnome-shell-extensions.gcampax.github.com" "windowsNavigator@gnome-shell-extensions.gcampax.github.com" "status-icons@gnome-shell-extensions.gcampax.github.com" "backslide@codeisland.org" ];
-      enabled-extensions = [ "apps-menu@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" "launch-new-instance@gnome-shell-extensions.gcampax.github.com" "auto-move-windows@gnome-shell-extensions.gcampax.github.com" "drive-menu@gnome-shell-extensions.gcampax.github.com" "screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com" "workspace-indicator@gnome-shell-extensions.gcampax.github.com" "dash-to-dock@micxgx.gmail.com" "unite@hardpixel.eu" "native-window-placement@gnome-shell-extensions.gcampax.github.com" "places-menu@gnome-shell-extensions.gcampax.github.com" "system-monitor@gnome-shell-extensions.gcampax.github.com" "kimpanel@kde.org" "scroll-workspaces@gfxmonk.net" "blur-my-shell@aunetx" "gsconnect@andyholmes.github.io" "wallhub@sakithb.github.io" "appindicatorsupport@rgcjonas.gmail.com" ];
-      favorite-apps = [ "google-chrome.desktop" "org.gnome.Nautilus.desktop" "code-insiders.desktop" ];
+      disabled-extensions = [
+        "window-list@gnome-shell-extensions.gcampax.github.com"
+        "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
+        "status-icons@gnome-shell-extensions.gcampax.github.com"
+        "backslide@codeisland.org"
+      ];
+      enabled-extensions = [
+        "apps-menu@gnome-shell-extensions.gcampax.github.com"
+        "user-theme@gnome-shell-extensions.gcampax.github.com"
+        "launch-new-instance@gnome-shell-extensions.gcampax.github.com"
+        "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
+        "drive-menu@gnome-shell-extensions.gcampax.github.com"
+        "screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com"
+        "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
+        "dash-to-dock@micxgx.gmail.com"
+        "unite@hardpixel.eu"
+        "native-window-placement@gnome-shell-extensions.gcampax.github.com"
+        "places-menu@gnome-shell-extensions.gcampax.github.com"
+        "system-monitor@gnome-shell-extensions.gcampax.github.com"
+        "kimpanel@kde.org"
+        "scroll-workspaces@gfxmonk.net"
+        "blur-my-shell@aunetx"
+        "gsconnect@andyholmes.github.io"
+        "wallhub@sakithb.github.io"
+        "appindicatorsupport@rgcjonas.gmail.com"
+      ];
+      favorite-apps = [
+        "google-chrome.desktop"
+        "org.gnome.Nautilus.desktop"
+        "code-insiders.desktop"
+      ];
       welcome-dialog-last-shown-version = "45.4";
     };
 
@@ -496,7 +663,13 @@ with lib.hm.gvariant;
       dynamic-opacity = false;
       opacity = 235;
       sigma = 0;
-      whitelist = [ "kgx" "code-insiders" "org.remmina.Remmina" "org.gnome.Console" "jetbrains-studio" ];
+      whitelist = [
+        "kgx"
+        "code-insiders"
+        "org.remmina.Remmina"
+        "org.gnome.Console"
+        "jetbrains-studio"
+      ];
     };
 
     "org/gnome/shell/extensions/blur-my-shell/coverflow-alt-tab" = {
@@ -558,12 +731,82 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/gsconnect/device/8434dc07a4584327b1ad4956050c45ad" = {
       certificate-pem = "-----BEGIN CERTIFICATE-----nMIIDFzCCAf+gAwIBAgIBATANBgkqhkiG9w0BAQ0FADBPMSkwJwYDVQQDDCA4NDM0nZGMwN2E0NTg0MzI3YjFhZDQ5NTYwNTBjNDVhZDEUMBIGA1UECwwLS0RFIENvbm5lnY3QxDDAKBgNVBAoMA0tERTAeFw0yNDA0MTIxNjAwMDBaFw0zNTA0MTIxNjAwMDBanME8xKTAnBgNVBAMMIDg0MzRkYzA3YTQ1ODQzMjdiMWFkNDk1NjA1MGM0NWFkMRQwnEgYDVQQLDAtLREUgQ29ubmVjdDEMMAoGA1UECgwDS0RFMIIBIjANBgkqhkiG9w0BnAQEFAAOCAQ8AMIIBCgKCAQEAsF3w0fBMax0FXv8PGnrV0u5gCxNX5KE3iJmO791unnHce6A7gELBqRYA7DrFb3apE1yQWieZk5vITmqHNgWm/5NX7z8ts/4R9pKa75HZLnfwcf8Zv8DgI0i75bRP8L9y+iIpcUmetf6xD5NiEoiX/N+m6N57KItCDGoKmTPkmfniVfdFLwap6i9ba/RxxH6wgDNsXngUlViUXyXH7YE9M2ULr5t4eBBqMRUNCqiGHAgnNXrHzE5NcyG75r61dMeplZo+O0DHT4kqLWXah981dX6eIw/uKbYmrCJle5dbY5zjnd5n7pr8qKUFVVyI7iNN3TMUcvkw/52ImVnqnfouqoSiv/QIDAQABMA0GCSqGSIb3nDQEBDQUAA4IBAQCLmJIqIGlA0L19DY0hjTNM7aQZLVQxK25AGrk7bpEPl/3x5xpDnpRWLzoUtbVjbfVX3ewDFyzrMYAEfmHDy+z14De8mG+iujsFPlflX+BrXyxHAAr25nLjBumwuTQvSckiMNC5oqT0tbXhKSYFwD/ifkAMLIbdm7wJFkZ9epBTwU4Y0VKeNAn9/hLvjIAggadpYbnudkm17icibTHTPRd3jK5cQ65x66TfNQ3CoWOVoUG3ST+i5hmnbLIAg9fWYwIsV9FU4X0Gsj889iIJSOiCwjaLS0WYxTQHZe0qmsJCaaY/updls9hZnW4jhKDw4SR4JTd4/kJdkLlzCRKCt7g/LBWkWn-----END CERTIFICATE-----n";
-      incoming-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.contacts.request_all_uids_timestamps" "kdeconnect.contacts.request_vcards_by_uid" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.action" "kdeconnect.notification.reply" "kdeconnect.notification.request" "kdeconnect.ping" "kdeconnect.runcommand" "kdeconnect.sftp.request" "kdeconnect.share.request" "kdeconnect.share.request.update" "kdeconnect.sms.request" "kdeconnect.sms.request_attachment" "kdeconnect.sms.request_conversation" "kdeconnect.sms.request_conversations" "kdeconnect.systemvolume" "kdeconnect.telephony.request" "kdeconnect.telephony.request_mute" ];
+      incoming-capabilities = [
+        "kdeconnect.battery"
+        "kdeconnect.bigscreen.stt"
+        "kdeconnect.clipboard"
+        "kdeconnect.clipboard.connect"
+        "kdeconnect.contacts.request_all_uids_timestamps"
+        "kdeconnect.contacts.request_vcards_by_uid"
+        "kdeconnect.findmyphone.request"
+        "kdeconnect.mousepad.keyboardstate"
+        "kdeconnect.mousepad.request"
+        "kdeconnect.mpris"
+        "kdeconnect.mpris.request"
+        "kdeconnect.notification"
+        "kdeconnect.notification.action"
+        "kdeconnect.notification.reply"
+        "kdeconnect.notification.request"
+        "kdeconnect.ping"
+        "kdeconnect.runcommand"
+        "kdeconnect.sftp.request"
+        "kdeconnect.share.request"
+        "kdeconnect.share.request.update"
+        "kdeconnect.sms.request"
+        "kdeconnect.sms.request_attachment"
+        "kdeconnect.sms.request_conversation"
+        "kdeconnect.sms.request_conversations"
+        "kdeconnect.systemvolume"
+        "kdeconnect.telephony.request"
+        "kdeconnect.telephony.request_mute"
+      ];
       last-connection = "lan://192.168.148.197:1716";
       name = "M2007J3SC";
-      outgoing-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.connectivity_report" "kdeconnect.contacts.response_uids_timestamps" "kdeconnect.contacts.response_vcards" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.echo" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.request" "kdeconnect.ping" "kdeconnect.presenter" "kdeconnect.runcommand.request" "kdeconnect.sftp" "kdeconnect.share.request" "kdeconnect.sms.attachment_file" "kdeconnect.sms.messages" "kdeconnect.systemvolume.request" "kdeconnect.telephony" ];
+      outgoing-capabilities = [
+        "kdeconnect.battery"
+        "kdeconnect.bigscreen.stt"
+        "kdeconnect.clipboard"
+        "kdeconnect.clipboard.connect"
+        "kdeconnect.connectivity_report"
+        "kdeconnect.contacts.response_uids_timestamps"
+        "kdeconnect.contacts.response_vcards"
+        "kdeconnect.findmyphone.request"
+        "kdeconnect.mousepad.echo"
+        "kdeconnect.mousepad.keyboardstate"
+        "kdeconnect.mousepad.request"
+        "kdeconnect.mpris"
+        "kdeconnect.mpris.request"
+        "kdeconnect.notification"
+        "kdeconnect.notification.request"
+        "kdeconnect.ping"
+        "kdeconnect.presenter"
+        "kdeconnect.runcommand.request"
+        "kdeconnect.sftp"
+        "kdeconnect.share.request"
+        "kdeconnect.sms.attachment_file"
+        "kdeconnect.sms.messages"
+        "kdeconnect.systemvolume.request"
+        "kdeconnect.telephony"
+      ];
       paired = true;
-      supported-plugins = [ "battery" "clipboard" "connectivity_report" "contacts" "findmyphone" "mousepad" "mpris" "notification" "ping" "presenter" "runcommand" "sftp" "share" "sms" "systemvolume" "telephony" ];
+      supported-plugins = [
+        "battery"
+        "clipboard"
+        "connectivity_report"
+        "contacts"
+        "findmyphone"
+        "mousepad"
+        "mpris"
+        "notification"
+        "ping"
+        "presenter"
+        "runcommand"
+        "sftp"
+        "share"
+        "sms"
+        "systemvolume"
+        "telephony"
+      ];
       type = "phone";
     };
 
@@ -582,11 +825,12 @@ with lib.hm.gvariant;
       share-control = true;
     };
 
-    "org/gnome/shell/extensions/gsconnect/device/8434dc07a4584327b1ad4956050c45ad/plugin/notification" = {
-      applications = ''
-        {}
-      '';
-    };
+    "org/gnome/shell/extensions/gsconnect/device/8434dc07a4584327b1ad4956050c45ad/plugin/notification" =
+      {
+        applications = ''
+          {}
+        '';
+      };
 
     "org/gnome/shell/extensions/gsconnect/device/8434dc07a4584327b1ad4956050c45ad/plugin/share" = {
       receive-directory = "/home/maiko/Downloads";
@@ -594,7 +838,10 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/gsconnect/preferences" = {
       window-maximized = false;
-      window-size = mkTuple [ 733 460 ];
+      window-size = mkTuple [
+        733
+        460
+      ];
     };
 
     "org/gnome/shell/extensions/kimpanel" = {
@@ -638,7 +885,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/world-clocks" = {
-      locations = [];
+      locations = [ ];
     };
 
     "org/gnome/software" = {
@@ -669,11 +916,20 @@ with lib.hm.gvariant;
       sort-order = "ascending";
       type-format = "category";
       view-type = "grid";
-      window-size = mkTuple [ 815 746 ];
+      window-size = mkTuple [
+        815
+        746
+      ];
     };
 
     "org/gtk/settings/color-chooser" = {
-      selected-color = mkTuple [ true 1.0 1.0 1.0 1.0 ];
+      selected-color = mkTuple [
+        true
+        1.0
+        1.0
+        1.0
+        1.0
+      ];
     };
 
     "org/gtk/settings/file-chooser" = {
@@ -687,13 +943,27 @@ with lib.hm.gvariant;
       sort-directories-first = false;
       sort-order = "descending";
       type-format = "category";
-      window-position = mkTuple [ 26 23 ];
-      window-size = mkTuple [ 1096 821 ];
+      window-position = mkTuple [
+        26
+        23
+      ];
+      window-size = mkTuple [
+        1096
+        821
+      ];
     };
 
     "system/proxy" = {
       autoconfig-url = "http://127.0.0.1:33331/commands/pac";
-      ignore-hosts = [ "localhost" "127.0.0.1" "192.168.0.0/16" "10.0.0.0/8" "172.16.0.0/12" "172.29.0.0/16" "::1" ];
+      ignore-hosts = [
+        "localhost"
+        "127.0.0.1"
+        "192.168.0.0/16"
+        "10.0.0.0/8"
+        "172.16.0.0/12"
+        "172.29.0.0/16"
+        "::1"
+      ];
       mode = "auto";
     };
 

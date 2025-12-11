@@ -59,10 +59,22 @@
     7890
   ];
   networking.firewall.allowedTCPPortRanges = [
-    { from = 5173; to = 5183; } # Vite dev server
-    { from = 4000; to = 4010; } # Other common dev server ports
-    { from = 3000; to = 3010; } # Next.js dev server
-    { from = 8080; to = 8090; } # Common dev server port
+    {
+      from = 5173;
+      to = 5183;
+    } # Vite dev server
+    {
+      from = 4000;
+      to = 4010;
+    } # Other common dev server ports
+    {
+      from = 3000;
+      to = 3010;
+    } # Next.js dev server
+    {
+      from = 8080;
+      to = 8090;
+    } # Common dev server port
   ];
 
   maiko.nix.useChinaMirrors = true;
