@@ -1,0 +1,21 @@
+name: Update Nix Flake Lock
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 1 1,15 * *" # runs at 01:00 on the 1st and 15th of every month
+
+jobs:
+  nix-flake-update:
+    permissions:
+      contents: write
+      id-token: write
+      issues: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/determinate-nix-action@v3
+      - uses: DeterminateSystems/update-flake-lock@main
+        with:
+          pr-title: "chore(flake): update Nix flake inputs"
