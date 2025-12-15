@@ -1,6 +1,8 @@
-{ ... }:
+{ inputs, ... }:
 
 {
+  imports = [ inputs.angrr.nixosModules.angrr ];
+
   nix.gc.automatic = true;
 
   services.angrr = {
@@ -31,7 +33,7 @@
             "/nix/var/nix/profiles/per-user/root/profile"
           ];
           keep-since = "1d";
-          keep-latest-n = 5;
+          keep-latest-n = 1;
         };
       };
     };
