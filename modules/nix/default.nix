@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./gc.nix
     ./mirrors.nix
   ];
 

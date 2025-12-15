@@ -27,6 +27,11 @@
 
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
+    angrr = {
+      url = "github:linyinfeng/angrr";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Development tools
     code-insiders = {
       url = "github:iosmanthus/code-insiders-flake";
@@ -46,6 +51,7 @@
     let
       overlays = [
         inputs.android-nixpkgs.overlays.default
+        inputs.angrr.overlays.default
       ];
 
       config = {
