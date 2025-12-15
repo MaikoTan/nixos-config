@@ -22,7 +22,7 @@
         system = {
           profile-paths = [ "/nix/var/nix/profiles/system" ];
           keep-since = "14d";
-          keep-latest-n = 5;
+          keep-latest-n = 15;
           keep-booted-system = true;
           keep-current-system = true;
         };
