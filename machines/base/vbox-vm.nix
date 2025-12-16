@@ -8,7 +8,7 @@
 # }
 # ```
 
-{ ... }:
+_:
 
 {
   imports = [ ./config.nix ];

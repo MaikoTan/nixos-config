@@ -66,19 +66,21 @@ in
     pnpm
   ];
 
-  programs.fish.functions = lib.mkIf config.programs.fish.enable {
-    gitignore = "curl -sL https://www.gitignore.io/api/$argv";
+  programs = {
+    fish.functions = lib.mkIf config.programs.fish.enable {
+      gitignore = "curl -sL https://www.gitignore.io/api/$argv";
+    };
+
+    bash.bashrcExtra = lib.mkIf config.programs.bash.enable ''
+      gitignore() {
+        curl -sL https://www.gitignore.io/api/"$@"
+      }
+    '';
+
+    zsh.initContent = lib.mkIf config.programs.zsh.enable ''
+      gitignore() {
+        curl -sL https://www.gitignore.io/api/"$@"
+      }
+    '';
   };
-
-  programs.bash.bashrcExtra = lib.mkIf config.programs.bash.enable ''
-    gitignore() {
-      curl -sL https://www.gitignore.io/api/"$@"
-    }
-  '';
-
-  programs.zsh.initContent = lib.mkIf config.programs.zsh.enable ''
-    gitignore() {
-      curl -sL https://www.gitignore.io/api/"$@"
-    }
-  '';
 }

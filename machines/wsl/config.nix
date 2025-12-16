@@ -8,7 +8,6 @@
 {
   config,
   inputs,
-  lib,
   pkgs,
   ...
 }:
@@ -51,9 +50,11 @@
     ];
   };
 
-  programs.nix-ld.enable = true;
-  programs.git.enable = true;
-  programs.fish.enable = true;
+  programs = {
+    nix-ld.enable = true;
+    git.enable = true;
+    fish.enable = true;
+  };
   services.openssh.enable = true;
 
   environment.systemPackages = with pkgs; [

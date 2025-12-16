@@ -1,43 +1,41 @@
 {
   inputs,
-  lib,
   pkgs,
-  config,
   ...
 }:
 
 let
 
-  package = (
-    inputs.code-insiders.packages."x86_64-linux".vscode-insider.overrideAttrs (oldAttrs: {
-      buildInputs = oldAttrs.buildInputs ++ [
-        pkgs.webkitgtk_4_1
-        pkgs.libsoup_3
-        pkgs.openssl
-        pkgs.curl
-      ];
-    })
-  );
+  package = inputs.code-insiders.packages."x86_64-linux".vscode-insider.overrideAttrs (oldAttrs: {
+    buildInputs = oldAttrs.buildInputs ++ [
+      pkgs.webkitgtk_4_1
+      pkgs.libsoup_3
+      pkgs.openssl
+      pkgs.curl
+    ];
+  });
   editor = "${package}/bin/code-insiders --wait";
 
 in
 
 {
-  programs.vscode = {
-    enable = true;
-    # isInsiders = true; # No need to set this option since the flake input already set it in their package definition.
+  programs = {
+    vscode = {
+      enable = true;
+      # isInsiders = true; # No need to set this option since the flake input already set it in their package definition.
 
-    mutableExtensionsDir = true; # Allow VS Code to manage extensions as well as user settings.
-    inherit package;
-  };
+      mutableExtensionsDir = true; # Allow VS Code to manage extensions as well as user settings.
+      inherit package;
+    };
 
-  programs.git.settings = {
-    core = {
+    git.settings = {
+      core = {
+        inherit editor;
+      };
+    };
+
+    gh.settings = {
       inherit editor;
     };
-  };
-
-  programs.gh.settings = {
-    inherit editor;
   };
 }

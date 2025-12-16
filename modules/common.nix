@@ -33,14 +33,27 @@
     vista-fonts-chs # Simplified Chinese
   ];
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
-  # Enable the X11 windowing system.
   services = {
+    # Enable the OpenSSH daemon.
+    openssh.enable = true;
+
+    # Enable the X11 windowing system.
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
+
+    # Enable touchpad support (enabled default in most desktopManager).
+    libinput.enable = true;
+
+    # Enable CUPS to print documents.
+    printing.enable = true;
+
+    # Enable sound.
+    pipewire = {
+      enable = true;
+      pulse.enable = true;
+    };
   };
+
   # Exclude unwanted GNOME applications
   environment.gnome.excludePackages = with pkgs; [
     baobab # Disk usage analyzer
@@ -63,25 +76,15 @@
   ];
 
   # KDE Connect integration
-  programs.kdeconnect = {
-    enable = true;
-    package = pkgs.gnomeExtensions.gsconnect;
-  };
+  programs = {
+    kdeconnect = {
+      enable = true;
+      package = pkgs.gnomeExtensions.gsconnect;
+    };
 
-  programs.xwayland.enable = true;
-  services.displayManager.defaultSession = "gnome";
+    xwayland.enable = true;
+    services.displayManager.defaultSession = "gnome";
 
-  programs.dconf.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.libinput.enable = true;
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Enable sound.
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
+    dconf.enable = true;
   };
 }

@@ -25,45 +25,49 @@ let
 in
 
 {
-  boot.initrd.availableKernelModules = [
-    "xhci_pci"
-    "ahci"
-    "nvme"
-    "usbhid"
-    "usb_storage"
-    "rtsx_usb_sdmmc"
-  ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot = {
+    initrd.availableKernelModules = [
+      "xhci_pci"
+      "ahci"
+      "nvme"
+      "usbhid"
+      "usb_storage"
+      "rtsx_usb_sdmmc"
+    ];
+    initrd.kernelModules = [ ];
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
 
-  # use GRUB2 as boot loader
-  boot.loader.grub = {
-    enable = true;
-    device = lib.mkDefault "nodev";
-    efiSupport = true;
+    # use GRUB2 as boot loader
+    loader.grub = {
+      enable = true;
+      device = lib.mkDefault "nodev";
+      efiSupport = true;
+    };
   };
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
-    fsType = "ext4";
-  };
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-label/nixos";
+      fsType = "ext4";
+    };
 
-  # Mount ESP to /boot/efi instead of /boot
-  # Ref: https://nixos.wiki/wiki/Bootloader#Limiting_amount_of_entries_with_grub_or_systemd-boot
-  fileSystems."/boot/efi" = {
-    device = "/dev/disk/by-label/boot";
-    fsType = "vfat";
-  };
+    # Mount ESP to /boot/efi instead of /boot
+    # Ref: https://nixos.wiki/wiki/Bootloader#Limiting_amount_of_entries_with_grub_or_systemd-boot
+    "/boot/efi" = {
+      device = "/dev/disk/by-label/boot";
+      fsType = "vfat";
+    };
 
-  # In this case, we should also set the boot.loader.efi.efiSysMountPoint to /boot/efi as well.
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  # In this case boot.loader.efi.canTouchEfiVariables not work with removable ESP
-  boot.loader.grub.efiInstallAsRemovable = true;
+    # In this case, we should also set the boot.loader.efi.efiSysMountPoint to /boot/efi as well.
+    boot.loader.efi.efiSysMountPoint = "/boot/efi";
+    # In this case boot.loader.efi.canTouchEfiVariables not work with removable ESP
+    boot.loader.grub.efiInstallAsRemovable = true;
 
-  fileSystems."/mnt/data" = {
-    device = "/dev/disk/by-label/Data";
-    fsType = "ext4";
+    "/mnt/data" = {
+      device = "/dev/disk/by-label/Data";
+      fsType = "ext4";
+    };
   };
 
   # Windows Share
@@ -134,11 +138,13 @@ in
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  hardware.enableRedistributableFirmware = true;
+  hardware = {
+    enableRedistributableFirmware = true;
 
-  hardware.firmware = [
-    pkgs.linux-firmware
-  ];
+    firmware = [
+      pkgs.linux-firmware
+    ];
 
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  };
 }

@@ -44,6 +44,11 @@
       url = "github:tadfisher/android-nixpkgs/stable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    statix = {
+      url = "github:oppiliappan/statix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -52,6 +57,7 @@
       overlays = [
         inputs.android-nixpkgs.overlays.default
         inputs.angrr.overlays.default
+        inputs.statix.overlays.default
       ];
 
       config = {
@@ -107,14 +113,14 @@
 
     in
     {
-      nixosConfigurations = (builtins.foldl' (a: b: a // b) { } machineConfigs);
+      nixosConfigurations = builtins.foldl' (a: b: a // b) { } machineConfigs;
 
       homeConfigurations = {
         maiko = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "x86_64-linux";
-            overlays = overlays;
-            config = config;
+            inherit overlays;
+            inherit config;
           };
           extraSpecialArgs = { inherit inputs; };
           modules = [
@@ -135,5 +141,15 @@
       };
 
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
+
+      checks.x86_64-linux = {
+        statix = nixpkgs.legacyPackages.x86_64-linux.runCommandLocal "statix-check" {
+          src = ./.;
+          nativeBuildInputs = [ inputs.statix.packages.x86_64-linux.statix ];
+        } ''
+          statix check ${./.} --config ${./.}/.statix.toml
+          touch $out
+        '';
+      };
     };
 }

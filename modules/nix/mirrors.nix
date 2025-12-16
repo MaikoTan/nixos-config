@@ -22,7 +22,7 @@ in
     This is useful for users in China to improve download speeds and reliability when fetching packages.
   */
   config.nix.settings.substituters = lib.mkMerge [
-    (lib.mkIf (cfg.useChinaMirrors) [
+    (lib.mkIf cfg.useChinaMirrors [
       "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
       "https://mirror.sjtu.edu.cn/nix-channels/store"
       "https://mirrors.ustc.edu.cn/nix-channels/store"
@@ -30,6 +30,7 @@ in
     [
       "https://nix-community.cachix.org"
       "https://maiko-nixos-build.cachix.org"
+      "https://statix.cachix.org"
       "https://cache.nixos.org"
     ]
   ];
