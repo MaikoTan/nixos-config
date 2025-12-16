@@ -77,7 +77,10 @@ in
   environment.systemPackages = [ pkgs.cifs-utils ];
   sops.secrets = secrets;
 
-  systemd.services."mount-smb" = {
+  systemd.services."mount-smb" = let
+    mountPoint = "/mnt/smbmount";
+  in
+  {
     description = "Mount SMB share using SOPS secrets";
     after = [
       "network-online.target"
@@ -91,10 +94,10 @@ in
       EnvironmentFile = config.sops.secrets.samba_env.path;
       ExecStart = pkgs.writeShellScript "mount-smb" ''
         set -a
-        if [ ! -d /mnt/smbmount ]; then
-          mkdir -p /mnt/smbmount
+        if [ ! -d ${mountPoint} ]; then
+          mkdir -p ${mountPoint}
         fi
-        /run/current-system/sw/bin/mount -t cifs "//$SMB_HOST/$SMB_SHARE" /mnt/smbmount -o ${
+        /run/current-system/sw/bin/mount -t cifs "//$SMB_HOST/$SMB_SHARE" ${mountPoint} -o ${
           lib.strings.concatStringsSep "," [
             "credentials=${config.sops.secrets.samba_credentials.path}"
             "vers=3.0"
@@ -106,7 +109,7 @@ in
           ]
         }
       '';
-      ExecStop = "/run/current-system/sw/bin/umount /mnt/smbmount";
+      ExecStop = "/run/current-system/sw/bin/umount ${mountPoint}";
     };
   };
 
