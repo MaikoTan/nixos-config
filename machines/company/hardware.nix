@@ -38,11 +38,18 @@ in
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
 
-    # use GRUB2 as boot loader
-    loader.grub = {
-      enable = true;
-      device = lib.mkDefault "nodev";
-      efiSupport = true;
+    loader = {
+      # use GRUB2 as boot loader
+      grub = {
+        enable = true;
+        device = lib.mkDefault "nodev";
+        efiSupport = true;
+        # In this case boot.loader.efi.canTouchEfiVariables not work with removable ESP
+        efiInstallAsRemovable = true;
+      };
+
+      # In this case, we should also set the boot.loader.efi.efiSysMountPoint to /boot/efi as well.
+      efi.efiSysMountPoint = "/boot/efi";
     };
   };
 
@@ -58,11 +65,6 @@ in
       device = "/dev/disk/by-label/boot";
       fsType = "vfat";
     };
-
-    # In this case, we should also set the boot.loader.efi.efiSysMountPoint to /boot/efi as well.
-    boot.loader.efi.efiSysMountPoint = "/boot/efi";
-    # In this case boot.loader.efi.canTouchEfiVariables not work with removable ESP
-    boot.loader.grub.efiInstallAsRemovable = true;
 
     "/mnt/data" = {
       device = "/dev/disk/by-label/Data";

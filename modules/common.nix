@@ -83,8 +83,9 @@
     };
 
     xwayland.enable = true;
-    services.displayManager.defaultSession = "gnome";
 
     dconf.enable = true;
   };
+
+  services.displayManager.defaultSession = "gnome";
 }
