@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+_:
 
 {
   imports = [
@@ -11,32 +6,7 @@
     ./docker.nix
     ./ime.nix
     ./miku-cursors.nix
-    ./nix/default.nix
+    ./nix
+    ./user.nix
   ];
-
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
-
-  programs.fish.enable = true;
-
-  users.mutableUsers = false;
-  users.users.maiko = {
-    isNormalUser = true;
-    extraGroups = lib.mkMerge [
-      [ "wheel" ]
-      (lib.mkIf config.virtualisation.virtualbox.guest.enable [ "vboxsf" ])
-    ];
-    # mkpasswd -m sha-512
-    hashedPassword = "$6$ghV5XrAdy1cLYxTi$CQKgb.ywKGlhsUBzV4WSCG9aioZOl0Q2NgV8f7f7akLizzKgRNSIXk7PIIO.zoJXKEH4fcLWusWIg6A7XX1Jv/";
-
-    # set fish as default shell
-    shell = pkgs.fish;
-  };
-
-  sops.secrets.companyGitHubToken = {
-    sopsFile = ../secrets/github_tokens.yaml;
-    key = "company";
-  };
 }

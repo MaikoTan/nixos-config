@@ -78,6 +78,11 @@
 
   maiko.nix.useChinaMirrors = true;
 
+  sops.secrets.companyGitHubToken = {
+    sopsFile = ../../secrets/github_tokens.yaml;
+    key = "company";
+  };
+
   programs.clash-verge = {
     enable = true;
     autoStart = true;
