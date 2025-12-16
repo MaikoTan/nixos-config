@@ -12,8 +12,8 @@
     inputs.vscode-server.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
 
-    ../base/desktop.nix
     ./hardware.nix
+    ../../profiles/desktop.nix
     ../../modules/default.nix
   ];
 

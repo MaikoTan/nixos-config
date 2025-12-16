@@ -3,7 +3,7 @@ _:
 {
   imports = [
     ../company/config.nix
-    ../base/vbox-vm.nix
+    ../../profiles/vm.nix
   ];
 
   networking.hostName = "nixos-vm";

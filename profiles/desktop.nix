@@ -1,7 +1,9 @@
 { lib, ... }:
 
 {
-  imports = [ ./config.nix ];
+  imports = [
+    ./base.nix
+  ];
 
   # Desktop environment use GRUB as the boot loader.
   boot.loader.grub = {
