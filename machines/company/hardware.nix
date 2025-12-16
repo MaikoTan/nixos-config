@@ -77,41 +77,42 @@ in
   environment.systemPackages = [ pkgs.cifs-utils ];
   sops.secrets = secrets;
 
-  systemd.services."mount-smb" = let
-    mountPoint = "/mnt/smbmount";
-  in
-  {
-    description = "Mount SMB share using SOPS secrets";
-    after = [
-      "network-online.target"
-      "sops-nix.service"
-    ];
-    wants = [ "network-online.target" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      EnvironmentFile = config.sops.secrets.samba_env.path;
-      ExecStart = pkgs.writeShellScript "mount-smb" ''
-        set -a
-        if [ ! -d ${mountPoint} ]; then
-          mkdir -p ${mountPoint}
-        fi
-        /run/current-system/sw/bin/mount -t cifs "//$SMB_HOST/$SMB_SHARE" ${mountPoint} -o ${
-          lib.strings.concatStringsSep "," [
-            "credentials=${config.sops.secrets.samba_credentials.path}"
-            "vers=3.0"
-            # uid and gid can be name or id
-            "uid=${config.users.users.maiko.name}"
-            "gid=${config.users.users.maiko.group}"
-            "file_mode=0644"
-            "dir_mode=0755"
-          ]
-        }
-      '';
-      ExecStop = "/run/current-system/sw/bin/umount ${mountPoint}";
+  systemd.services."mount-smb" =
+    let
+      mountPoint = "/mnt/smbmount";
+    in
+    {
+      description = "Mount SMB share using SOPS secrets";
+      after = [
+        "network-online.target"
+        "sops-nix.service"
+      ];
+      wants = [ "network-online.target" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        EnvironmentFile = config.sops.secrets.samba_env.path;
+        ExecStart = pkgs.writeShellScript "mount-smb" ''
+          set -a
+          if [ ! -d ${mountPoint} ]; then
+            mkdir -p ${mountPoint}
+          fi
+          /run/current-system/sw/bin/mount -t cifs "//$SMB_HOST/$SMB_SHARE" ${mountPoint} -o ${
+            lib.strings.concatStringsSep "," [
+              "credentials=${config.sops.secrets.samba_credentials.path}"
+              "vers=3.0"
+              # uid and gid can be name or id
+              "uid=${config.users.users.maiko.name}"
+              "gid=${config.users.users.maiko.group}"
+              "file_mode=0644"
+              "dir_mode=0755"
+            ]
+          }
+        '';
+        ExecStop = "/run/current-system/sw/bin/umount ${mountPoint}";
+      };
     };
-  };
 
   # Enable zram swap for better performance on systems with low RAM
   zramSwap = {
