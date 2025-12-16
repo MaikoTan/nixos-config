@@ -84,36 +84,44 @@
             };
         };
 
-      addMachineConfig = machine: {
-        ${machine} = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
-          modules = [
-            {
-              nixpkgs.overlays = overlays;
-              nixpkgs.config = config;
-            }
-            ./modules/sops.nix
-            ./machines/${machine}/config.nix
-            generatorFormats
-          ];
-        };
-      };
-
-      # We need to filter out the "base" machine configuration because it is not a specific machine configuration
-      # but rather a base configuration that other machine configurations can inherit from.
-      # Additionally, we need to ensure that the machine is a directory and not a file.
-      machineNames = builtins.attrNames (builtins.readDir (toString ./machines));
-      filteredMachineNames = builtins.filter (
-        machine: machine != "base" && (builtins.readFileType ./machines/${machine}) == "directory"
-      ) machineNames;
-      machineConfigs = map addMachineConfig filteredMachineNames;
+      hosts = [
+        {
+          hostname = "company";
+          modules = [ ];
+        }
+        {
+          hostname = "wsl";
+          modules = [ ];
+        }
+        {
+          hostname = "nixos-vm";
+          modules = [ generatorFormats ];
+        }
+      ];
 
     in
     {
-      nixosConfigurations = builtins.foldl' (a: b: a // b) { } machineConfigs;
+      nixosConfigurations = builtins.foldl' (
+        configs: host:
+        configs
+        // {
+          ${host.hostname} = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            specialArgs = {
+              inherit inputs;
+            };
+            modules = [
+              {
+                nixpkgs.overlays = overlays;
+                nixpkgs.config = config;
+              }
+              ./modules/sops.nix
+              ./machines/${host.hostname}/config.nix
+            ]
+            ++ host.modules;
+          };
+        }
+      ) { } hosts;
 
       homeConfigurations = {
         maiko = inputs.home-manager.lib.homeManagerConfiguration {
@@ -143,13 +151,16 @@
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
 
       checks.x86_64-linux = {
-        statix = nixpkgs.legacyPackages.x86_64-linux.runCommandLocal "statix-check" {
-          src = ./.;
-          nativeBuildInputs = [ inputs.statix.packages.x86_64-linux.statix ];
-        } ''
-          statix check ${./.} --config ${./.}/.statix.toml
-          touch $out
-        '';
+        statix =
+          nixpkgs.legacyPackages.x86_64-linux.runCommandLocal "statix-check"
+            {
+              src = ./.;
+              nativeBuildInputs = [ inputs.statix.packages.x86_64-linux.statix ];
+            }
+            ''
+              statix check ${./.} --config ${./.}/.statix.toml
+              touch $out
+            '';
       };
     };
 }
