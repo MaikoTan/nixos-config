@@ -28,6 +28,8 @@
       dconf
       # Several useful desktop applications
       remmina # remote desktop client
+      todesk
+      parsec-bin
     ])
   ];
 }
