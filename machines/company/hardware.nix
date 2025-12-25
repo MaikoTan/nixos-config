@@ -126,6 +126,14 @@ in
     # Increase swappiness to use swap more aggressively
     "vm.swappiness" = 120;
     "vm.vfs_cache_pressure" = 100;
+    # Enable BBR congestion control
+    "net.core.default_qdisc" = "fq";
+    "net.ipv4.tcp_congestion_control" = "bbr";
+    # Enable TCP Fast Open
+    "net.ipv4.tcp_fastopen" = 3;
+    # Queue and backlog tuning
+    "net.core.somaxconn" = 1024;
+    "net.core.tcp_max_syn_backlog" = 8192;
   };
 
   swapDevices = [
