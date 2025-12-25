@@ -20,6 +20,11 @@
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";
 
+  services.scx = {
+    enable = true;
+    scheduler = "scx_lavd";
+  };
+
   # TODO: Fix GTK4 apps rendering issue with Intel UHD 630
   environment.sessionVariables = {
     GSK_RENDERER = "gl";
