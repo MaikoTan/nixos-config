@@ -37,6 +37,7 @@ in
     initrd.kernelModules = [ ];
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
+    kernelParams = [ "sched_autogroup=0" ];
 
     loader = {
       # use GRUB2 as boot loader
@@ -134,6 +135,11 @@ in
     # Queue and backlog tuning
     "net.core.somaxconn" = 1024;
     "net.core.tcp_max_syn_backlog" = 8192;
+    # IO scheduler
+    "block.default_scheduler" = "mq-deadline";
+    # Dirty page ratios
+    "vm.dirty_background_ratio" = 5;
+    "vm.dirty_ratio" = 20;
   };
 
   swapDevices = [
