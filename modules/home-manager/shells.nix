@@ -42,9 +42,6 @@ in
     # ----- sed replacement -----
     sed = "${pkgs.sd}/bin/sd";
 
-    # ----- diff replacement -----
-    diff = "${pkgs.diff-so-fancy}/bin/diff-so-fancy";
-
     # ----- cd replacement (zoxide) -----
     cd =
       let

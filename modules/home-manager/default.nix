@@ -88,7 +88,9 @@
         init.defaultBranch = "master";
         core = {
           gpgsign = true;
+          pager = "${pkgs.diff-so-fancy}/bin/diff-so-fancy | ${pkgs.less}/bin/less --tabs=4 -RFX";
         };
+        interactive.diffFilter = "${pkgs.diff-so-fancy}/bin/diff-so-fancy --patch";
 
         commit = {
           # Sign commits using GPG.
