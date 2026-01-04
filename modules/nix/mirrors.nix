@@ -31,6 +31,7 @@ in
       "https://nix-community.cachix.org"
       "https://maiko-nixos-build.cachix.org"
       "https://statix.cachix.org"
+      "https://linyinfeng.cachix.org" # angrr
       "https://cache.nixos.org"
     ]
   ];
