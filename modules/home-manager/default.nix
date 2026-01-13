@@ -27,6 +27,7 @@
       (with pkgs; [
         # System Utilities
         kdePackages.yakuake
+        kdePackages.ark
         quickemu # Simple CLI virtual machine manager
         # Text
         jq
