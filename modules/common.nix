@@ -10,7 +10,7 @@
     curl
     wget
     lsof
-    xorg.xprop
+    xprop
     # Text
     vim
   ];

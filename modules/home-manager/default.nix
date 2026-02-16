@@ -42,10 +42,12 @@
         # Miscellaneous
         neofetch
         xc
+        github-copilot-cli # https://github.com/github/copilot-cli
       ])
       ++ [
         # Development
         inputs.wechat-devtools.packages.x86_64-linux.default
+        pkgs.android-tools
         pkgs.android-studio
       ];
   };
@@ -139,8 +141,6 @@
     gh = {
       enable = true;
       extensions = with pkgs; [
-        # https://github.com/github/gh-copilot
-        gh-copilot
         # https://github.com/gennaro-tedesco/gh-f
         gh-f
       ];
