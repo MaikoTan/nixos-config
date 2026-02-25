@@ -377,11 +377,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1765789411,
-        "narHash": "sha256-9xLxzmYoiCpOlEjLx5EEWZ14ktA4Z0f9g5HL75X2vjk=",
+        "lastModified": 1771990237,
+        "narHash": "sha256-kXiAauZxTcW451IKEhp+y3KNRJmleC9VahIW1z/a36g=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "8687b719c14681b88f6d5f0ea72b78959fc43423",
+        "rev": "0ca1a30c8ff3bb3d3e17f78f364da805ee05a2d5",
         "type": "github"
       },
       "original": {
@@ -555,11 +555,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1765790689,
-        "narHash": "sha256-ZYt5A7wyIAXsHPhIHICXWOirs3N9peBY8TM/TCYr3ws=",
+        "lastModified": 1771990978,
+        "narHash": "sha256-D20O8OmN/mOYGcTXiVx1+AmxNRcPSJJErlH1Msr/IbA=",
         "owner": "MaikoTan",
         "repo": "wechat-devtools",
-        "rev": "5205cd4136deea67aa7cc2f38173e8aab3a531e2",
+        "rev": "99f19cc2c9da3ff2dd1c9b2d5fe2d709b07aa5f2",
         "type": "github"
       },
       "original": {
