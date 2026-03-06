@@ -40,7 +40,7 @@
         google-chrome
         transmission_4
         # Miscellaneous
-        neofetch
+        fastfetch
         xc
         github-copilot-cli # https://github.com/github/copilot-cli
       ])
