@@ -48,6 +48,7 @@
     statix = {
       url = "github:oppiliappan/statix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
 
     flake-parts = {
