@@ -48,119 +48,58 @@
     statix = {
       url = "github:oppiliappan/statix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
   };
 
   outputs =
-    inputs@{ nixpkgs, ... }:
+    inputs@{ flake-parts, ... }:
     let
-      overlays = [
-        inputs.android-nixpkgs.overlays.default
-        inputs.angrr.overlays.default
-        inputs.statix.overlays.default
-      ];
-
-      config = {
-        allowUnfree = true;
-        allowUnfreePredicate = _: true;
-        android_sdk.accept_license = true;
-      };
-
-      generatorFormats =
-        { config, ... }:
-        {
-          imports = [
-            inputs.nixos-generators.nixosModules.all-formats
-          ];
-
-          nixpkgs.hostPlatform = "x86_64-linux";
-
-          # Customize the VM format
-          formatConfigs.vm =
-            { config, ... }:
-            {
-              virtualisation.memorySize = 4096;
-              virtualisation.cores = 2;
-            };
-        };
-
-      hosts = [
-        {
-          hostname = "company";
-          modules = [ ];
-        }
-        {
-          hostname = "wsl";
-          modules = [ ];
-        }
-        {
-          hostname = "nixos-vm";
-          modules = [ generatorFormats ];
-        }
-      ];
-
+      shared = import ./flake/lib.nix { inherit inputs; };
     in
-    {
-      nixosConfigurations = builtins.foldl' (
-        configs: host:
-        configs
-        // {
-          ${host.hostname} = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            specialArgs = {
-              inherit inputs;
-            };
-            modules = [
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" ];
+
+      flake = {
+        nixosConfigurations = import ./flake/nixos.nix { inherit inputs; };
+        homeConfigurations = import ./flake/home.nix { inherit inputs; };
+      };
+
+      perSystem =
+        { system, ... }:
+        let
+          pkgs = shared.mkPkgs system;
+        in
+        {
+          devShells.default = pkgs.mkShell {
+            buildInputs = with pkgs; [
+              nixVersions.latest
+              nixos-rebuild
+              fish
+              nixfmt
+              cachix
+              direnv
+            ];
+          };
+
+          formatter = pkgs.nixfmt;
+
+          checks = {
+            statix = pkgs.runCommandLocal "statix-check"
               {
-                nixpkgs.overlays = overlays;
-                nixpkgs.config = config;
+                src = ./.;
+                nativeBuildInputs = [ inputs.statix.packages.${system}.statix ];
               }
-              ./modules/sops.nix
-              ./machines/${host.hostname}/config.nix
-            ]
-            ++ host.modules;
+              ''
+                statix check ${./.} --config ${./.}/.statix.toml
+                touch $out
+              '';
           };
-        }
-      ) { } hosts;
-
-      homeConfigurations = {
-        maiko = inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            inherit overlays;
-            inherit config;
-          };
-          extraSpecialArgs = { inherit inputs; };
-          modules = [
-            ./modules/home-manager
-          ];
         };
-      };
-
-      devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
-        buildInputs = with nixpkgs.legacyPackages.x86_64-linux; [
-          nixVersions.latest
-          nixos-rebuild
-          fish
-          nixfmt
-          cachix
-          direnv
-        ];
-      };
-
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
-
-      checks.x86_64-linux = {
-        statix =
-          nixpkgs.legacyPackages.x86_64-linux.runCommandLocal "statix-check"
-            {
-              src = ./.;
-              nativeBuildInputs = [ inputs.statix.packages.x86_64-linux.statix ];
-            }
-            ''
-              statix check ${./.} --config ${./.}/.statix.toml
-              touch $out
-            '';
-      };
     };
 }
