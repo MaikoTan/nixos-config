@@ -3,13 +3,13 @@ let
   shared = import ./lib.nix { inherit inputs; };
 
   generatorFormats =
-    { ... }:
+    { lib, ... }:
     {
       imports = [
         inputs.nixos-generators.nixosModules.all-formats
       ];
 
-      nixpkgs.hostPlatform = "x86_64-linux";
+      nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
       formatConfigs.vm =
         { ... }:
