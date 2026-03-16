@@ -45,6 +45,14 @@ If you have changed anything managed by `dconf`, make sure to run the following 
 ./build.fish
 ```
 
+## Other commands
+
+- List all generations.
+
+```bash
+nixos-rebuild list-generations
+```
+
 ## License
 
 This project is licensed under [MIT License](./LICENSE).
