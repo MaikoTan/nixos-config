@@ -37,7 +37,9 @@
         vlc
         inkscape
         # Networks, Browsers, and Communication
-        google-chrome
+        (google-chrome.override {
+          commandLineArgs = "--process-per-site";
+        })
         transmission_4
         # Miscellaneous
         fastfetch
