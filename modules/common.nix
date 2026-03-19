@@ -38,9 +38,10 @@
     # Enable the OpenSSH daemon.
     openssh.enable = true;
 
-    # Enable the X11 windowing system.
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
+    # displayManager.gdm.enable = true;
+    displayManager.sddm.enable = true;
+    # desktopManager.gnome.enable = true;
+    desktopManager.plasma6.enable = true;
 
     # Enable touchpad support (enabled default in most desktopManager).
     libinput.enable = true;
@@ -54,6 +55,11 @@
       pulse.enable = true;
     };
   };
+
+  # Exclude unwanted KDE applications
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    elisa # Music player
+  ];
 
   # Exclude unwanted GNOME applications
   environment.gnome.excludePackages = with pkgs; [
@@ -80,7 +86,7 @@
   programs = {
     kdeconnect = {
       enable = true;
-      package = pkgs.gnomeExtensions.gsconnect;
+      # package = pkgs.gnomeExtensions.gsconnect;
     };
 
     xwayland.enable = true;
@@ -93,7 +99,12 @@
       enable = true;
       enableSSHSupport = true;
     };
+
+    chromium = {
+      enable = true;
+      enablePlasmaBrowserIntegration = true;
+    };
   };
 
-  services.displayManager.defaultSession = "gnome";
+  services.displayManager.defaultSession = "plasma";
 }

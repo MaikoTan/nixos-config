@@ -14,6 +14,7 @@
     ./dconf.nix
     ./gnome.nix
     ./ime.nix
+    ./plasma.nix
     ./shells.nix
   ];
 
@@ -25,6 +26,10 @@
 
     packages =
       (with pkgs; [
+        # Remote Desktop and Screen Sharing
+        remmina # remote desktop client
+        todesk
+        parsec-bin
         # System Utilities
         kdePackages.yakuake
         kdePackages.ark

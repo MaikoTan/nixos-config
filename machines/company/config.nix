@@ -210,6 +210,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs; };
+    sharedModules = [ inputs.plasma-manager.homeModules.plasma-manager ];
     users.maiko = import ../../modules/home-manager;
   };
 }
