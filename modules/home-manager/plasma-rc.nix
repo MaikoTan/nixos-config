@@ -189,7 +189,7 @@
       kwin."Window to Screen 7" = [ ];
       kwin.disableInputCapture = "Meta+Shift+Esc";
       kwin.view_actual_size = "Meta+0";
-      kwin.view_zoom_in = ["Meta++" "Meta+="];
+      kwin.view_zoom_in = ["Meta++" "Meta+\x3d"];
       kwin.view_zoom_out = "Meta+-";
       mediacontrol.mediavolumedown = [ ];
       mediacontrol.mediavolumeup = [ ];
@@ -288,6 +288,8 @@
       kwinrc."Tiling/e665b2d7-f42d-48aa-84b4-4e5742d880ad/6f03aa16-599f-41cb-9a31-2a6894d15bed".padding = 4;
       kwinrc."Tiling/e665b2d7-f42d-48aa-84b4-4e5742d880ad/6f03aa16-599f-41cb-9a31-2a6894d15bed".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
       kwinrc.Wayland."InputMethod[$e]" = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
+      kwinrc.Wayland."InputMethod\x5b$e\x5d" = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
+      kwinrc.Windows.RollOverDesktops = true;
       kwinrc.Xwayland.Scale = 1;
       kwinrulesrc."1f2f8d3f-609e-411a-9a14-a7778d406945".Description = "VSCode";
       kwinrulesrc."1f2f8d3f-609e-411a-9a14-a7778d406945".layerrule = 2;
@@ -295,8 +297,14 @@
       kwinrulesrc."1f2f8d3f-609e-411a-9a14-a7778d406945".opacityactiverule = 2;
       kwinrulesrc."1f2f8d3f-609e-411a-9a14-a7778d406945".wmclass = "code-insiders";
       kwinrulesrc."1f2f8d3f-609e-411a-9a14-a7778d406945".wmclassmatch = 1;
-      kwinrulesrc.General.count = 1;
-      kwinrulesrc.General.rules = "1f2f8d3f-609e-411a-9a14-a7778d406945";
+      kwinrulesrc.General.count = 2;
+      kwinrulesrc.General.rules = "1f2f8d3f-609e-411a-9a14-a7778d406945,cdb7e134-079e-4eba-b79d-00b8d66d0f6b";
+      kwinrulesrc.cdb7e134-079e-4eba-b79d-00b8d66d0f6b.Description = "Remmina";
+      kwinrulesrc.cdb7e134-079e-4eba-b79d-00b8d66d0f6b.layerrule = 2;
+      kwinrulesrc.cdb7e134-079e-4eba-b79d-00b8d66d0f6b.opacityactive = 95;
+      kwinrulesrc.cdb7e134-079e-4eba-b79d-00b8d66d0f6b.opacityactiverule = 2;
+      kwinrulesrc.cdb7e134-079e-4eba-b79d-00b8d66d0f6b.wmclass = "org.remmina.Remmina";
+      kwinrulesrc.cdb7e134-079e-4eba-b79d-00b8d66d0f6b.wmclassmatch = 1;
       kxkbrc.Layout.DisplayNames = "";
       kxkbrc.Layout.LayoutList = "us";
       kxkbrc.Layout.Use = true;
