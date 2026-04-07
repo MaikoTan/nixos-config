@@ -16,11 +16,16 @@
       enable = true;
       type = "fcitx5";
       fcitx5 = {
+        waylandFrontend = true; # See https://fcitx-im.org/wiki/Using_Fcitx_5_on_Wayland
         addons = with pkgs; [
-          fcitx5-rime
-          qt6Packages.fcitx5-configtool
-          rime-data
-          rime-japanese
+          (fcitx5-rime.override {
+            rimeDataPkgs = [
+              rime-data
+              rime-japanese
+              rime-tlpa
+              rime-flypy
+            ];
+          })
           fcitx5-gtk
           fcitx5-mozc
         ];

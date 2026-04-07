@@ -60,10 +60,33 @@
   outputs =
     inputs@{ nixpkgs, ... }:
     let
+      rime-patched-pkgs = let
+        pkgs = import nixpkgs { system = "x86_64-linux"; };
+      in
+        import (pkgs.applyPatches {
+          name = "rime-patched";
+          src = nixpkgs;
+          patches = [
+            (pkgs.fetchpatch {
+              url = "https://github.com/NixOS/nixpkgs/pull/501822.patch";
+              hash = "sha256-xDNkGLqhW0ndUj9a/owucJe1juUyOabigV8/tDwC5LQ=";
+            })
+          ];
+        }) {
+          system = "x86_64-linux";
+          config = {
+            allowUnfree = true;
+            allowUnfreePredicate = _: true;
+          };
+        };
       overlays = [
         inputs.android-nixpkgs.overlays.default
         inputs.angrr.overlays.default
         inputs.statix.overlays.default
+        (_: super: {
+          inherit (rime-patched-pkgs) rime-flypy;
+          rime-tlpa = super.callPackage ./rime-tlpa.nix {};
+        })
       ];
 
       config = {

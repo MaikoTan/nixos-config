@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   home.file = {
@@ -8,17 +8,11 @@
           schema_list:
             - schema: double_pinyin
             - schema: luna_pinyin
+            - schema: tlpa_peh_ue
+            - schema: flypy
             - schema: japanese
       '';
       target = "./.local/share/fcitx5/rime/default.custom.yaml";
     };
   };
-
-  home.packages = with pkgs; [
-    # Rime Schema Repository
-    brise
-
-    # GNOME Input Method Panel
-    gnomeExtensions.kimpanel
-  ];
 }
