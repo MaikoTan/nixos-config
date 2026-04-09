@@ -89,6 +89,11 @@
     key = "company";
   };
 
+  sops.secrets.companyGitHubRunnerToken = {
+    sopsFile = ../../secrets/github_tokens.yaml;
+    key = "github_runner";
+  };
+
   programs.clash-verge = {
     enable = true;
     autoStart = true;
@@ -205,6 +210,15 @@
     "samba"
     "adbusers"
   ];
+
+  services.github-runners = {
+    company = {
+      enable = true;
+      name = "company-nixos";
+      tokenFile = config.sops.secrets.companyGitHubRunnerToken.path;
+      url = "https://github.com/maintenir";
+    };
+  };
 
   home-manager = {
     useGlobalPkgs = true;
