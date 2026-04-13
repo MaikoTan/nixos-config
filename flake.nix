@@ -68,8 +68,8 @@
           src = nixpkgs;
           patches = [
             (pkgs.fetchpatch {
-              url = "https://github.com/NixOS/nixpkgs/pull/501822.patch";
-              hash = "sha256-xDNkGLqhW0ndUj9a/owucJe1juUyOabigV8/tDwC5LQ=";
+              url = "https://github.com/NixOS/nixpkgs/pull/501829.patch";
+              hash = "sha256-Ng518PqrRBzek7JxaIjAY0GV00ldZY6DKeM+Go8RvF8=";
             })
           ];
         }) {
@@ -85,7 +85,7 @@
         inputs.statix.overlays.default
         (_: super: {
           inherit (rime-patched-pkgs) rime-flypy;
-          rime-tlpa = super.callPackage ./rime-tlpa.nix {};
+          rime-tlpa = super.callPackage ./rime-tlpa.nix { rime-prelude = rime-patched-pkgs.rime-prelude; };
         })
       ];
 

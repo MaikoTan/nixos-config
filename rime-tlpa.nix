@@ -2,6 +2,8 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
+  librime,
+  rime-prelude,
   nix-update-script,
 }:
 stdenvNoCC.mkDerivation {
@@ -15,14 +17,29 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-t+dX93x2iSQz9isnpyv3W7A8NYAcIXmh/ludEqcq8yk=";
   };
 
+  nativeBuildInputs = [ librime ];
+  prePatch = "cp -r ${rime-prelude}/* .";
+
+  buildPhase = ''
+    runHook preBuild
+
+    ls ./*.schema.yaml | while read f; do
+      rime_deployer --compile "$f"
+    done
+
+    runHook postBuild
+  '';
+
   installPhase = ''
     runHook preInstall
 
-    sed -i 's/\r$//' release-include.txt
-    grep -v '^#' release-include.txt | while read f; do
-      [ -z "$f" ] && continue # Skip empty lines
-      install -Dm644 "$f" $out/share/rime-data/"$f"
-    done
+    rm -rf build/*.txt > /dev/null 2>&1 || true
+
+    mkdir -p $out/share/rime-data/lua
+    mkdir -p $out/share/rime-data/build
+    install -Dm644 -t $out/share/rime-data/lua ./*.lua
+    install -Dm644 -t $out/share/rime-data/ ./*.schema.yaml ./*.dict.yaml
+    install -Dm644 -t $out/share/rime-data/build ./build/*.bin ./build/*.yaml
 
     runHook postInstall
   '';
