@@ -7,7 +7,6 @@
 {
   imports = [
     ./prompt.nix
-    ./ssh-agent.nix
     ./yarn.nix
   ];
 

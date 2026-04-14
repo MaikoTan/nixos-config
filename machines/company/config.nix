@@ -12,6 +12,7 @@
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.vscode-server.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
+    inputs.auto-cpufreq.nixosModules.default
 
     ./hardware.nix
     ../../profiles/desktop.nix
@@ -20,6 +21,17 @@
 
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";
+
+  services.power-profiles-daemon.enable = false;
+  programs.auto-cpufreq = {
+    enable = true;
+    settings = {
+      charger = {
+        governor = "performance";
+        turbo = "always";
+      };
+    };
+  };
 
   services.scx = {
     enable = true;

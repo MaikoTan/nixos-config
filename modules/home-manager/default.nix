@@ -174,9 +174,16 @@
 
   xsession.enable = true;
 
-  services.gpg-agent = {
-    enable = true;
-    defaultCacheTtl = 30 * 60; # 30 minutes
-    enableSshSupport = true;
+  services = {
+    ssh-agent = {
+      enable = true;
+      defaultMaximumIdentityLifetime = 4 * 60 * 60; # 4 hours
+    };
+
+    gpg-agent = {
+      enable = true;
+      defaultCacheTtl = 30 * 60; # 30 minutes
+      enableSshSupport = true;
+    };
   };
 }
