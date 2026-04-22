@@ -12,6 +12,7 @@ function show_help
     echo "  -h, --help       Show this help message"
     echo "  --mirror         Use mirror substituters for China users"
     echo "  --vm             Use nixos-rebuild test (dry-run)"
+    echo "  --boot           Use `nixos-reboot` instead of `nixos-rebuild switch`"
     echo ""
     echo "Examples:"
     echo "  ./switch.fish"
@@ -30,6 +31,8 @@ for arg in $argv
             set cmd "$cmd --option substituters 'https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://mirror.sjtu.edu.cn/nix-channels/store https://mirrors.ustc.edu.cn/nix-channels/store https://nix-community.cachix.org https://cache.nixos.org'"
         case '--dry'
             set dry_run true
+        case '--boot'
+            set cmd "nixos-rebuild boot"
         case '*'
             # if $arg is not start with '--', it should be the host name
             if string match -q -- '--*' $arg
