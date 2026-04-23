@@ -205,7 +205,6 @@ with lib.hm.gvariant;
         "org-gnome-software"
         "google-chrome"
         "org-gnome-console"
-        "todesk"
         "gimp"
         "org-gnome-baobab"
         "org-gnome-nautilus"
@@ -320,10 +319,6 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/qq" = {
       application-id = "qq.desktop";
-    };
-
-    "org/gnome/desktop/notifications/application/todesk" = {
-      application-id = "todesk.desktop";
     };
 
     "org/gnome/desktop/notifications/application/virtualbox" = {

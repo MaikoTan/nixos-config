@@ -28,7 +28,6 @@
       (with pkgs; [
         # Remote Desktop and Screen Sharing
         remmina # remote desktop client
-        todesk
         parsec-bin
         # System Utilities
         kdePackages.yakuake
@@ -175,14 +174,9 @@
   xsession.enable = true;
 
   services = {
-    ssh-agent = {
-      enable = true;
-      defaultMaximumIdentityLifetime = 4 * 60 * 60; # 4 hours
-    };
-
     gpg-agent = {
       enable = true;
-      defaultCacheTtl = 30 * 60; # 30 minutes
+      defaultCacheTtl = 4 * 60 * 60; # 4 hours
       enableSshSupport = true;
     };
   };
