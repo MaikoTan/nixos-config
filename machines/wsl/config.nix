@@ -55,7 +55,12 @@
     git.enable = true;
     fish.enable = true;
   };
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    ports = [ 2223 ];
+  };
+
+  networking.firewall.allowedTCPPorts = [ 2223 ];
 
   environment.systemPackages = with pkgs; [
     nil
