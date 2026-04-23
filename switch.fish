@@ -29,18 +29,13 @@ for arg in $argv
             exit 0
         case '--mirror'
             set cmd "$cmd --option substituters 'https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://mirror.sjtu.edu.cn/nix-channels/store https://mirrors.ustc.edu.cn/nix-channels/store https://nix-community.cachix.org https://cache.nixos.org'"
+            $argv = $argv[1..-1]
         case '--dry'
             set dry_run true
+            $argv = $argv[1..-1]
         case '--boot'
             set cmd "nixos-rebuild boot"
-        case '*'
-            # if $arg is not start with '--', it should be the host name
-            if string match -q -- '--*' $arg
-                echo "Unknown option: $arg"
-                show_help
-                exit 1
-            end
-            set host $arg
+            $argv = $argv[1..-1]
     end
 end
 
@@ -52,7 +47,7 @@ if test (id -u) -ne 0
     set cmd "sudo $cmd"
 end
 
-set cmd "$cmd --flake '.#$host'"
+set cmd "$cmd --flake '.#$host' $argv"
 
 echo "Running: $cmd"
 eval $cmd
