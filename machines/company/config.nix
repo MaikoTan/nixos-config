@@ -134,6 +134,11 @@
     enable = true;
   };
 
+  # ZeroTier's default MTU is 2800, which causes issues on Windows side. Set it to 1280 to be safe.
+  # This systemd.network config name is taken from nixpkgs, see
+  # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/networking/zerotierone.nix
+  systemd.network.links."50-zerotier".linkConfig.MTUBytes = 1280;
+
   sops.secrets.zerotierNetworks = {
     sopsFile = ../../secrets/network_bridges.yaml;
     key = "zerotier/networks";
