@@ -21,6 +21,8 @@ end
 set cmd "nixos-rebuild switch"
 set dry_run false
 set host (uname -n)
+set host_set false
+set rest
 
 for arg in $argv
     switch $arg
@@ -29,13 +31,17 @@ for arg in $argv
             exit 0
         case '--mirror'
             set cmd "$cmd --option substituters 'https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://mirror.sjtu.edu.cn/nix-channels/store https://mirrors.ustc.edu.cn/nix-channels/store https://nix-community.cachix.org https://cache.nixos.org'"
-            $argv = $argv[1..-1]
         case '--dry'
             set dry_run true
-            $argv = $argv[1..-1]
         case '--boot'
             set cmd "nixos-rebuild boot"
-            $argv = $argv[1..-1]
+        case '*'
+            if test $host_set = false; and not string match -q -- '-*' $arg; and string match -q -r -- '^[a-zA-Z0-9_-]+$' $arg
+                set host $arg
+                set host_set true
+            else
+                set rest $rest $arg
+            end
     end
 end
 
@@ -47,7 +53,7 @@ if test (id -u) -ne 0
     set cmd "sudo $cmd"
 end
 
-set cmd "$cmd --flake '.#$host' $argv"
+set cmd "$cmd --flake '.#$host' $rest"
 
 echo "Running: $cmd"
 eval $cmd
