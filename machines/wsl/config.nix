@@ -7,6 +7,7 @@
 
 {
   config,
+  lib,
   inputs,
   pkgs,
   ...
@@ -14,44 +15,21 @@
 
 {
   imports = [
-    # include NixOS-WSL modules
-    inputs.nixos-wsl.nixosModules.default
+    ../../profiles/wsl-base.nix
     inputs.vscode-server.nixosModules.default
-    inputs.home-manager.nixosModules.home-manager
   ];
 
-  wsl.enable = true;
   wsl.defaultUser = "nixos";
   users.users.${config.wsl.defaultUser}.hashedPassword =
     "$y$j9T$uW.4l5bEUVn/ti07zAo.F.$41YQzEWa7WO05WjSzC/S1XVHKbeDTjNiQ2d4lF6ecX4";
 
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes ca-derivations
-  '';
+  maiko.nix.useChinaMirrors = true;
 
-  nix.settings = {
-    substituters = [
-      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-      "https://mirror.sjtu.edu.cn/nix-channels/store"
-      "https://mirrors.ustc.edu.cn/nix-channels/store"
-      "https://nix-community.cachix.org"
-      "https://cache.nixos.org"
-      "https://maiko-nixos-build.cachix.org"
-    ];
-    trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "maiko-nixos-build.cachix.org-1:4EC5TVcsNL76xt7aqVoBpK0PoXPXuOF/kTLyjFyb8SM="
-    ];
-
-    trusted-users = [
-      config.wsl.defaultUser
-      "root"
-    ];
-  };
+  nix.settings.trusted-users = lib.mkAfter [
+    config.wsl.defaultUser
+  ];
 
   programs = {
-    nix-ld.enable = true;
     git.enable = true;
     fish.enable = true;
   };
@@ -67,12 +45,4 @@
     curl
     wget
   ];
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It's perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.11"; # Did you read the comment?
 }

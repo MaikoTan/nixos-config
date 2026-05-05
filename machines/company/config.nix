@@ -11,7 +11,6 @@
     # Import common configuration from nixos
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.vscode-server.nixosModules.default
-    inputs.home-manager.nixosModules.home-manager
     inputs.auto-cpufreq.nixosModules.default
 
     ./hardware.nix
@@ -99,6 +98,7 @@
   sops.secrets.companyGitHubToken = {
     sopsFile = ../../secrets/github_tokens.yaml;
     key = "company";
+    owner = "maiko";
   };
 
   sops.secrets.maintenirGitHubRunnerToken = {
@@ -226,7 +226,6 @@
 
   # Enable VSCode remote server support
   services.vscode-server.enable = true;
-  programs.nix-ld.enable = true;
 
   users.users.maiko.extraGroups = [
     "samba"
@@ -262,9 +261,6 @@
   };
 
   home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    extraSpecialArgs = { inherit inputs; };
     sharedModules = [ inputs.plasma-manager.homeModules.plasma-manager ];
     users.maiko = import ../../modules/home-manager;
   };

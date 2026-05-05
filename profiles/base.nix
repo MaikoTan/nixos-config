@@ -1,6 +1,22 @@
-{ lib, ... }:
+{ inputs, lib, ... }:
 
 {
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+
+    ../modules/nix
+  ];
+
+  # This is required for vscode-server to work properly,
+  # and it also makes other programs easier to be used in WSL.
+  programs.nix-ld.enable = true;
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    extraSpecialArgs = { inherit inputs; };
+  };
+
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #

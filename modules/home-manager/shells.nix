@@ -50,18 +50,19 @@ in
       lib.mkIf (
         cfg.enable && (cfg.enableBashIntegration || cfg.enableZshIntegration || cfg.enableFishIntegration)
       ) "z";
-
-    # ----- misc / quality of life -----
-    top = "${pkgs.bottom}/bin/btm"; # fancy top replacement
-    ps = "${pkgs.procs}/bin/procs"; # pretty process viewer
-    ping = "${pkgs.gping}/bin/gping"; # ping with graph
   };
 
   home.packages = [
+    # Node.js and its friends
     nodejs
     yarn
     pnpm
-  ];
+  ] ++ (with pkgs; [
+    # Miscellaneous tools
+    btm
+    gping
+    procs
+  ]);
 
   programs = {
     fish.functions = lib.mkIf config.programs.fish.enable {
