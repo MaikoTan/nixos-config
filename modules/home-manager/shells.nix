@@ -59,7 +59,7 @@ in
     pnpm
   ] ++ (with pkgs; [
     # Miscellaneous tools
-    btm
+    bottom
     gping
     procs
   ]);
