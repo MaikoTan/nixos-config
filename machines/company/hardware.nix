@@ -32,7 +32,7 @@ in
       "nvme"
       "usbhid"
       "usb_storage"
-      "rtsx_usb_sdmmc"
+      "sd_mod"
     ];
     initrd.kernelModules = [ ];
     kernelModules = [ "kvm-intel" ];

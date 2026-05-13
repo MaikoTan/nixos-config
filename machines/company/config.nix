@@ -214,16 +214,6 @@
     ];
   };
 
-  services.create_ap = {
-    enable = true;
-    settings = {
-      INTERNET_IFACE = "enp2s0";
-      WIFI_IFACE = "wlp3s0";
-      SSID = "company";
-      PASSPHRASE = "aa113115";
-    };
-  };
-
   # Enable VSCode remote server support
   services.vscode-server.enable = true;
 
