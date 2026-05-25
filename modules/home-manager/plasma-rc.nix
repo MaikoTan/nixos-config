@@ -333,7 +333,6 @@
       kwinrc."Tiling/e665b2d7-f42d-48aa-84b4-4e5742d880ad/6f03aa16-599f-41cb-9a31-2a6894d15bed".tiles = "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
       kwinrc.Wayland."InputMethod[$e]" = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
       kwinrc.Wayland."InputMethod\x5b$e\x5d" = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
-      kwinrc.Wayland."InputMethodx5b$ex5d" = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
       kwinrc.Windows.RollOverDesktops = true;
       kwinrc.Xwayland.Scale = 1;
       kwinrulesrc."1f2f8d3f-609e-411a-9a14-a7778d406945".Description = "VSCode";
