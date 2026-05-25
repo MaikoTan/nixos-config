@@ -237,6 +237,7 @@
       name = "company-nixos";
       tokenFile = config.sops.secrets.maintenirGitHubRunnerToken.path;
       url = "https://github.com/maintenir";
+      nodeRuntimes = [ "node24" ];
     };
     nixos-config = {
       enable = true;
@@ -247,6 +248,7 @@
       extraPackages = with pkgs; [ nix ];
       tokenFile = config.sops.secrets.nixosGithubToken.path;
       url = "https://github.com/MaikoTan/nixos-config";
+      nodeRuntimes = [ "node24" ];
     };
   };
 
