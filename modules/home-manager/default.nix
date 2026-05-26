@@ -45,6 +45,7 @@
           commandLineArgs = "--process-per-site";
         })
         transmission_4
+        freedownloadmanager
         # Miscellaneous
         fastfetch
         xc
