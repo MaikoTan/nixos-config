@@ -36,6 +36,9 @@
   services.openssh = {
     enable = true;
     ports = [ 2223 ];
+    settings = {
+      StreamLocalBindUnlink = "yes";
+    };
   };
 
   networking.firewall.allowedTCPPorts = [ 2223 ];

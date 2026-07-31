@@ -37,7 +37,7 @@ in
     initrd.kernelModules = [ ];
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
-    kernelParams = [ "sched_autogroup=0" ];
+    kernelParams = [ "sched_autogroup=0" "i915.enable_psr=0" ];
 
     loader = {
       # use GRUB2 as boot loader

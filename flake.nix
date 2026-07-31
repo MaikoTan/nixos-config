@@ -31,7 +31,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    vscode-server.url = "github:nix-community/nixos-vscode-server";
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+      # inputs.flake-parts.follows = "flake-parts";
+    };
 
     angrr = {
       url = "github:linyinfeng/angrr";
