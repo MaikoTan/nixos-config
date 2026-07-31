@@ -47,7 +47,9 @@
         # Miscellaneous
         fastfetch
         xc
+        # AI coding tools
         github-copilot-cli # https://github.com/github/copilot-cli
+        aider-chat
       ])
       ++ [
         # Development
