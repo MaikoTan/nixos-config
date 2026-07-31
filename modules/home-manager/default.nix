@@ -41,9 +41,7 @@
         vlc
         inkscape
         # Networks, Browsers, and Communication
-        (google-chrome.override {
-          commandLineArgs = "--process-per-site";
-        })
+        google-chrome
         transmission_4
         freedownloadmanager
         # Miscellaneous
