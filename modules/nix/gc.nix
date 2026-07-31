@@ -3,7 +3,20 @@
 {
   imports = [ inputs.angrr.nixosModules.angrr ];
 
-  nix.gc.automatic = true;
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "daily";
+      options = "--delete-older-than 7d";
+    };
+
+    optimise = {
+      automatic = true;
+      dates = "weekly";
+    };
+
+    settings.auto-optimise-store = true;
+  };
 
   services.angrr = {
     enable = true;
@@ -27,13 +40,14 @@
           keep-current-system = true;
         };
         user = {
-          enable = false;
+          enable = true;
           profile-paths = [
             "~/.local/state/nix/profiles/profile"
+            "/nix/var/nix/profiles/per-user/maiko/profile"
             "/nix/var/nix/profiles/per-user/root/profile"
           ];
-          keep-since = "1d";
-          keep-latest-n = 1;
+          keep-since = "7d";
+          keep-latest-n = 5;
         };
       };
     };
