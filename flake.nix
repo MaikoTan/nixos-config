@@ -2,10 +2,10 @@
   description = "Maiko's NixOS Config";
 
   inputs = {
-    # NixOS channels
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # Nix community projects
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     nixos-generators = {
@@ -33,7 +33,6 @@
 
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
-      # inputs.flake-parts.follows = "flake-parts";
     };
 
     angrr = {
@@ -46,7 +45,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Development tools
     code-insiders = {
       url = "github:iosmanthus/code-insiders-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -65,140 +63,147 @@
     };
   };
 
-  outputs =
-    inputs@{ nixpkgs, ... }:
-    let
-      rime-patched-pkgs = let
-        pkgs = import nixpkgs { system = "x86_64-linux"; };
-      in
-        import (pkgs.applyPatches {
-          name = "rime-patched";
-          src = nixpkgs;
-          patches = [
-            (pkgs.fetchpatch {
-              url = "https://github.com/NixOS/nixpkgs/pull/501829.patch";
-              hash = "sha256-Ng518PqrRBzek7JxaIjAY0GV00ldZY6DKeM+Go8RvF8=";
+  outputs = inputs@{ flake-parts, nixpkgs, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" ];
+
+      perSystem = { pkgs, ... }: {
+        formatter = pkgs.nixfmt;
+
+        checks.statix = pkgs.runCommandLocal "statix-check"
+          {
+            src = ./.;
+            nativeBuildInputs = [ pkgs.statix ];
+          }
+          ''
+            statix check ${./.} --config ${./.}/.statix.toml
+            touch $out
+          '';
+      };
+
+      flake =
+        let
+          rime-patched-pkgs = let
+            pkgs = import nixpkgs { system = "x86_64-linux"; };
+          in
+            import (pkgs.applyPatches {
+              name = "rime-patched";
+              src = nixpkgs;
+              patches = [
+                (pkgs.fetchpatch {
+                  url = "https://github.com/NixOS/nixpkgs/pull/501829.patch";
+                  hash = "sha256-Ng518PqrRBzek7JxaIjAY0GV00ldZY6DKeM+Go8RvF8=";
+                })
+              ];
+            }) {
+              system = "x86_64-linux";
+              config = {
+                allowUnfree = true;
+                allowUnfreePredicate = _: true;
+              };
+            };
+
+          overlays = [
+            inputs.android-nixpkgs.overlays.default
+            inputs.angrr.overlays.default
+            inputs.statix.overlays.default
+            (_: super: {
+              inherit (rime-patched-pkgs) rime-flypy;
+              rime-tlpa = super.callPackage ./rime-tlpa.nix {
+                rime-prelude = rime-patched-pkgs.rime-prelude;
+              };
+              freedownloadmanager = super.callPackage ./freedownloadmanager.nix { };
             })
           ];
-        }) {
-          system = "x86_64-linux";
-          config = {
+
+          nixpkgsConfig = {
             allowUnfree = true;
             allowUnfreePredicate = _: true;
+            android_sdk.accept_license = true;
           };
-        };
-      overlays = [
-        inputs.android-nixpkgs.overlays.default
-        inputs.angrr.overlays.default
-        inputs.statix.overlays.default
-        (_: super: {
-          inherit (rime-patched-pkgs) rime-flypy;
-          rime-tlpa = super.callPackage ./rime-tlpa.nix { rime-prelude = rime-patched-pkgs.rime-prelude; };
-          freedownloadmanager = super.callPackage ./freedownloadmanager.nix {};
-        })
-      ];
 
-      config = {
-        allowUnfree = true;
-        allowUnfreePredicate = _: true;
-        android_sdk.accept_license = true;
-      };
+          nixosModule = {
+            nixpkgs.overlays = overlays;
+            nixpkgs.config = nixpkgsConfig;
+          };
 
-      generatorFormats =
-        { config, ... }:
-        {
-          imports = [
-            inputs.nixos-generators.nixosModules.all-formats
-          ];
-
-          nixpkgs.hostPlatform = "x86_64-linux";
-
-          # Customize the VM format
-          formatConfigs.vm =
+          generatorFormats =
             { config, ... }:
             {
-              virtualisation.memorySize = 4096;
-              virtualisation.cores = 2;
+              imports = [ inputs.nixos-generators.nixosModules.all-formats ];
+              nixpkgs.hostPlatform = "x86_64-linux";
+              formatConfigs.vm =
+                { config, ... }:
+                {
+                  virtualisation.memorySize = 4096;
+                  virtualisation.cores = 2;
+                };
             };
-        };
-
-      hosts = [
+        in
         {
-          hostname = "company";
-          modules = [ ];
-        }
-        {
-          hostname = "wsl";
-          modules = [ ];
-        }
-        {
-          hostname = "nixos-vm";
-          modules = [ generatorFormats ];
-        }
-      ];
-
-    in
-    {
-      nixosConfigurations = builtins.foldl' (
-        configs: host:
-        configs
-        // {
-          ${host.hostname} = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            specialArgs = {
-              inherit inputs;
+          devShells.x86_64-linux.default =
+            let
+              shellPkgs = import nixpkgs {
+                system = "x86_64-linux";
+                config = { allowUnfree = true; };
+              };
+            in
+            shellPkgs.mkShell {
+              buildInputs = with shellPkgs; [
+                nixVersions.latest
+                nixos-rebuild
+                fish
+                nixfmt
+                cachix
+                direnv
+              ];
             };
+
+          nixosConfigurations = {
+            company = nixpkgs.lib.nixosSystem {
+              system = "x86_64-linux";
+              specialArgs = { inherit inputs; };
+              modules = [
+                nixosModule
+                ./modules/sops.nix
+                ./machines/company/config.nix
+              ];
+            };
+
+            wsl = nixpkgs.lib.nixosSystem {
+              system = "x86_64-linux";
+              specialArgs = { inherit inputs; };
+              modules = [
+                nixosModule
+                ./modules/sops.nix
+                ./machines/wsl/config.nix
+              ];
+            };
+
+            nixos-vm = nixpkgs.lib.nixosSystem {
+              system = "x86_64-linux";
+              specialArgs = { inherit inputs; };
+              modules = [
+                nixosModule
+                ./modules/sops.nix
+                ./machines/nixos-vm/config.nix
+                generatorFormats
+              ];
+            };
+          };
+
+          homeConfigurations.maiko = inputs.home-manager.lib.homeManagerConfiguration {
+            pkgs = import nixpkgs {
+              system = "x86_64-linux";
+              config = nixpkgsConfig;
+              inherit overlays;
+            };
+            extraSpecialArgs = { inherit inputs; };
             modules = [
-              {
-                nixpkgs.overlays = overlays;
-                nixpkgs.config = config;
-              }
-              ./modules/sops.nix
-              ./machines/${host.hostname}/config.nix
-            ]
-            ++ host.modules;
+              ./modules/home-manager
+              inputs.plasma-manager.homeModules.plasma-manager
+            ];
           };
-        }
-      ) { } hosts;
-
-      homeConfigurations = {
-        maiko = inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            inherit overlays;
-            inherit config;
-          };
-          extraSpecialArgs = { inherit inputs; };
-          modules = [
-            ./modules/home-manager
-          ];
         };
-      };
-
-      devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
-        buildInputs = with nixpkgs.legacyPackages.x86_64-linux; [
-          nixVersions.latest
-          nixos-rebuild
-          fish
-          nixfmt
-          cachix
-          direnv
-        ];
-      };
-
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
-
-      checks.x86_64-linux = {
-        statix =
-          nixpkgs.legacyPackages.x86_64-linux.runCommandLocal "statix-check"
-            {
-              src = ./.;
-              nativeBuildInputs = [ inputs.statix.packages.x86_64-linux.statix ];
-            }
-            ''
-              statix check ${./.} --config ${./.}/.statix.toml
-              touch $out
-            '';
-      };
     };
 }

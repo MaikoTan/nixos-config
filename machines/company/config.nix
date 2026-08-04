@@ -251,9 +251,4 @@
       nodeRuntimes = [ "node24" ];
     };
   };
-
-  home-manager = {
-    sharedModules = [ inputs.plasma-manager.homeModules.plasma-manager ];
-    users.maiko = import ../../modules/home-manager;
-  };
 }
