@@ -48,8 +48,9 @@
         fastfetch
         xc
         # AI coding tools
+        opencode # https://opencode.ai/
+        code-cursor-fhs # https://cursor.com/
         github-copilot-cli # https://github.com/github/copilot-cli
-        aider-chat
       ])
       ++ [
         # Development
@@ -178,6 +179,9 @@
     gpg-agent = {
       enable = true;
       defaultCacheTtl = 4 * 60 * 60; # 4 hours
+      maxCacheTtl = 8 * 60 * 60; # 8 hours
+      defaultCacheTtlSsh = 4 * 60 * 60; # 4 hours
+      maxCacheTtlSsh = 8 * 60 * 60; # 8 hours
       enableSshSupport = true;
     };
   };
