@@ -19,7 +19,7 @@
     inputs.vscode-server.nixosModules.default
   ];
 
-  wsl.defaultUser = "nixos";
+  wsl.defaultUser = "maiko";
   users.users.${config.wsl.defaultUser}.hashedPassword =
     "$y$j9T$uW.4l5bEUVn/ti07zAo.F.$41YQzEWa7WO05WjSzC/S1XVHKbeDTjNiQ2d4lF6ecX4";
 
