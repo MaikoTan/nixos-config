@@ -10,6 +10,7 @@ function show_help
     echo ""
     echo "Options:"
     echo "  -h, --help       Show this help message"
+    echo "  --home, --home-manager  Use home-manager switch instead of nixos-rebuild switch"
     echo "  --mirror         Use mirror substituters for China users"
     echo "  --vm             Use nixos-rebuild test (dry-run)"
     echo "  --boot           Use `nixos-reboot` instead of `nixos-rebuild switch`"
@@ -35,6 +36,9 @@ for arg in $argv
             set dry_run true
         case '--boot'
             set cmd "nixos-rebuild boot"
+        case '--home' '--home-manager'
+            set cmd "home-manager switch"
+            set host (id -un)
         case '*'
             if test $host_set = false; and not string match -q -- '-*' $arg; and string match -q -r -- '^[a-zA-Z0-9_-]+$' $arg
                 set host $arg
