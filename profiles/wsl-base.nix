@@ -8,5 +8,5 @@
   ];
 
   wsl.enable = true;
-  wsl.defaultUser = lib.mkDefault "nixos";
+  wsl.defaultUser = lib.mkDefault "maiko";
 }
