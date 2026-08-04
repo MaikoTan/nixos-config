@@ -24,6 +24,12 @@
   # and it also makes other programs easier to be used in WSL.
   programs.nix-ld.enable = true;
 
+  i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
+  console = {
+    font = lib.mkDefault "Lat2-Terminus16";
+    useXkbConfig = lib.mkDefault true; # use xkb.options in tty.
+  };
+
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #

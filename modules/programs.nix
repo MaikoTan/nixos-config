@@ -12,13 +12,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # KDE Connect integration
     programs = {
-      kdeconnect = {
-        enable = true;
-        # package = pkgs.gnomeExtensions.gsconnect;
-      };
-
       xwayland.enable = true;
 
       dconf.enable = true;
@@ -30,11 +24,6 @@ in
       gnupg.agent = {
         enable = true;
         enableSSHSupport = true;
-      };
-
-      chromium = {
-        enable = true;
-        enablePlasmaBrowserIntegration = true;
       };
     };
   };
