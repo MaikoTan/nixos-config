@@ -15,7 +15,6 @@
 
     ./hardware.nix
     ../../profiles/desktop.nix
-    ../../modules/default.nix
   ];
 
   # Set your time zone.

@@ -29,12 +29,7 @@
     config.wsl.defaultUser
   ];
 
-  programs = {
-    git.enable = true;
-    fish.enable = true;
-  };
   services.openssh = {
-    enable = true;
     ports = [ 2223 ];
     settings = {
       StreamLocalBindUnlink = "yes";
@@ -45,7 +40,5 @@
 
   environment.systemPackages = with pkgs; [
     nil
-    curl
-    wget
   ];
 }

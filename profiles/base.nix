@@ -3,7 +3,22 @@
 {
   imports = [
     ../modules/nix
+    ../modules/packages.nix
+    ../modules/fonts.nix
+    ../modules/openssh.nix
+    ../modules/programs.nix
+    ../modules/user.nix
+    ../modules/sops.nix
   ];
+
+  maiko.nix.enable = true;
+  maiko.nix.gc.enable = true;
+  maiko.packages.enable = true;
+  maiko.fonts.enable = true;
+  maiko.openssh.enable = true;
+  maiko.programs.enable = true;
+  maiko.user.enable = true;
+  maiko.sops.enable = true;
 
   # This is required for vscode-server to work properly,
   # and it also makes other programs easier to be used in WSL.

@@ -165,7 +165,6 @@
               specialArgs = { inherit inputs; };
               modules = [
                 nixosModule
-                ./modules/sops.nix
                 ./machines/company/config.nix
               ];
             };
@@ -175,7 +174,6 @@
               specialArgs = { inherit inputs; };
               modules = [
                 nixosModule
-                ./modules/sops.nix
                 ./machines/wsl/config.nix
               ];
             };
@@ -185,7 +183,6 @@
               specialArgs = { inherit inputs; };
               modules = [
                 nixosModule
-                ./modules/sops.nix
                 ./machines/nixos-vm/config.nix
                 generatorFormats
               ];

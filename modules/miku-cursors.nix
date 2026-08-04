@@ -1,9 +1,8 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-
+  cfg = config.maiko.miku-cursors;
   version = "1.2.6";
-
   miku-cursors = pkgs.stdenvNoCC.mkDerivation {
     name = "miku-cursors";
     inherit version;
@@ -18,9 +17,16 @@ let
       cp -r $src/miku-cursor-linux/* $out/share/icons/miku-cursor/
     ";
   };
-
 in
 
 {
-  environment.systemPackages = [ miku-cursors ];
+  options.maiko.miku-cursors.enable = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = "Enable Hatsune Miku cursors";
+  };
+
+  config = lib.mkIf cfg.enable {
+    environment.systemPackages = [ miku-cursors ];
+  };
 }

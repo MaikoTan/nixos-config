@@ -7,9 +7,7 @@
 }:
 
 let
-
-  cfg = config.maiko.sops or { enable = true; };
-
+  cfg = config.maiko.sops;
 in
 
 {
@@ -25,20 +23,19 @@ in
     };
   };
 
-  config.sops = lib.mkIf cfg.enable {
-    age = {
-      keyFile = "/var/lib/sops-nix/age/keys.txt";
+  config = lib.mkIf cfg.enable {
+    sops = {
+      age = {
+        keyFile = "/var/lib/sops-nix/age/keys.txt";
+      };
+
+      defaultSopsFile = ../secrets/secrets.yaml;
+      defaultSopsFormat = "yaml";
     };
 
-    defaultSopsFile = ../secrets/secrets.yaml;
-    defaultSopsFormat = "yaml";
-  };
-
-  config.environment.systemPackages = lib.mkIf cfg.enable (
-    with pkgs;
-    [
+    environment.systemPackages = with pkgs; [
       sops
       age
-    ]
-  );
+    ];
+  };
 }
