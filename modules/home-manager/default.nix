@@ -48,8 +48,8 @@
         fastfetch
         xc
         # AI coding tools
+        claude-code-bin # https://claude.ai/
         opencode # https://opencode.ai/
-        code-cursor-fhs # https://cursor.com/
         github-copilot-cli # https://github.com/github/copilot-cli
       ])
       ++ [
