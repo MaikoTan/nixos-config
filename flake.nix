@@ -33,6 +33,7 @@
 
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
+      inputs.flake-parts.follows = "flake-parts";
     };
 
     angrr = {
@@ -60,6 +61,7 @@
     statix = {
       url = "github:oppiliappan/statix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
   };
 
