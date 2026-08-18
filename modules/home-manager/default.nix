@@ -28,7 +28,7 @@
       (with pkgs; [
         # Remote Desktop and Screen Sharing
         remmina # remote desktop client
-        parsec-bin
+        # parsec-bin
         # System Utilities
         kdePackages.yakuake
         kdePackages.ark
@@ -48,7 +48,7 @@
         fastfetch
         xc
         # AI coding tools
-        claude-code-bin # https://claude.ai/
+        claude-code # https://claude.ai/
         opencode # https://opencode.ai/
         github-copilot-cli # https://github.com/github/copilot-cli
       ])
@@ -159,9 +159,9 @@
     };
   };
 
-  home.sessionVariablesExtra = ''
-    export GH_TOKEN="$(cat ${osConfig.sops.secrets.companyGitHubToken.path})"
-  '';
+  #home.sessionVariablesExtra = ''
+  #  export GH_TOKEN="$(cat ${osConfig.sops.secrets.companyGitHubToken.path})"
+  #'';
 
   # https://github.com/dlvhdr/gh-dash
   programs.gh-dash = {
