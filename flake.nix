@@ -53,6 +53,15 @@
 
     wechat-devtools.url = "github:MaikoTan/wechat-devtools";
 
+    hermes-agent = {
+      url = "github:NousResearch/hermes-agent";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        home-manager.follows = "home-manager";
+      };
+    };
+
     android-nixpkgs = {
       url = "github:tadfisher/android-nixpkgs/stable";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -1,13 +1,13 @@
 {
   inputs,
   config,
-  osConfig,
   pkgs,
   ...
 }:
 
 {
   imports = [
+    inputs.hermes-agent.homeManagerModules.default
     inputs.android-nixpkgs.hmModule
     ./vscode/default.nix
     ./fish/default.nix
@@ -184,5 +184,16 @@
       maxCacheTtlSsh = 8 * 60 * 60; # 8 hours
       enableSshSupport = true;
     };
+  };
+
+  programs.hermes-agent = {
+    enable = true;          # the hermes CLI on your PATH
+    desktop.enable = true;  # the Electron application and a launcher
+  };
+  services.hermes-agent = {
+    enable = true;
+    gateway.enable = true;
+    settings.model.default = "deepseek-official/deepseek-v4-flash";
+    # environmentFiles = [ config.sops.secrets."hermes/env".path ];
   };
 }
