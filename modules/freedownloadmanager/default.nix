@@ -1,7 +1,10 @@
 {
   lib,
   stdenv,
+  fetchgit,
   fetchurl,
+  fetchFromGitHub,
+  dockerTools,
   dpkg,
   wrapGAppsHook3,
   autoPatchelfHook,
@@ -23,14 +26,23 @@
   firebird,
 }:
 
+let
+  # 由 nvfetcher 生成（见 nvfetcher.toml），升级时修改版本号并重新运行 nvfetcher
+  sources = import ./_sources/generated.nix {
+    inherit
+      fetchgit
+      fetchurl
+      fetchFromGitHub
+      dockerTools
+      ;
+  };
+in
+
 stdenv.mkDerivation rec {
   pname = "freedownloadmanager";
-  version = "6.24";
+  version = sources.freedownloadmanager.version;
 
-  src = fetchurl {
-    url = "https://files2.freedownloadmanager.org/6/latest/freedownloadmanager.deb";
-    hash = "sha256-KZxb7xgLV4riI+A6EIJ5w7gOx/m84+F5JGnUbe4vxs0=";
-  };
+  src = sources.freedownloadmanager.src;
 
   unpackPhase = "dpkg-deb -x $src .";
 

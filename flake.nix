@@ -129,7 +129,7 @@
               rime-tlpa = super.callPackage ./rime-tlpa.nix {
                 inherit (rime-patched-pkgs) rime-prelude;
               };
-              freedownloadmanager = super.callPackage ./freedownloadmanager.nix { };
+              freedownloadmanager = super.callPackage ./modules/freedownloadmanager { };
             })
           ];
 

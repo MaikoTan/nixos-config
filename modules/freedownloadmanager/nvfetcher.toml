@@ -1,0 +1,5 @@
+[freedownloadmanager]
+# 上游只提供 latest URL（无版本化路径），因此版本固定为 manual，
+# 升级时手动修改版本号并重新运行 nvfetcher 即可更新 hash。
+src.manual = "6.24"
+fetch.url = "https://files2.freedownloadmanager.org/6/latest/freedownloadmanager.deb"
