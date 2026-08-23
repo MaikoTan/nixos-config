@@ -12,11 +12,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.displayManager.sddm.enable = true;
-    # services.displayManager.gdm.enable = true;
-    services.desktopManager.plasma6.enable = true;
-    # services.desktopManager.gnome.enable = true;
-    services.displayManager.defaultSession = "plasma";
+    services = {
+      displayManager = {
+        sddm.enable = true;
+        # gdm.enable = true;
+        defaultSession = "plasma";
+      };
+      desktopManager = {
+        plasma6.enable = true;
+        # gnome.enable = true;
+      };
+    };
 
     # Exclude unwanted KDE applications
     environment.plasma6.excludePackages = with pkgs.kdePackages; [

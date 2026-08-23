@@ -13,14 +13,16 @@
     ../modules/miku-cursors.nix
   ];
 
-  maiko.display-manager.enable = true;
-  maiko.desktop-programs.enable = true;
-  maiko.pipewire.enable = true;
-  maiko.libinput.enable = true;
-  maiko.printing.enable = true;
-  maiko.docker.enable = true;
-  maiko.ime.enable = true;
-  maiko.miku-cursors.enable = true;
+  maiko = {
+    display-manager.enable = true;
+    desktop-programs.enable = true;
+    pipewire.enable = true;
+    libinput.enable = true;
+    printing.enable = true;
+    docker.enable = true;
+    ime.enable = true;
+    miku-cursors.enable = true;
+  };
 
   networking.networkmanager.enable = true;
 

@@ -127,7 +127,7 @@
             (_: super: {
               inherit (rime-patched-pkgs) rime-flypy;
               rime-tlpa = super.callPackage ./rime-tlpa.nix {
-                rime-prelude = rime-patched-pkgs.rime-prelude;
+                inherit (rime-patched-pkgs) rime-prelude;
               };
               freedownloadmanager = super.callPackage ./freedownloadmanager.nix { };
             })

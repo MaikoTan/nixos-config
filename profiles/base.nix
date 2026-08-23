@@ -11,14 +11,18 @@
     ../modules/sops.nix
   ];
 
-  maiko.nix.enable = true;
-  maiko.nix.gc.enable = true;
-  maiko.packages.enable = true;
-  maiko.fonts.enable = true;
-  maiko.openssh.enable = true;
-  maiko.programs.enable = true;
-  maiko.user.enable = true;
-  maiko.sops.enable = true;
+  maiko = {
+    nix = {
+      enable = true;
+      gc.enable = true;
+    };
+    packages.enable = true;
+    fonts.enable = true;
+    openssh.enable = true;
+    programs.enable = true;
+    user.enable = true;
+    sops.enable = true;
+  };
 
   # This is required for vscode-server to work properly,
   # and it also makes other programs easier to be used in WSL.

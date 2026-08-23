@@ -6,7 +6,7 @@
 let
 
   package = inputs.code-insiders.packages."x86_64-linux".vscode-insider.overrideAttrs (oldAttrs: {
-    buildInputs = oldAttrs.buildInputs;
+    inherit (oldAttrs) buildInputs;
     # TODO: auto-patchelf did not work for this package since it requires a bunch of GPU and CUDA
     # libraries, we just remove the onnxruntime temporarily to make it work for now, and wait for
     # the upstream to fix the issue.

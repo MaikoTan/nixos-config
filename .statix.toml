@@ -1,2 +1,2 @@
 disabled = []
-ignore = ['.direnv']
+ignore = ['.direnv', '**/plasma-rc.nix']
