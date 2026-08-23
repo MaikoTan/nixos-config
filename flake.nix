@@ -8,11 +8,6 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -144,18 +139,6 @@
             nixpkgs.config = nixpkgsConfig;
           };
 
-          generatorFormats =
-            { config, ... }:
-            {
-              imports = [ inputs.nixos-generators.nixosModules.all-formats ];
-              nixpkgs.hostPlatform = "x86_64-linux";
-              formatConfigs.vm =
-                { config, ... }:
-                {
-                  virtualisation.memorySize = 4096;
-                  virtualisation.cores = 2;
-                };
-            };
         in
         {
           devShells.x86_64-linux.default =
@@ -200,11 +183,9 @@
               specialArgs = { inherit inputs; };
               modules = [
                 nixosModule
-                # 直接应用 nixos-generators 的 vm 格式模块，
-                # 以提供根文件系统等 VM 必需的配置（否则 toplevel 会因缺少 fileSystems 断言失败）。
-                inputs.nixos-generators.nixosModules.vm
+                # qemu-vm 模块在 machines/nixos-vm/config.nix 中导入，
+                # 提供 system.build.vm（nixos-rebuild build-vm）与虚拟化选项。
                 ./machines/nixos-vm/config.nix
-                generatorFormats
               ];
             };
           };
