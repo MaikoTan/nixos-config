@@ -58,7 +58,6 @@
         cups-browsed
       ];
     };
-    vscode-server.enable = true;
   };
 
   programs.auto-cpufreq = {

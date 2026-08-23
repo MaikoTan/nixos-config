@@ -9,7 +9,6 @@
     # virtualisation.* 选项以及以 mkOverride 提供的根文件系统（保证 toplevel 可求值）。
     # 这是 nixos-generators（已废弃）vm 格式的现代替代。
     "${inputs.nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
-    inputs.vscode-server.nixosModules.default
     ../../profiles/desktop.nix
     ../../profiles/vm.nix
   ];
@@ -26,8 +25,6 @@
   time.timeZone = "Asia/Shanghai";
 
   maiko.nix.useChinaMirrors = true;
-
-  services.vscode-server.enable = true;
 
   networking.hostName = "nixos-vm";
 }

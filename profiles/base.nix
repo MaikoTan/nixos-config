@@ -9,6 +9,7 @@
     ../modules/programs.nix
     ../modules/user.nix
     ../modules/sops.nix
+    ../modules/vscode-server.nix
   ];
 
   maiko = {
@@ -22,6 +23,7 @@
     programs.enable = true;
     user.enable = true;
     sops.enable = true;
+    vscode-server.enable = true;
   };
 
   # This is required for vscode-server to work properly,

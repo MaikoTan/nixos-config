@@ -16,7 +16,6 @@
 {
   imports = [
     ../../profiles/wsl-base.nix
-    inputs.vscode-server.nixosModules.default
   ];
 
   maiko.nix.useChinaMirrors = true;

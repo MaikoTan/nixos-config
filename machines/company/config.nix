@@ -7,7 +7,6 @@
   imports = [
     # Import common configuration from nixos
     inputs.nixos-hardware.nixosModules.common-cpu-intel
-    inputs.vscode-server.nixosModules.default
     inputs.auto-cpufreq.nixosModules.default
 
     ./hardware.nix
