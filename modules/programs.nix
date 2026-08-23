@@ -13,10 +13,6 @@ in
 
   config = lib.mkIf cfg.enable {
     programs = {
-      xwayland.enable = true;
-
-      dconf.enable = true;
-
       fish.enable = true;
 
       git.enable = true;

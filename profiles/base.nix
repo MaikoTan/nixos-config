@@ -4,7 +4,6 @@
   imports = [
     ../modules/nix
     ../modules/packages.nix
-    ../modules/fonts.nix
     ../modules/openssh.nix
     ../modules/programs.nix
     ../modules/user.nix
@@ -18,7 +17,6 @@
       gc.enable = true;
     };
     packages.enable = true;
-    fonts.enable = true;
     openssh.enable = true;
     programs.enable = true;
     user.enable = true;

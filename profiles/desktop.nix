@@ -3,6 +3,7 @@
 {
   imports = [
     ./base.nix
+    ../modules/fonts.nix
     ../modules/display-manager.nix
     ../modules/desktop-programs.nix
     ../modules/pipewire.nix
@@ -14,6 +15,7 @@
   ];
 
   maiko = {
+    fonts.enable = true;
     display-manager.enable = true;
     desktop-programs.enable = true;
     pipewire.enable = true;
@@ -25,6 +27,11 @@
   };
 
   networking.networkmanager.enable = true;
+
+  # Desktop-only program support (X11 apps under Wayland sessions and the
+  # dconf store used by GTK applications).
+  programs.xwayland.enable = true;
+  programs.dconf.enable = true;
 
   # 常用开发服务器端口（Vite / Next.js / 通用 dev server），对所有桌面机器开放
   networking.firewall.allowedTCPPortRanges = [
