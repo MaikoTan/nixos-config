@@ -12,7 +12,6 @@
     ./vscode/default.nix
     ./fish/default.nix
     ./dconf.nix
-    ./gnome.nix
     ./ime.nix
     ./plasma.nix
     ./shells.nix
@@ -159,10 +158,6 @@
     };
   };
 
-  #home.sessionVariablesExtra = ''
-  #  export GH_TOKEN="$(cat ${osConfig.sops.secrets.companyGitHubToken.path})"
-  #'';
-
   # https://github.com/dlvhdr/gh-dash
   programs.gh-dash = {
     enable = true;
@@ -187,13 +182,12 @@
   };
 
   programs.hermes-agent = {
-    enable = true;          # the hermes CLI on your PATH
-    desktop.enable = true;  # the Electron application and a launcher
+    enable = true; # the hermes CLI on your PATH
+    desktop.enable = true; # the Electron application and a launcher
   };
   services.hermes-agent = {
     enable = true;
     gateway.enable = true;
     settings.model.default = "deepseek-official/deepseek-v4-flash";
-    # environmentFiles = [ config.sops.secrets."hermes/env".path ];
   };
 }
