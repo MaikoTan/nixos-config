@@ -194,6 +194,9 @@
               specialArgs = { inherit inputs; };
               modules = [
                 nixosModule
+                # 直接应用 nixos-generators 的 vm 格式模块，
+                # 以提供根文件系统等 VM 必需的配置（否则 toplevel 会因缺少 fileSystems 断言失败）。
+                inputs.nixos-generators.nixosModules.vm
                 ./machines/nixos-vm/config.nix
                 generatorFormats
               ];
