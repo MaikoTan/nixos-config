@@ -75,45 +75,50 @@
     };
   };
 
-  outputs = inputs@{ flake-parts, nixpkgs, ... }:
+  outputs =
+    inputs@{ flake-parts, nixpkgs, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" ];
 
       perSystem = { pkgs, ... }: {
         formatter = pkgs.nixfmt;
 
-        checks.statix = pkgs.runCommandLocal "statix-check"
-          {
-            src = ./.;
-            nativeBuildInputs = [ pkgs.statix ];
-          }
-          ''
-            statix check ${./.} --config ${./.}/.statix.toml
-            touch $out
-          '';
+        checks.statix =
+          pkgs.runCommandLocal "statix-check"
+            {
+              src = ./.;
+              nativeBuildInputs = [ pkgs.statix ];
+            }
+            ''
+              statix check ${./.} --config ${./.}/.statix.toml
+              touch $out
+            '';
       };
 
       flake =
         let
-          rime-patched-pkgs = let
-            pkgs = import nixpkgs { system = "x86_64-linux"; };
-          in
-            import (pkgs.applyPatches {
-              name = "rime-patched";
-              src = nixpkgs;
-              patches = [
-                (pkgs.fetchpatch {
-                  url = "https://github.com/NixOS/nixpkgs/pull/501829.patch";
-                  hash = "sha256-Ng518PqrRBzek7JxaIjAY0GV00ldZY6DKeM+Go8RvF8=";
-                })
-              ];
-            }) {
-              system = "x86_64-linux";
-              config = {
-                allowUnfree = true;
-                allowUnfreePredicate = _: true;
+          rime-patched-pkgs =
+            let
+              pkgs = import nixpkgs { system = "x86_64-linux"; };
+            in
+            import
+              (pkgs.applyPatches {
+                name = "rime-patched";
+                src = nixpkgs;
+                patches = [
+                  (pkgs.fetchpatch {
+                    url = "https://github.com/NixOS/nixpkgs/pull/501829.patch";
+                    hash = "sha256-Ng518PqrRBzek7JxaIjAY0GV00ldZY6DKeM+Go8RvF8=";
+                  })
+                ];
+              })
+              {
+                system = "x86_64-linux";
+                config = {
+                  allowUnfree = true;
+                  allowUnfreePredicate = _: true;
+                };
               };
-            };
 
           overlays = [
             inputs.android-nixpkgs.overlays.default
@@ -145,7 +150,9 @@
             let
               shellPkgs = import nixpkgs {
                 system = "x86_64-linux";
-                config = { allowUnfree = true; };
+                config = {
+                  allowUnfree = true;
+                };
               };
             in
             shellPkgs.mkShell {

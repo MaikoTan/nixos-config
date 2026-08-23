@@ -217,7 +217,10 @@
       github-runner = {
         isSystemUser = true;
         group = "github-runner";
-        extraGroups = [ "networkmanager" "docker" ];
+        extraGroups = [
+          "networkmanager"
+          "docker"
+        ];
       };
     };
     groups.github-runner = { };

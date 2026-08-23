@@ -57,7 +57,8 @@ in
     nodejs
     yarn
     pnpm
-  ] ++ (with pkgs; [
+  ]
+  ++ (with pkgs; [
     # Miscellaneous tools
     bottom
     gping
