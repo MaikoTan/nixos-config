@@ -18,12 +18,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: wimpysworld/nothing-but-nix@main
-        with:
-          hatchet-protocol: 'rampage'
-          witness-carnage: true
-          nix-permission-edict: true
-
       - name: Set up Nix
         uses: cachix/install-nix-action@v31
         with:
@@ -37,11 +31,14 @@ jobs:
           name: maiko-nixos-build
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
+      - name: Check formatting
+        run: |
+          nix fmt -- --check $(git ls-files '*.nix' | grep -v plasma-rc.nix)
+
       - name: Check Nix Flake
         run: |
           nix flake check
 
       - name: Build NixOS configuration
-        if: ${{ false }} # Temporarily disabled
         run: |
           nix build .#nixosConfigurations.company.config.system.build.toplevel
