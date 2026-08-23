@@ -25,12 +25,23 @@ in
           [ "wheel" ]
           (lib.mkIf config.virtualisation.virtualbox.guest.enable [ "vboxsf" ])
         ];
-        # mkpasswd -m sha-512
-        hashedPassword = "$6$ghV5XrAdy1cLYxTi$CQKgb.ywKGlhsUBzV4WSCG9aioZOl0Q2NgV8f7f7akLizzKgRNSIXk7PIIO.zoJXKEH4fcLWusWIg6A7XX1Jv/";
+        # 密码哈希由 sops 管理（secrets/password.yaml），不再明文提交到仓库。
+        # 修改密码：
+        #   mkpasswd -m sha-512   # 生成新哈希
+        #   sops secrets/password.yaml   # 更新 maiko 字段为新哈希
+        hashedPassword = null;
+        hashedPasswordFile = config.sops.secrets.maikoPasswordHash.path;
 
         # set fish as default shell
         shell = pkgs.fish;
       };
+    };
+
+    sops.secrets.maikoPasswordHash = {
+      sopsFile = ../secrets/password.yaml;
+      key = "maiko";
+      # 确保在创建用户（useradd）之前完成解密
+      neededForUsers = true;
     };
   };
 }
