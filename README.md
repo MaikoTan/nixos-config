@@ -45,6 +45,40 @@ If you have changed anything managed by `dconf`, make sure to run the following 
 ./build.fish
 ```
 
+## Structure
+
+- `flake.nix` — Flake entry: machine definitions, overlays, devShell
+- `machines/<hostname>/` — Machine-specific configs (`config.nix` + generated `hardware.nix`)
+- `profiles/` — Composition layer: which modules to enable per machine type
+- `modules/` — Reusable NixOS modules (option + config pattern, enabled via `maiko.*` options)
+- `modules/home-manager/` — User-level configuration (fish, vscode, dconf, plasma)
+- `secrets/` — SOPS-encrypted secrets (age)
+
+## Secrets
+
+Secrets are managed with [sops-nix](https://github.com/Mic92/sops-nix) using age keys.
+
+- User key: `~/.config/sops/age/keys.txt`
+- Host key: `/var/lib/sops-nix/age/keys.txt`
+
+Add or edit a secret:
+
+```bash
+sops secrets/<file>.yaml
+
+# after changing recipients in .sops.yaml, rekey the file
+sops updatekeys secrets/<file>.yaml
+```
+
+Reference it in a machine config (every secret must set `sopsFile` explicitly):
+
+```nix
+sops.secrets.mySecret = {
+  sopsFile = ../../secrets/<file>.yaml;
+  key = "my_secret_key";
+};
+```
+
 ## Other commands
 
 - List all generations.
