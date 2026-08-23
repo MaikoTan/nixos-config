@@ -13,7 +13,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -51,7 +54,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    wechat-devtools.url = "github:MaikoTan/wechat-devtools";
+    wechat-devtools = {
+      url = "github:MaikoTan/wechat-devtools";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     hermes-agent = {
       url = "github:NousResearch/hermes-agent";
