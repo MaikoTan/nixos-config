@@ -65,7 +65,8 @@
     packages =
       sdk: with sdk; [
         build-tools-36-1-0
-        cmdline-tools-latest
+        # cmdline-tools-latest
+        cmdline-tools-22-0
         emulator
         system-images-android-36-google-apis-x86-64
         platforms-android-36
@@ -184,6 +185,7 @@
   programs.hermes-agent = {
     enable = true; # the hermes CLI on your PATH
     desktop.enable = true; # the Electron application and a launcher
+    desktop.package = pkgs.hermes-desktop-patched;
   };
   services.hermes-agent = {
     enable = true;

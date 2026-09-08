@@ -18,39 +18,6 @@ let
 in
 
 {
-  # Useful shell aliases or functions
-  home.shellAliases = {
-    # ----- ls replacements -----
-    ls = "${pkgs.eza}/bin/eza --color=auto --icons";
-    ll = "${pkgs.eza}/bin/eza --long --header --git --color=auto --icons";
-    la = "${pkgs.eza}/bin/eza -la --header --git --color=auto --icons";
-    tree = "${pkgs.eza}/bin/eza --tree --icons";
-
-    # ----- cat replacement -----
-    cat = "${pkgs.bat}/bin/bat --paging=never";
-
-    # ----- find replacement -----
-    find = "${pkgs.fd}/bin/fd";
-
-    # ----- grep replacement -----
-    grep = "${pkgs.ripgrep}/bin/rg --color=auto";
-
-    # ----- du / df replacements -----
-    du = "${pkgs.dust}/bin/dust";
-    df = "${pkgs.duf}/bin/duf";
-
-    # ----- sed replacement -----
-    sed = "${pkgs.sd}/bin/sd";
-
-    # ----- cd replacement (zoxide) -----
-    cd =
-      let
-        cfg = config.programs.zoxide;
-      in
-      lib.mkIf (
-        cfg.enable && (cfg.enableBashIntegration || cfg.enableZshIntegration || cfg.enableFishIntegration)
-      ) "z";
-  };
 
   home.packages = [
     # Node.js and its friends
@@ -63,11 +30,28 @@ in
     bottom
     gping
     procs
+
+    ripgrep
+    zoxide
   ]);
 
   programs = {
-    fish.functions = lib.mkIf config.programs.fish.enable {
-      gitignore = "curl -sL https://www.gitignore.io/api/$argv";
+    fish = {
+      shellAbbrs = lib.mkIf config.programs.fish.enable {
+        # Expanded only when typing interactively; agent-safe (real cmd used otherwise)
+        ls = "${pkgs.eza}/bin/eza --color=auto --icons";
+        ll = "${pkgs.eza}/bin/eza --long --header --git --color=auto --icons";
+        la = "${pkgs.eza}/bin/eza -la --header --git --color=auto --icons";
+        tree = "${pkgs.eza}/bin/eza --tree --icons";
+        cat = "${pkgs.bat}/bin/bat --paging=never";
+        find = "${pkgs.fd}/bin/fd";
+        du = "${pkgs.dust}/bin/dust";
+        df = "${pkgs.duf}/bin/duf";
+        sed = "${pkgs.sd}/bin/sd";
+      };
+      functions = lib.mkIf config.programs.fish.enable {
+        gitignore = "curl -sL https://www.gitignore.io/api/$argv";
+      };
     };
 
     bash.bashrcExtra = lib.mkIf config.programs.bash.enable ''
