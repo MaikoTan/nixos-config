@@ -134,7 +134,7 @@
             # 修复 hermes-agent 中写死的 electron headers hash.
             # electronHeaders 在 nix/desktop.nix 的 let 绑定中，override 无法触及，
             # 因此用 applyPatches 打补丁源码后再 callPackage。
-            (final: super: {
+            (_: super: {
               hermes-desktop-patched =
                 let
                   patchedHermesSrc = super.runCommandLocal "hermes-agent-patched" {
@@ -147,12 +147,11 @@
                         "sha256-f8bSbLRmtbP93CJAvEBs+sHWDZ1xP2bcpLhC1EnOmZU=" \
                         "sha256-CyzcARd1+GhWr8ED7HBYW2MYD+tgetqZFMkaivaGvw0="
                   '';
-                  hermesAgentPkg = inputs.hermes-agent.packages.x86_64-linux.default;
+                  hermesAgent = inputs.hermes-agent.packages.x86_64-linux.default;
                 in
                 super.callPackage "${patchedHermesSrc}/nix/desktop.nix" {
-                  hermesNpmLib = hermesAgentPkg.hermesNpmLib;
-                  electron = super.electron;
-                  hermesAgent = hermesAgentPkg;
+                  inherit (super) electron hermesAgent;
+                  inherit (hermesAgent) hermesNpmLib;
                 };
             })
           ];
