@@ -73,6 +73,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -80,9 +85,9 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" ];
 
-      perSystem = { pkgs, ... }: {
-        formatter = pkgs.nixfmt;
+      imports = [ ./treefmt.nix ];
 
+      perSystem = { pkgs, ... }: {
         checks.statix =
           pkgs.runCommandLocal "statix-check"
             {
@@ -137,16 +142,19 @@
             (_: super: {
               hermes-desktop-patched =
                 let
-                  patchedHermesSrc = super.runCommandLocal "hermes-agent-patched" {
-                    nativeBuildInputs = [ super.gnused ];
-                  } ''
-                    cp -r "${inputs.hermes-agent}" "$out"
-                    chmod -R +w "$out"
-                    substituteInPlace "$out/nix/desktop.nix" \
-                      --replace-fail \
-                        "sha256-f8bSbLRmtbP93CJAvEBs+sHWDZ1xP2bcpLhC1EnOmZU=" \
-                        "sha256-CyzcARd1+GhWr8ED7HBYW2MYD+tgetqZFMkaivaGvw0="
-                  '';
+                  patchedHermesSrc =
+                    super.runCommandLocal "hermes-agent-patched"
+                      {
+                        nativeBuildInputs = [ super.gnused ];
+                      }
+                      ''
+                        cp -r "${inputs.hermes-agent}" "$out"
+                        chmod -R +w "$out"
+                        substituteInPlace "$out/nix/desktop.nix" \
+                          --replace-fail \
+                            "sha256-f8bSbLRmtbP93CJAvEBs+sHWDZ1xP2bcpLhC1EnOmZU=" \
+                            "sha256-CyzcARd1+GhWr8ED7HBYW2MYD+tgetqZFMkaivaGvw0="
+                      '';
                   hermesAgent = inputs.hermes-agent.packages.x86_64-linux.default;
                 in
                 super.callPackage "${patchedHermesSrc}/nix/desktop.nix" {

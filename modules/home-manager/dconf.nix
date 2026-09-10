@@ -820,12 +820,11 @@ with lib.hm.gvariant;
       share-control = true;
     };
 
-    "org/gnome/shell/extensions/gsconnect/device/8434dc07a4584327b1ad4956050c45ad/plugin/notification" =
-      {
-        applications = ''
-          {}
-        '';
-      };
+    "org/gnome/shell/extensions/gsconnect/device/8434dc07a4584327b1ad4956050c45ad/plugin/notification" = {
+      applications = ''
+        {}
+      '';
+    };
 
     "org/gnome/shell/extensions/gsconnect/device/8434dc07a4584327b1ad4956050c45ad/plugin/share" = {
       receive-directory = "/home/maiko/Downloads";

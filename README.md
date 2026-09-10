@@ -10,7 +10,8 @@ My own NixOS configurations
 git clone https://github.com/MaikoTan/nixos-config.git /usr/nixos-config
 ```
 
-- [Create partitions for NixOS](https://nixos.org/manual/nixos/stable/#sec-installation-manual-partitioning) if you haven't done so.
+- [Create partitions for NixOS](https://nixos.org/manual/nixos/stable/#sec-installation-manual-partitioning)
+  if you haven't done so.
 
 - Run the following command to install NixOS.
 
@@ -18,8 +19,10 @@ git clone https://github.com/MaikoTan/nixos-config.git /usr/nixos-config
 nixos-install --option experimental-features 'nix-command flakes' --flake "/usr/nixos-config#<hostname>"
 ```
 
-- If you are not using first-time installation, run the following command to switch to the new configuration.
-    - If you encounter network issues, you may also try the mirror with option `--mirror`.
+- If you are not using first-time installation, run the following command to
+  switch to the new configuration.
+  - If you encounter network issues, you may also try the mirror with option
+    `--mirror`.
 
 ```bash
 nixos-rebuild switch --option experimental-features 'nix-command flakes' --flake ".#<hostname>"
@@ -39,7 +42,8 @@ reboot
 ./switch.fish
 ```
 
-If you have changed anything managed by `dconf`, make sure to run the following command (in fish shell) to update the `dconf` config.
+If you have changed anything managed by `dconf`, make sure to run the following
+command (in fish shell) to update the `dconf` config.
 
 ```bash
 ./build.fish
@@ -48,15 +52,19 @@ If you have changed anything managed by `dconf`, make sure to run the following 
 ## Structure
 
 - `flake.nix` — Flake entry: machine definitions, overlays, devShell
-- `machines/<hostname>/` — Machine-specific configs (`config.nix` + generated `hardware.nix`)
+- `machines/<hostname>/` — Machine-specific configs (`config.nix` + generated
+  `hardware.nix`)
 - `profiles/` — Composition layer: which modules to enable per machine type
-- `modules/` — Reusable NixOS modules (option + config pattern, enabled via `maiko.*` options)
-- `modules/home-manager/` — User-level configuration (fish, vscode, dconf, plasma)
+- `modules/` — Reusable NixOS modules (option + config pattern, enabled via
+  `maiko.*` options)
+- `modules/home-manager/` — User-level configuration (fish, vscode, dconf,
+  plasma)
 - `secrets/` — SOPS-encrypted secrets (age)
 
 ## Secrets
 
-Secrets are managed with [sops-nix](https://github.com/Mic92/sops-nix) using age keys.
+Secrets are managed with [sops-nix](https://github.com/Mic92/sops-nix) using age
+keys.
 
 - User key: `~/.config/sops/age/keys.txt`
 - Host key: `/var/lib/sops-nix/age/keys.txt`
