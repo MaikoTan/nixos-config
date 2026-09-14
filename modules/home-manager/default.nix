@@ -1,6 +1,7 @@
 {
   inputs,
   config,
+  lib,
   pkgs,
   ...
 }:
@@ -8,13 +9,14 @@
 {
   imports = [
     inputs.android-nixpkgs.hmModule
+    inputs.plasma-manager.homeModules.plasma-manager
     ./agents/default.nix
     ./vscode/default.nix
     ./fish/default.nix
-    ./dconf.nix
+    ./desktop.nix
     ./ime.nix
-    ./plasma.nix
     ./shells.nix
+    ./machine.nix
   ];
 
   home = {
@@ -24,35 +26,38 @@
     stateVersion = "25.11";
 
     packages =
-      (with pkgs; [
-        # Remote Desktop and Screen Sharing
-        # parsec-bin
-        # System Utilities
-        kdePackages.yakuake
-        kdePackages.ark
-        quickemu # Simple CLI virtual machine manager
-        # Text
-        yq-go # https://mikefarah.gitbook.io/yq/
-        # base16384 # https://github.com/fumiama/base16384
-        # Media
-        vlc
-        inkscape
-        # Networks, Browsers, and Communication
-        google-chrome
-        transmission_4
-        freedownloadmanager
-        # Miscellaneous
-        xc
-      ])
-      ++ [
-        # Development
-        inputs.wechat-devtools.packages.x86_64-linux.default
+      (lib.optionals config.maiko.hm.desktop (
+        with pkgs;
+        [
+          # Remote Desktop and Screen Sharing
+          # parsec-bin
+          # System Utilities
+          kdePackages.yakuake
+          kdePackages.ark
+          quickemu # Simple CLI virtual machine manager
+          # Text
+          yq-go # https://mikefarah.gitbook.io/yq/
+          # base16384 # https://github.com/fumiama/base16384
+          # Media
+          vlc
+          inkscape
+          # Networks, Browsers, and Communication
+          google-chrome
+          transmission_4
+          freedownloadmanager
+          # Miscellaneous
+          xc
+          # Development
+          inputs.wechat-devtools.packages.x86_64-linux.default
+        ]
+      ))
+      ++ (lib.optionals config.maiko.hm.android [
         pkgs.android-tools
         pkgs.android-studio
-      ];
+      ]);
   };
 
-  android-sdk = {
+  android-sdk = lib.mkIf config.maiko.hm.android {
     enable = true;
     path = "${config.home.homeDirectory}/.android/sdk";
     packages =
@@ -171,7 +176,7 @@
     };
   };
 
-  xsession.enable = true;
+  xsession.enable = lib.mkIf config.maiko.hm.desktop true;
 
   services = {
     gpg-agent = {
@@ -183,8 +188,8 @@
       enableSshSupport = true;
     };
 
-    # remote desktop client
-    remmina = {
+    # remote desktop client (desktop only)
+    remmina = lib.mkIf config.maiko.hm.desktop {
       enable = true;
     };
   };

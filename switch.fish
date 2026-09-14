@@ -38,7 +38,9 @@ for arg in $argv
             set cmd "nixos-rebuild boot"
         case '--home' '--home-manager'
             set cmd "home-manager switch"
-            set host (id -un)
+            # Home-manager flake configs are keyed by user@hostname
+            # (e.g. maiko@company, maiko@nixos). hostname matches $(hostname).
+            set host (id -un)@(uname -n)
         case '*'
             if test $host_set = false; and not string match -q -- '-*' $arg; and string match -q -r -- '^[a-zA-Z0-9_-]+$' $arg
                 set host $arg

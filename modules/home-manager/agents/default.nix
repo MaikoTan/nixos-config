@@ -1,5 +1,6 @@
 {
   inputs,
+  config,
   pkgs,
   ...
 }:
@@ -35,7 +36,8 @@
     # https://hermes-agent.nousresearch.com/
     hermes-agent = {
       enable = true; # the hermes CLI on your PATH
-      desktop.enable = true; # the Electron application and a launcher
+      # The Electron desktop app is only useful on a full desktop (company).
+      desktop.enable = config.maiko.hm.desktop;
       desktop.package = pkgs.hermes-desktop-patched;
     };
   };

@@ -235,17 +235,41 @@
             };
           };
 
-          homeConfigurations.maiko = inputs.home-manager.lib.homeManagerConfiguration {
-            pkgs = import nixpkgs {
-              system = "x86_64-linux";
-              config = nixpkgsConfig;
-              inherit overlays;
+          homeConfigurations = {
+            # Per-machine home-manager configs, keyed by user@hostname.
+            # home-manager switch --flake .#maiko@company  (on the company machine)
+            # home-manager switch --flake .#maiko@nixos   (in WSL)
+            #
+            # The shared module set (./modules/home-manager) is imported fully
+            # on every machine; machine-specific parts are toggled via maiko.hm.*.
+            "maiko@company" = inputs.home-manager.lib.homeManagerConfiguration {
+              pkgs = import nixpkgs {
+                system = "x86_64-linux";
+                config = nixpkgsConfig;
+                inherit overlays;
+              };
+              extraSpecialArgs = { inherit inputs; };
+              modules = [
+                ./modules/home-manager
+                {
+                  maiko.hm.desktop = true;
+                  maiko.hm.android = true;
+                }
+              ];
             };
-            extraSpecialArgs = { inherit inputs; };
-            modules = [
-              ./modules/home-manager
-              inputs.plasma-manager.homeModules.plasma-manager
-            ];
+
+            "maiko@nixos" = inputs.home-manager.lib.homeManagerConfiguration {
+              pkgs = import nixpkgs {
+                system = "x86_64-linux";
+                config = nixpkgsConfig;
+                inherit overlays;
+              };
+              extraSpecialArgs = { inherit inputs; };
+              modules = [
+                ./modules/home-manager
+                # Desktop / Android stay off on WSL (defaults).
+              ];
+            };
           };
         };
     };
