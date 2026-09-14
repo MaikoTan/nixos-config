@@ -7,8 +7,8 @@
 
 {
   imports = [
-    inputs.hermes-agent.homeManagerModules.default
     inputs.android-nixpkgs.hmModule
+    ./agents/default.nix
     ./vscode/default.nix
     ./fish/default.nix
     ./dconf.nix
@@ -46,10 +46,6 @@
         # Miscellaneous
         fastfetch
         xc
-        # AI coding tools
-        claude-code # https://claude.ai/
-        opencode # https://opencode.ai/
-        github-copilot-cli # https://github.com/github/copilot-cli
       ])
       ++ [
         # Development
@@ -180,16 +176,5 @@
       maxCacheTtlSsh = 8 * 60 * 60; # 8 hours
       enableSshSupport = true;
     };
-  };
-
-  programs.hermes-agent = {
-    enable = true; # the hermes CLI on your PATH
-    desktop.enable = true; # the Electron application and a launcher
-    desktop.package = pkgs.hermes-desktop-patched;
-  };
-  services.hermes-agent = {
-    enable = true;
-    gateway.enable = true;
-    settings.model.default = "deepseek-official/deepseek-v4-flash";
   };
 }

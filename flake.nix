@@ -63,6 +63,11 @@
       };
     };
 
+    nix-claude-code = {
+      url = "github:ryoppippi/nix-claude-code";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     android-nixpkgs = {
       url = "github:tadfisher/android-nixpkgs/stable";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -162,6 +167,7 @@
                   inherit (hermesAgent) hermesNpmLib;
                 };
             })
+            inputs.nix-claude-code.overlays.default
           ];
 
           nixpkgsConfig = {
