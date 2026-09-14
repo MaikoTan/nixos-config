@@ -163,7 +163,8 @@
                   hermesAgent = inputs.hermes-agent.packages.x86_64-linux.default;
                 in
                 super.callPackage "${patchedHermesSrc}/nix/desktop.nix" {
-                  inherit (super) electron hermesAgent;
+                  inherit (super) electron;
+                  inherit hermesAgent;
                   inherit (hermesAgent) hermesNpmLib;
                 };
             })

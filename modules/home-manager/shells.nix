@@ -11,9 +11,6 @@ let
   yarn = pkgs.writeShellScriptBin "yarn" ''
     exec ${nodejs}/bin/corepack yarn@4 "$@"
   '';
-  pnpm = pkgs.writeShellScriptBin "pnpm" ''
-    exec ${nodejs}/bin/corepack pnpm@latest "$@"
-  '';
 
 in
 
@@ -23,31 +20,42 @@ in
     # Node.js and its friends
     nodejs
     yarn
-    pnpm
   ]
   ++ (with pkgs; [
     # Miscellaneous tools
-    bottom
     gping
     procs
 
-    ripgrep
-    zoxide
+    # Development tools
+    eza
+    bat
+    fd
+    dust
+    duf
+    sd
   ]);
 
   programs = {
+    bottom = {
+      enable = true;
+    };
+
+    pnpm = {
+      enable = true;
+    };
+
     fish = {
       shellAbbrs = lib.mkIf config.programs.fish.enable {
         # Expanded only when typing interactively; agent-safe (real cmd used otherwise)
-        ls = "${pkgs.eza}/bin/eza --color=auto --icons";
-        ll = "${pkgs.eza}/bin/eza --long --header --git --color=auto --icons";
-        la = "${pkgs.eza}/bin/eza -la --header --git --color=auto --icons";
-        tree = "${pkgs.eza}/bin/eza --tree --icons";
-        cat = "${pkgs.bat}/bin/bat --paging=never";
-        find = "${pkgs.fd}/bin/fd";
-        du = "${pkgs.dust}/bin/dust";
-        df = "${pkgs.duf}/bin/duf";
-        sed = "${pkgs.sd}/bin/sd";
+        ls = "eza --color=auto --icons";
+        ll = "eza --long --header --git --color=auto --icons";
+        la = "eza -la --header --git --color=auto --icons";
+        tree = "eza --tree --icons";
+        cat = "bat --paging=never";
+        find = "fd";
+        du = "dust";
+        df = "duf";
+        sed = "sd";
       };
       functions = lib.mkIf config.programs.fish.enable {
         gitignore = "curl -sL https://www.gitignore.io/api/$argv";
@@ -65,5 +73,9 @@ in
         curl -sL https://www.gitignore.io/api/"$@"
       }
     '';
+
+    ripgrep = {
+      enable = true;
+    };
   };
 }

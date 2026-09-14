@@ -26,14 +26,12 @@
     packages =
       (with pkgs; [
         # Remote Desktop and Screen Sharing
-        remmina # remote desktop client
         # parsec-bin
         # System Utilities
         kdePackages.yakuake
         kdePackages.ark
         quickemu # Simple CLI virtual machine manager
         # Text
-        jq
         yq-go # https://mikefarah.gitbook.io/yq/
         # base16384 # https://github.com/fumiama/base16384
         # Media
@@ -44,7 +42,6 @@
         transmission_4
         freedownloadmanager
         # Miscellaneous
-        fastfetch
         xc
       ])
       ++ [
@@ -153,16 +150,25 @@
         prompt = "enabled";
       };
     };
-  };
 
-  # https://github.com/dlvhdr/gh-dash
-  programs.gh-dash = {
-    enable = true;
-    settings = { };
-  };
+    # https://github.com/dlvhdr/gh-dash
+    gh-dash = {
+      enable = true;
+      settings = { };
+    };
 
-  programs.zoxide = {
-    enable = true;
+    zoxide = {
+      enable = true;
+    };
+
+    jq.enable = true;
+
+    fastfetch = {
+      enable = true;
+      settings = {
+        #
+      };
+    };
   };
 
   xsession.enable = true;
@@ -175,6 +181,11 @@
       defaultCacheTtlSsh = 4 * 60 * 60; # 4 hours
       maxCacheTtlSsh = 8 * 60 * 60; # 8 hours
       enableSshSupport = true;
+    };
+
+    # remote desktop client
+    remmina = {
+      enable = true;
     };
   };
 }

@@ -9,7 +9,7 @@
     inputs.hermes-agent.homeManagerModules.default
   ];
 
-  home.programs = {
+  programs = {
     # https://claude.ai/
     claude-code = {
       enable = true;
