@@ -158,7 +158,7 @@
                         substituteInPlace "$out/nix/desktop.nix" \
                           --replace-fail \
                             "sha256-f8bSbLRmtbP93CJAvEBs+sHWDZ1xP2bcpLhC1EnOmZU=" \
-                            "sha256-CyzcARd1+GhWr8ED7HBYW2MYD+tgetqZFMkaivaGvw0="
+                            "sha256-xDgc5PpkcLpWHnlqVcjBD3SxJKtkUoSGLnJaSSrxJtI="
                       '';
                   hermesAgent = inputs.hermes-agent.packages.x86_64-linux.default;
                 in
