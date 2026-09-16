@@ -258,7 +258,7 @@
               ];
             };
 
-            "maiko@nixos" = inputs.home-manager.lib.homeManagerConfiguration {
+            "maiko@wsl" = inputs.home-manager.lib.homeManagerConfiguration {
               pkgs = import nixpkgs {
                 system = "x86_64-linux";
                 config = nixpkgsConfig;
