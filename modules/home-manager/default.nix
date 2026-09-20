@@ -34,6 +34,8 @@
           # System Utilities
           kdePackages.yakuake
           kdePackages.ark
+          unrar
+          p7zip-rar
           quickemu # Simple CLI virtual machine manager
           # Text
           yq-go # https://mikefarah.gitbook.io/yq/
