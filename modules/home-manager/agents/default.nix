@@ -47,4 +47,8 @@
     gateway.enable = true;
     settings.model.default = "deepseek-official/deepseek-v4-flash";
   };
+
+  home.packages = with pkgs; [
+    obscura # Minimal browser for agents
+  ];
 }

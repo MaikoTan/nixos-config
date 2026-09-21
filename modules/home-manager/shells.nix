@@ -45,18 +45,31 @@ in
     };
 
     fish = {
-      shellAbbrs = lib.mkIf config.programs.fish.enable {
-        # Expanded only when typing interactively; agent-safe (real cmd used otherwise)
-        ls = "eza --color=auto --icons";
-        ll = "eza --long --header --git --color=auto --icons";
-        la = "eza -la --header --git --color=auto --icons";
-        tree = "eza --tree --icons";
-        cat = "bat --paging=never";
-        find = "fd";
-        du = "dust";
-        df = "duf";
-        sed = "sd";
-      };
+      # Use shellAliases with conditional logic: human gets enhanced commands, agents get real commands
+      # Agents set COPILOT_AGENT=1 and AI_AGENT=github_copilot_vscode_agent
+      shellAliases = lib.mkIf config.programs.fish.enable (
+        let
+          # Helper to create conditional alias: human gets enhanced, agent gets real command
+          mkAlias = enhanced: fallback: ''
+            if not set -q COPILOT_AGENT; and not set -q AI_AGENT;
+              ${enhanced};
+            else;
+              command ${fallback};
+            end
+          '';
+        in
+        {
+          ls = mkAlias "eza --color=auto --icons=auto" "ls";
+          ll = mkAlias "eza --long --header --git --color=auto --icons=auto" "ls -l";
+          la = mkAlias "eza -la --header --git --color=auto --icons=auto" "ls -la";
+          tree = mkAlias "eza --tree --icons=auto" "tree";
+          cat = mkAlias "bat --paging=never" "cat";
+          find = mkAlias "fd" "find";
+          du = mkAlias "dust" "du";
+          df = mkAlias "duf" "df";
+          sed = mkAlias "sd" "sed";
+        }
+      );
       functions = lib.mkIf config.programs.fish.enable {
         gitignore = "curl -sL https://www.gitignore.io/api/$argv";
       };
