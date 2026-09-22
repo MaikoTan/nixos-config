@@ -45,34 +45,34 @@ in
     };
 
     fish = {
-      # Use shellAliases with conditional logic: human gets enhanced commands, agents get real commands
+      # Use functions with conditional logic: human gets enhanced commands, agents get real commands
       # Agents set COPILOT_AGENT=1 and AI_AGENT=github_copilot_vscode_agent
-      shellAliases = lib.mkIf config.programs.fish.enable (
+      # Note: shellAliases can't hold multi-line values — fish's `alias` appends `$argv` after the
+      # value, which lands standalone after the if/end block and errors when called with no args
+      functions = lib.mkIf config.programs.fish.enable (
         let
-          # Helper to create conditional alias: human gets enhanced, agent gets real command
-          mkAlias = enhanced: fallback: ''
+          # Helper to create conditional function: human gets enhanced, agent gets real command
+          mkFn = enhanced: fallback: ''
             if not set -q COPILOT_AGENT; and not set -q AI_AGENT;
-              ${enhanced};
+              ${enhanced} $argv
             else;
-              command ${fallback};
+              command ${fallback} $argv
             end
           '';
         in
         {
-          ls = mkAlias "eza --color=auto --icons=auto" "ls";
-          ll = mkAlias "eza --long --header --git --color=auto --icons=auto" "ls -l";
-          la = mkAlias "eza -la --header --git --color=auto --icons=auto" "ls -la";
-          tree = mkAlias "eza --tree --icons=auto" "tree";
-          cat = mkAlias "bat --paging=never" "cat";
-          find = mkAlias "fd" "find";
-          du = mkAlias "dust" "du";
-          df = mkAlias "duf" "df";
-          sed = mkAlias "sd" "sed";
+          ls = mkFn "eza --color=auto --icons=auto" "ls";
+          ll = mkFn "eza --long --header --git --color=auto --icons=auto" "ls -l";
+          la = mkFn "eza -la --header --git --color=auto --icons=auto" "ls -la";
+          tree = mkFn "eza --tree --icons=auto" "tree";
+          cat = mkFn "bat --paging=never" "cat";
+          find = mkFn "fd" "find";
+          du = mkFn "dust" "du";
+          df = mkFn "duf" "df";
+          sed = mkFn "sd" "sed";
+          gitignore = "curl -sL https://www.gitignore.io/api/$argv";
         }
       );
-      functions = lib.mkIf config.programs.fish.enable {
-        gitignore = "curl -sL https://www.gitignore.io/api/$argv";
-      };
     };
 
     bash.bashrcExtra = lib.mkIf config.programs.bash.enable ''
