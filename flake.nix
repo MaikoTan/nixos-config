@@ -113,11 +113,8 @@
             inputs.android-nixpkgs.overlays.default
             inputs.angrr.overlays.default
             inputs.statix.overlays.default
+            (import ./overlays/rime-tlpa.nix { inherit rime-patched-pkgs; })
             (_: super: {
-              inherit (rime-patched-pkgs) rime-flypy;
-              rime-tlpa = super.callPackage ./rime-tlpa.nix {
-                inherit (rime-patched-pkgs) rime-prelude;
-              };
               freedownloadmanager = super.callPackage ./modules/freedownloadmanager { };
             })
             # 修复 hermes-agent 中写死的 electron headers hash.
