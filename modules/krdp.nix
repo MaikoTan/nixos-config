@@ -49,10 +49,9 @@ in
       type = lib.types.bool;
       default = false;
       description = ''
-        
-                Enable KDE Plasma's built-in Remote Desktop server (KRDP), which serves
-                the current Plasma session over RDP so it can be reached from a Windows
-                Remote Desktop (mstsc) client. Requires a Wayland Plasma session.
+        Enable KDE Plasma's built-in Remote Desktop server (KRDP), which serves
+        the current Plasma session over RDP so it can be reached from a Windows
+        Remote Desktop (mstsc) client. Requires a Wayland Plasma session.
       '';
     };
 
@@ -60,10 +59,9 @@ in
       type = lib.types.port;
       default = 3389;
       description = ''
-        
-                TCP port to open in the firewall. The port the server actually binds is
-                the one configured in the Plasma "Remote Desktop" settings page, which
-                also defaults to 3389.
+        TCP port to open in the firewall. The port the server actually binds is
+        the one configured in the Plasma "Remote Desktop" settings page, which
+        also defaults to 3389.
       '';
     };
 
