@@ -13,6 +13,8 @@
     ../modules/nixos/ime/default.nix
     ../modules/nixos/miku-cursors/default.nix
     ../modules/nixos/remote-desktop.nix
+    ../modules/nixos/networking/dev-ports.nix
+    ../modules/nixos/boot/grub.nix
   ];
 
   maiko = {
@@ -26,6 +28,7 @@
     ime.enable = true;
     miku-cursors.enable = true;
     remote-desktop.enable = true;
+    dev-ports.enable = true;
   };
 
   networking.networkmanager.enable = true;
@@ -34,31 +37,4 @@
   # dconf store used by GTK applications).
   programs.xwayland.enable = true;
   programs.dconf.enable = true;
-
-  # 常用开发服务器端口（Vite / Next.js / 通用 dev server），对所有桌面机器开放
-  networking.firewall.allowedTCPPortRanges = [
-    {
-      from = 5173;
-      to = 5183;
-    } # Vite dev server
-    {
-      from = 4000;
-      to = 4010;
-    } # Other common dev server ports
-    {
-      from = 3000;
-      to = 3010;
-    } # Next.js dev server
-    {
-      from = 8080;
-      to = 8090;
-    } # Common dev server port
-  ];
-
-  # Desktop environment use GRUB as the boot loader.
-  boot.loader.grub = {
-    enable = lib.mkDefault true;
-    efiSupport = lib.mkDefault true;
-    device = lib.mkDefault "nodev";
-  };
 }
