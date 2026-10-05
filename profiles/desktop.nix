@@ -12,6 +12,7 @@
     ../modules/docker.nix
     ../modules/ime.nix
     ../modules/miku-cursors.nix
+    ../modules/krdp.nix
   ];
 
   maiko = {
@@ -24,6 +25,7 @@
     docker.enable = true;
     ime.enable = true;
     miku-cursors.enable = true;
+    remote-desktop.enable = true;
   };
 
   networking.networkmanager.enable = true;

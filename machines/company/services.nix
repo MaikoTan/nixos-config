@@ -18,9 +18,10 @@
     tailscale = {
       enable = true;
     };
-    # https://nixos.wiki/wiki/Remote_Desktop
-    # Enable the GNOME RDP components
-    gnome.gnome-remote-desktop.enable = true;
+    # Remote desktop is provided by maiko.remote-desktop (KRDP) in
+    # profiles/desktop.nix. Do not enable services.gnome.gnome-remote-desktop
+    # here: GNOME's remote desktop competes with KRDP for port 3389, and the
+    # GNOME implementation does not support a Wayland session.
     displayManager.autoLogin.enable = false;
     getty.autologinUser = null;
     samba = {
@@ -85,10 +86,6 @@
             done
           fi
         '';
-      };
-      # Ensure the service starts automatically at boot so the settings panel appears
-      gnome-remote-desktop = {
-        wantedBy = [ "graphical.target" ];
       };
     };
   };
