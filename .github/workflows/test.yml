@@ -33,7 +33,9 @@ jobs:
 
       - name: Check formatting
         run: |
-          nix fmt -- --check $(git ls-files '*.nix' | grep -v plasma-rc.nix)
+          # treefmt's CI flag is --ci, not --check (--check belongs to
+          # standalone nixfmt). --ci implies --fail-on-change and --no-cache.
+          nix fmt -- --ci $(git ls-files '*.nix' | grep -v plasma-rc.nix)
 
       - name: Check Nix Flake
         run: |

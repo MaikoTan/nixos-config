@@ -164,6 +164,15 @@ in
   networking.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  # Must stay "powersave" or "performance": intel_pstate runs in active mode on
+  # this CPU (no intel_pstate=passive in kernelParams), and in that mode the only
+  # algorithms offered are powersave and performance. schedutil belongs to
+  # passive mode and cpupower frequency-set would fail with an invalid policy.
+  # powersave is not a low-performance trap here: with HWP enabled the hardware
+  # raises the frequency on its own as load rises, which covers the sustained
+  # video encoding load of a long Remote Desktop (KRDP) session. Plugged in,
+  # programs.auto-cpufreq in machines/company/services.nix already switches to
+  # performance.
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware = {
     enableRedistributableFirmware = true;
