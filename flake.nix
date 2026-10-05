@@ -114,9 +114,7 @@
             inputs.angrr.overlays.default
             inputs.statix.overlays.default
             (import ./overlays/rime-tlpa.nix { inherit rime-patched-pkgs; })
-            (_: super: {
-              freedownloadmanager = super.callPackage ./modules/freedownloadmanager { };
-            })
+            (import ./overlays/freedownloadmanager.nix)
             # 修复 hermes-agent 中写死的 electron headers hash.
             # electronHeaders 在 nix/desktop.nix 的 let 绑定中，override 无法触及，
             # 因此用 applyPatches 打补丁源码后再 callPackage。
