@@ -164,13 +164,16 @@ in
   networking.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  # schedutil reacts to actual load instead of parking at the lowest frequency.
-  # This matters for long-lived Remote Desktop (KRDP) sessions, which keep the
-  # CPU busy encoding video: powersave can hold the clocks down and show up as
-  # encoding latency jitter, while performance pins maximum frequency and
-  # wastes power (and adds fan noise) when the desktop is idle. schedutil gets
-  # ramp-up behaviour without the downside of either extreme.
-  powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
+  # Must stay "powersave" or "performance": intel_pstate runs in active mode on
+  # this CPU (no intel_pstate=passive in kernelParams), and in that mode the only
+  # algorithms offered are powersave and performance. schedutil belongs to
+  # passive mode and cpupower frequency-set would fail with an invalid policy.
+  # powersave is not a low-performance trap here: with HWP enabled the hardware
+  # raises the frequency on its own as load rises, which covers the sustained
+  # video encoding load of a long Remote Desktop (KRDP) session. Plugged in,
+  # programs.auto-cpufreq in machines/company/services.nix already switches to
+  # performance.
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware = {
     enableRedistributableFirmware = true;
 
