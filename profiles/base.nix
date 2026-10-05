@@ -2,13 +2,13 @@
 
 {
   imports = [
-    ../modules/nix
-    ../modules/packages.nix
-    ../modules/openssh.nix
-    ../modules/programs.nix
-    ../modules/user.nix
-    ../modules/sops.nix
-    ../modules/vscode-server.nix
+    ../modules/nixos/nix
+    ../modules/nixos/packages/default.nix
+    ../modules/nixos/openssh/default.nix
+    ../modules/nixos/programs/default.nix
+    ../modules/nixos/user/default.nix
+    ../modules/nixos/sops/default.nix
+    ../modules/nixos/vscode-server/default.nix
   ];
 
   maiko = {

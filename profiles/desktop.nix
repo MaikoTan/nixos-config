@@ -3,16 +3,16 @@
 {
   imports = [
     ./base.nix
-    ../modules/fonts.nix
-    ../modules/display-manager.nix
-    ../modules/desktop-programs.nix
-    ../modules/pipewire.nix
-    ../modules/libinput.nix
-    ../modules/printing.nix
-    ../modules/docker.nix
-    ../modules/ime.nix
-    ../modules/miku-cursors.nix
-    ../modules/krdp.nix
+    ../modules/nixos/fonts/default.nix
+    ../modules/nixos/display-manager/default.nix
+    ../modules/nixos/desktop.nix
+    ../modules/nixos/pipewire/default.nix
+    ../modules/nixos/libinput/default.nix
+    ../modules/nixos/printing/default.nix
+    ../modules/nixos/docker/default.nix
+    ../modules/nixos/ime/default.nix
+    ../modules/nixos/miku-cursors/default.nix
+    ../modules/nixos/remote-desktop.nix
   ];
 
   maiko = {
