@@ -110,25 +110,24 @@
           rime-patched-pkgs = import ./lib/rime-patched-pkgs.nix { inherit nixpkgs; };
 
           # 顺序即优先级：第三方 -> 本地 -> 第三方，不可随意重排。
-          overlays =
-            [
-              inputs.android-nixpkgs.overlays.default
-              inputs.angrr.overlays.default
-              inputs.statix.overlays.default
-            ]
-            ++ import ./overlays { inherit rime-patched-pkgs; }
-            ++ [
-              # 修复 hermes-agent 中写死的 electron headers hash.
-              # electronHeaders 在 nix/desktop.nix 的 let 绑定中，override 无法触及，
-              # 因此用 applyPatches 打补丁源码后再 callPackage。
-              (_: super: {
-                hermes-desktop-patched = import ./lib/hermes-agent-patched.nix {
-                  inherit (inputs) hermes-agent;
-                  inherit super;
-                };
-              })
-              inputs.nix-claude-code.overlays.default
-            ];
+          overlays = [
+            inputs.android-nixpkgs.overlays.default
+            inputs.angrr.overlays.default
+            inputs.statix.overlays.default
+          ]
+          ++ import ./overlays { inherit rime-patched-pkgs; }
+          ++ [
+            # 修复 hermes-agent 中写死的 electron headers hash.
+            # electronHeaders 在 nix/desktop.nix 的 let 绑定中，override 无法触及，
+            # 因此用 applyPatches 打补丁源码后再 callPackage。
+            (_: super: {
+              hermes-desktop-patched = import ./lib/hermes-agent-patched.nix {
+                inherit (inputs) hermes-agent;
+                inherit super;
+              };
+            })
+            inputs.nix-claude-code.overlays.default
+          ];
 
           nixpkgsConfig = {
             allowUnfree = true;
