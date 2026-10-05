@@ -51,7 +51,7 @@ command (in fish shell) to update the `dconf` config.
 
 ## Structure
 
-- `flake.nix` — Flake entry: machine definitions, overlays, devShell
+- `flake.nix` — Flake entry: machine definitions, overlay wiring, devShell
 - `machines/<hostname>/` — Machine-specific configs (`config.nix` + generated
   `hardware.nix`)
 - `profiles/` — Composition layer: which modules to enable per machine type
@@ -59,7 +59,26 @@ command (in fish shell) to update the `dconf` config.
   `maiko.*` options)
 - `modules/home-manager/` — User-level configuration (fish, vscode, dconf,
   plasma)
+- `packages/` — Locally maintained package derivations. These are packages, not
+  modules: nothing here is imported by a NixOS or Home Manager module, and each
+  is exposed to `pkgs` through an overlay in `overlays/`
+- `overlays/` — One file per locally maintained package, plus `default.nix`
+  which returns the whole local set as a list. `flake.nix` splices it in with
+  `++` between the third-party overlays. **Order matters** — it determines
+  derivation resolution
+- `lib/` — Shared helpers used by the flake and the local overlays
 - `secrets/` — SOPS-encrypted secrets (age)
+
+### Adding a local package
+
+1. Put the derivation under `packages/<name>/` (use `nvfetcher.toml` +
+   `_sources/` if the upstream has no versioned URL).
+2. Add `overlays/<name>.nix` exposing it via `final.callPackage`.
+3. Register it in the list returned by `overlays/default.nix`.
+
+Verify with
+`nix build .#nixosConfigurations.company.config.system.build.toplevel` and
+confirm the package's `outPath` is unchanged from before the move.
 
 ## Secrets
 
