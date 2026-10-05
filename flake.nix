@@ -107,28 +107,7 @@
 
       flake =
         let
-          rime-patched-pkgs =
-            let
-              pkgs = import nixpkgs { system = "x86_64-linux"; };
-            in
-            import
-              (pkgs.applyPatches {
-                name = "rime-patched";
-                src = nixpkgs;
-                patches = [
-                  (pkgs.fetchpatch {
-                    url = "https://github.com/NixOS/nixpkgs/pull/501829.patch";
-                    hash = "sha256-Ng518PqrRBzek7JxaIjAY0GV00ldZY6DKeM+Go8RvF8=";
-                  })
-                ];
-              })
-              {
-                system = "x86_64-linux";
-                config = {
-                  allowUnfree = true;
-                  allowUnfreePredicate = _: true;
-                };
-              };
+          rime-patched-pkgs = import ./lib/rime-patched-pkgs.nix { inherit nixpkgs; };
 
           overlays = [
             inputs.android-nixpkgs.overlays.default
@@ -145,28 +124,10 @@
             # electronHeaders 在 nix/desktop.nix 的 let 绑定中，override 无法触及，
             # 因此用 applyPatches 打补丁源码后再 callPackage。
             (_: super: {
-              hermes-desktop-patched =
-                let
-                  patchedHermesSrc =
-                    super.runCommandLocal "hermes-agent-patched"
-                      {
-                        nativeBuildInputs = [ super.gnused ];
-                      }
-                      ''
-                        cp -r "${inputs.hermes-agent}" "$out"
-                        chmod -R +w "$out"
-                        substituteInPlace "$out/nix/desktop.nix" \
-                          --replace-fail \
-                            "sha256-f8bSbLRmtbP93CJAvEBs+sHWDZ1xP2bcpLhC1EnOmZU=" \
-                            "sha256-xDgc5PpkcLpWHnlqVcjBD3SxJKtkUoSGLnJaSSrxJtI="
-                      '';
-                  hermesAgent = inputs.hermes-agent.packages.x86_64-linux.default;
-                in
-                super.callPackage "${patchedHermesSrc}/nix/desktop.nix" {
-                  inherit (super) electron;
-                  inherit hermesAgent;
-                  inherit (hermesAgent) hermesNpmLib;
-                };
+              hermes-desktop-patched = import ./lib/hermes-agent-patched.nix {
+                inherit (inputs) hermes-agent;
+                inherit super;
+              };
             })
             inputs.nix-claude-code.overlays.default
           ];
