@@ -208,11 +208,7 @@
               };
               extraSpecialArgs = { inherit inputs; };
               modules = [
-                ./modules/home-manager
-                {
-                  maiko.hm.desktop = true;
-                  maiko.hm.android = true;
-                }
+                ./machines/company/home.nix
               ];
             };
 
@@ -224,8 +220,7 @@
               };
               extraSpecialArgs = { inherit inputs; };
               modules = [
-                ./modules/home-manager
-                # Desktop / Android stay off on WSL (defaults).
+                ./machines/wsl/home.nix
               ];
             };
           };
