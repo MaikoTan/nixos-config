@@ -55,19 +55,35 @@ command (in fish shell) to update the `dconf` config.
 - `machines/<hostname>/` — Machine-specific configs (`config.nix` + generated
   `hardware.nix`)
 - `profiles/` — Composition layer: which modules to enable per machine type
-- `modules/` — Reusable NixOS modules (option + config pattern, enabled via
-  `maiko.*` options)
+- `modules/nixos/` — Reusable NixOS modules (option + config pattern, enabled
+  via `maiko.*` options). Flat modules live directly here (`desktop.nix`,
+  `remote-desktop.nix`); grouped features live in per-feature subdirectories
+  (`boot/`, `display-manager/`, `docker/`, `fonts/`, `ime/`, `nix/`, ...)
 - `modules/home-manager/` — User-level configuration (fish, vscode, dconf,
-  plasma)
-- `packages/` — Locally maintained package derivations. These are packages, not
-  modules: nothing here is imported by a NixOS or Home Manager module, and each
-  is exposed to `pkgs` through an overlay in `overlays/`
-- `overlays/` — One file per locally maintained package, plus `default.nix`
-  which returns the whole local set as a list. `flake.nix` splices it in with
-  `++` between the third-party overlays. **Order matters** — it determines
-  derivation resolution
+  plasma). Split into per-feature files (`git.nix`, `extras.nix`,
+  `packages.nix`, ...) plus subdirectories for `agents/`, `fish/`, `vscode/`.
+  Individual features are toggled with the `maiko.hm.*` option set (see
+  `modules/home-manager/machine.nix`)
+- `packages/` — Locally maintained package derivations (`rime-tlpa`,
+  `freedownloadmanager`, `miku-cursors`). These are packages, not modules:
+  nothing here is imported by a NixOS or Home Manager module, and each is
+  exposed to `pkgs` through an overlay in `overlays/`
+- `overlays/` — One file per locally maintained package (`rime-tlpa.nix`,
+  `freedownloadmanager.nix`, `miku-cursors.nix`), plus `default.nix` which
+  returns the whole local set as a list. `flake.nix` splices it in with `++`
+  between the third-party overlays. **Order matters** — it determines derivation
+  resolution
 - `lib/` — Shared helpers used by the flake and the local overlays
+  (`rime-patched-pkgs.nix`, `hermes-agent-patched.nix`)
 - `secrets/` — SOPS-encrypted secrets (age)
+
+### Per-machine Home Manager config
+
+Home Manager configurations are keyed by `user@hostname` in `flake.nix`
+(`maiko@company`, `maiko@wsl`). Each entry imports the shared module set
+(`./modules/home-manager`) plus a per-machine entry point at
+`machines/<host>/home.nix`, which toggles individual features via the
+`maiko.hm.*` options (e.g. `maiko.hm.desktop = true;`).
 
 ### Adding a local package
 
