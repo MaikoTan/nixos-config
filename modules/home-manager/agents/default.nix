@@ -51,5 +51,6 @@
 
   home.packages = with pkgs; [
     obscura # Minimal browser for agents
+    github-copilot-app
   ];
 }
