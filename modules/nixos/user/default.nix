@@ -38,7 +38,7 @@ in
     };
 
     sops.secrets.maikoPasswordHash = {
-      sopsFile = ../secrets/password.yaml;
+      sopsFile = ../../../secrets/password.yaml;
       key = "maiko";
       # 确保在创建用户（useradd）之前完成解密
       neededForUsers = true;
