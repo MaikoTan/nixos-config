@@ -15,7 +15,6 @@ let
 in
 {
   github-copilot-app = prev.github-copilot-app.overrideAttrs (_: {
-    version = pkg.version;
-    src = pkg.src;
+    inherit (pkg) version src;
   });
 }
