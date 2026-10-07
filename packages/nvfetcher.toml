@@ -1,0 +1,19 @@
+# 合并的 nvfetcher 配置，管理所有 nixpkgs 上游未收录或需覆盖的包。
+#
+# 在仓库根目录运行：
+#   nix run nixpkgs#nvfetcher -- -c packages/nvfetcher.toml
+#
+# 如果只想更新某个包，加 --filter：
+#   nix run nixpkgs#nvfetcher -- -c packages/nvfetcher.toml --filter 'github-copilot-app'
+
+[freedownloadmanager]
+# 上游只提供 latest URL（无版本化路径），因此版本固定为 manual，
+# 升级时手动修改版本号并重新运行 nvfetcher 即可更新 hash。
+src.manual = "6.24"
+fetch.url = "https://files2.freedownloadmanager.org/6/latest/freedownloadmanager.deb"
+
+[github-copilot-app]
+# 自动追踪 github/app 的最新 release。
+src.github = "github/app"
+src.prefix = "v"
+fetch.url = "https://github.com/github/app/releases/download/v$ver/GitHub-Copilot-linux-x64.deb"

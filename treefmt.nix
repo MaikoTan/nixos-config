@@ -13,7 +13,10 @@
             width = 120;
           };
           shellcheck.enable = true;
-          deno.enable = true;
+          deno = {
+            enable = true;
+            excludes = [ "packages/_sources/*.json" ];
+          };
           ruff = {
             check = true;
             format = true;

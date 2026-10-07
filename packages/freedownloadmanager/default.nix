@@ -27,8 +27,8 @@
 }:
 
 let
-  # 由 nvfetcher 生成（见 nvfetcher.toml），升级时修改版本号并重新运行 nvfetcher
-  sources = import ./_sources/generated.nix {
+  # 由 nvfetcher 生成（见 ../nvfetcher.toml），升级时重新运行 nvfetcher 即可更新 hash
+  sources = import ../_sources/generated.nix {
     inherit
       fetchgit
       fetchurl
