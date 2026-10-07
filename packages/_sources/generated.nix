@@ -14,4 +14,12 @@
       sha256 = "sha256-rsxMB5RoVmjoSWij1e8kd8Ux0Pl2jSDzzFNx2bO59Wc=";
     };
   };
+  github-copilot-app = {
+    pname = "github-copilot-app";
+    version = "1.1.27";
+    src = fetchurl {
+      url = "https://github.com/github/app/releases/download/v1.1.27/GitHub-Copilot-linux-x64.deb";
+      sha256 = "sha256-E6siamKcrEnq8oFC4Hkydi4EBigSfJxm61vvZIYtWEY=";
+    };
+  };
 }
