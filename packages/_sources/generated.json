@@ -8,11 +8,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-rsxMB5RoVmjoSWij1e8kd8Ux0Pl2jSDzzFNx2bO59Wc=",
+            "sha256": "sha256-3xaIWR6xG/TZBHs8rkS2bXzZd6dlDXmkS5l6LtBc9bA=",
             "type": "url",
             "url": "https://files2.freedownloadmanager.org/6/latest/freedownloadmanager.deb"
         },
-        "version": "6.24"
+        "version": "6.35.1"
     },
     "github-copilot-app": {
         "cargoLock": null,
@@ -23,10 +23,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-E6siamKcrEnq8oFC4Hkydi4EBigSfJxm61vvZIYtWEY=",
+            "sha256": "sha256-AZfRCzAftbnH98ZL1VDt/NxsaOHVUi348eAW5IbaTjA=",
             "type": "url",
-            "url": "https://github.com/github/app/releases/download/v1.1.27/GitHub-Copilot-linux-x64.deb"
+            "url": "https://github.com/github/app/releases/download/v1.1.28/GitHub-Copilot-linux-x64.deb"
         },
-        "version": "1.1.27"
+        "version": "1.1.28"
     }
 }

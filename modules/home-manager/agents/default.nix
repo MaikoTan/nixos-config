@@ -39,7 +39,6 @@
       enable = true; # the hermes CLI on your PATH
       # The Electron desktop app is only useful on a full desktop (company).
       desktop.enable = config.maiko.hm.desktop;
-      desktop.package = pkgs.hermes-desktop-patched;
     };
   };
 

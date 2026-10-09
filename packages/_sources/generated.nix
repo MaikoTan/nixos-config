@@ -8,18 +8,18 @@
 {
   freedownloadmanager = {
     pname = "freedownloadmanager";
-    version = "6.24";
+    version = "6.35.1";
     src = fetchurl {
       url = "https://files2.freedownloadmanager.org/6/latest/freedownloadmanager.deb";
-      sha256 = "sha256-rsxMB5RoVmjoSWij1e8kd8Ux0Pl2jSDzzFNx2bO59Wc=";
+      sha256 = "sha256-3xaIWR6xG/TZBHs8rkS2bXzZd6dlDXmkS5l6LtBc9bA=";
     };
   };
   github-copilot-app = {
     pname = "github-copilot-app";
-    version = "1.1.27";
+    version = "1.1.28";
     src = fetchurl {
-      url = "https://github.com/github/app/releases/download/v1.1.27/GitHub-Copilot-linux-x64.deb";
-      sha256 = "sha256-E6siamKcrEnq8oFC4Hkydi4EBigSfJxm61vvZIYtWEY=";
+      url = "https://github.com/github/app/releases/download/v1.1.28/GitHub-Copilot-linux-x64.deb";
+      sha256 = "sha256-AZfRCzAftbnH98ZL1VDt/NxsaOHVUi348eAW5IbaTjA=";
     };
   };
 }

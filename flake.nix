@@ -117,15 +117,6 @@
           ]
           ++ import ./overlays { inherit rime-patched-pkgs; }
           ++ [
-            # 修复 hermes-agent 中写死的 electron headers hash.
-            # electronHeaders 在 nix/desktop.nix 的 let 绑定中，override 无法触及，
-            # 因此用 applyPatches 打补丁源码后再 callPackage。
-            (_: super: {
-              hermes-desktop-patched = import ./lib/hermes-agent-patched.nix {
-                inherit (inputs) hermes-agent;
-                inherit super;
-              };
-            })
             inputs.nix-claude-code.overlays.default
           ];
 

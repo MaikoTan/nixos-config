@@ -74,7 +74,7 @@ command (in fish shell) to update the `dconf` config.
   between the third-party overlays. **Order matters** — it determines derivation
   resolution
 - `lib/` — Shared helpers used by the flake and the local overlays
-  (`rime-patched-pkgs.nix`, `hermes-agent-patched.nix`)
+  (`rime-patched-pkgs.nix`)
 - `secrets/` — SOPS-encrypted secrets (age)
 
 ### Per-machine Home Manager config
