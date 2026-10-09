@@ -46,7 +46,7 @@
       lib.mkIf (cfg.enable && cfg.autoStart) {
         httpProxy = endpoint;
         httpsProxy = endpoint;
-        noProxy = "localhost,127.0.0.0/8,::1,192.168.0.0/16,*.ts.net";
+        noProxy = "localhost,127.0.0.0/8,::1,192.168.0.0/16,.ts.net";
       };
   };
 
