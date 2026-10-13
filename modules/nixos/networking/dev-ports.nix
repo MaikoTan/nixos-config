@@ -20,7 +20,7 @@ in
       } # Vite dev server
       {
         from = 4000;
-        to = 4010;
+        to = 6999;
       } # Other common dev server ports
       {
         from = 3000;
