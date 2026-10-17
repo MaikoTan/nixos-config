@@ -51,6 +51,12 @@ belong in each repository's own `AGENTS.md`, not here.
 - Never claim something was done when it wasn't verified.
 - Report real errors as-is; never hide failures.
 
+## Session Spawning (create_session)
+
+- **Mandatory**: every `create_session` call MUST pass `model` in `kickoff`, set to the main session's current model. Never omit it, never rely on inheritance defaults, never substitute a different model.
+- `auto_tier` / `reasoning_effort`: omit unless explicitly requested.
+- An already-started session cannot have its model changed via `send_session_message` (no `model` parameter) — the model must be correct at creation time; there is no second chance.
+
 ## Safety
 
 - Never commit, print, or transmit secrets (sops-nix files stay encrypted).
