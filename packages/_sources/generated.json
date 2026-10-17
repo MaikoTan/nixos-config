@@ -23,10 +23,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-AZfRCzAftbnH98ZL1VDt/NxsaOHVUi348eAW5IbaTjA=",
+            "sha256": "sha256-aKLj7yMMrKSOYMm+vWC0Mv1w63pFKR/OI0B1ilhmgqM=",
             "type": "url",
-            "url": "https://github.com/github/app/releases/download/v1.1.28/GitHub-Copilot-linux-x64.deb"
+            "url": "https://github.com/github/app/releases/download/v1.1.30/GitHub-Copilot-linux-x64.deb"
         },
-        "version": "1.1.28"
+        "version": "1.1.30"
     }
 }

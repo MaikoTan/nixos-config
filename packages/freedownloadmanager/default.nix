@@ -7,6 +7,7 @@
   dockerTools,
   dpkg,
   wrapGAppsHook3,
+  makeBinaryWrapper,
   autoPatchelfHook,
   patchelf,
   udev,
@@ -22,8 +23,11 @@
   libxcb-render-util,
   libpulseaudio,
   libmysqlclient,
+  pipewire,
   oracle-instantclient,
   firebird,
+  python3,
+  deno,
 }:
 
 let
@@ -51,6 +55,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook3
     autoPatchelfHook
     patchelf
+    makeBinaryWrapper
   ];
 
   buildInputs = [
@@ -78,6 +83,7 @@ stdenv.mkDerivation rec {
     libxcb-keysyms # libxcb-keysyms.so.1
     libxcb-render-util # libxcb-render-util.so.0
     libpulseaudio
+    pipewire
   ];
 
   runtimeDependencies = [
@@ -90,6 +96,8 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cp -r opt/freedownloadmanager $out
     cp -r usr/share $out
+    wrapProgram $out/freedownloadmanager/fdm \
+      --prefix PATH : ${lib.makeBinPath [ python3 deno ]}
     ln -s $out/freedownloadmanager/fdm $out/bin/${pname}
 
     substituteInPlace $out/share/applications/freedownloadmanager.desktop \

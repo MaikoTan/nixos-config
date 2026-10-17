@@ -16,10 +16,10 @@
   };
   github-copilot-app = {
     pname = "github-copilot-app";
-    version = "1.1.28";
+    version = "1.1.30";
     src = fetchurl {
-      url = "https://github.com/github/app/releases/download/v1.1.28/GitHub-Copilot-linux-x64.deb";
-      sha256 = "sha256-AZfRCzAftbnH98ZL1VDt/NxsaOHVUi348eAW5IbaTjA=";
+      url = "https://github.com/github/app/releases/download/v1.1.30/GitHub-Copilot-linux-x64.deb";
+      sha256 = "sha256-aKLj7yMMrKSOYMm+vWC0Mv1w63pFKR/OI0B1ilhmgqM=";
     };
   };
 }
