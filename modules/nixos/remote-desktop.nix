@@ -126,6 +126,8 @@ in
         [Service]
         Type=exec
         ExecStart=${lib.getBin kdePackages.krdp}/bin/krdpserver
+        Environment=WAYLAND_DISPLAY=wayland-0
+        Environment=XDG_RUNTIME_DIR=/run/user/1000
         Restart=on-abnormal
 
         [Install]
