@@ -2,6 +2,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -20,4 +21,8 @@
         sources-android-36
       ];
   };
+
+  home.packages = lib.mkIf config.maiko.hm.android [
+    pkgs.android-cli
+  ];
 }
