@@ -1,5 +1,6 @@
 {
   inputs,
+  lib,
   ...
 }:
 
@@ -25,6 +26,12 @@
   time.timeZone = "Asia/Shanghai";
 
   maiko.nix.useChinaMirrors = true;
+
+  # Sunshine captures the running compositor's output via the KWin
+  # screencast protocol and injects input through /dev/uinput. Neither
+  # works in this VM, and the nixpkgs module would still enable
+  # hardware.uinput and pull in the whole Sunshine closure.
+  maiko.sunshine.enable = lib.mkForce false;
 
   networking.hostName = "nixos-vm";
 }

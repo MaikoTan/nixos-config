@@ -13,6 +13,7 @@
     ../modules/nixos/ime/default.nix
     ../modules/nixos/miku-cursors/default.nix
     ../modules/nixos/remote-desktop.nix
+    ../modules/nixos/sunshine/default.nix
     ../modules/nixos/networking/dev-ports.nix
     ../modules/nixos/boot/grub.nix
   ];
@@ -28,6 +29,7 @@
     ime.enable = true;
     miku-cursors.enable = true;
     remote-desktop.enable = true;
+    sunshine.enable = true;
     dev-ports.enable = true;
   };
 

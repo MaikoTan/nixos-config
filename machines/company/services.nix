@@ -103,5 +103,6 @@
   users.users.maiko.extraGroups = [
     "samba"
     "video"
+    "shadow"
   ];
 }

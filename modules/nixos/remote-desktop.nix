@@ -26,6 +26,29 @@
 # contents. The unit name and ExecStart path have to stay byte-identical to
 # what the KCM asks systemd for, or the KCM silently keeps failing.
 #
+# The unit additionally passes `--plasma`, which is what makes the server
+# usable at all. Without it krdpserver talks to the XDG Desktop Portal
+# (`xdg-desktop-portal-kde`) to get a RemoteDesktop session. On a Plasma
+# session that portal cannot provide one, so it answers with an error and
+# the user gets the dialog "The application KRdp tried to start a remote
+# desktop session but remote desktop is not available on this system."
+# (the server log shows "Failed to register with host portal"). With
+# `--plasma` krdpserver uses Plasma's own protocols instead: it binds
+# `zkde_screencast_unstable_v1` for screen capture and
+# `org_kde_kwin_fake_input` for input injection, both of which KWin serves to
+# non-sandboxed local clients.
+#
+# KRDP authentication: when `--username` is NOT passed (our case), the server
+# reads `SystemUserEnabled` from ~/.config/krdpserverrc (default false). If
+# true, it uses PAM with the standard "login" service (NOT "krdpserver" --
+# that string is the KDE screencast authorization token, see
+# PlasmaScreencastV1Session.cpp). PAM mode uses TLS security layer (no NLA).
+# The RDP client must send username = local login name (maiko) and the system
+# login password. pam_unix(login) runs as the user (euid=1000) and needs to
+# read /etc/shadow (0640 root:shadow). NixOS's unix_chkpwd helper lacks the
+# setuid bit, so pam_unix cannot delegate to it; the fix is adding the user
+# to the "shadow" group so pam_unix can read /etc/shadow directly.
+#
 # On the `[Install]` section: the KCM's "start at login" toggle calls
 # `EnableUnitFiles`, and systemd refuses that on a static unit (one without
 # `[Install]`). Without it, "start at login" silently never persists across
@@ -52,6 +75,81 @@ let
   # final name must be exactly "app-org.kde.krdpserver.service" -- that is what
   # the KCM asks systemd for over D-Bus.
   unitName = "app-org.kde.krdpserver";
+
+  # A script that creates the TLS certificate and key for the RDP server on
+  # first start, inside the user's own data directory.
+  #
+  # The target directory is passed as the first argument, so that the script
+  # and the krdpserver command line below always agree on the location.
+  #
+  # Why not derive the certificate in the Nix store?
+  #
+  #   1. The Nix store normalises every file to mode 0444, so a private key
+  #      stored there is world-readable to every local user. Deriving it at
+  #      build time would therefore publish the key. The key has to be
+  #      created at runtime, in a directory only the user can read.
+  #
+  #   2. A build-time certificate would be baked into the store and shared
+  #      between machines and between rebuilds, i.e. rotating it would
+  #      require a rebuild. Generating it on first start keeps the key
+  #      local and lets it be rotated by deleting the file.
+  #
+  # Why not let the Plasma KCM generate it?
+  #
+  # The KCM can do that, but it runs `openssl req ... -days 1`, i.e. the
+  # certificate is valid for exactly one day, and it refuses to regenerate
+  # while the KConfig already holds a `Certificate=` value. An expired
+  # certificate would then stay expired forever, and the KCM performs no
+  # expiry check at all, so the server happily starts with a dead
+  # certificate and every client fails with a TLS error.
+  #
+  # The certificate is passed on the command line, which takes precedence
+  # over the KConfig values (see `parserValueWithDefault` in server/main.cpp),
+  # so this script's output always wins over whatever the KCM has stored in
+  # ~/.config/krdpserverrc.
+  certificateScript = pkgs.writeShellApplication {
+    name = "krdp-generate-certificate";
+    runtimeInputs = [
+      pkgs.openssl
+      pkgs.coreutils
+    ];
+    text = ''
+      cert_dir="$1"
+      cert="$cert_dir/krdp.crt"
+      key="$cert_dir/krdp.key"
+
+      # Already generated and still valid: keep it, so the certificate does
+      # not change on every service restart (which would invalidate clients
+      # that pinned the old one).
+      if [ -s "$cert" ] && [ -s "$key" ]; then
+        if openssl x509 -in "$cert" -noout -checkend 86400 >/dev/null 2>&1; then
+          exit 0
+        fi
+      fi
+
+      mkdir -p "$cert_dir"
+      chmod 700 "$cert_dir"
+
+      # Regenerate from scratch: the old key must be replaced together with
+      # the certificate.
+      rm -f "$cert" "$key"
+
+      # The subject alternative names cover the common ways a client reaches
+      # this machine. FreeRDP warns about a name mismatch between the
+      # certificate and the host the client connected to, and mstsc refuses
+      # an untrusted certificate outright.
+      openssl req -nodes -new -x509 \
+        -keyout "$key" \
+        -out "$cert" \
+        -days 3650 \
+        -subj "/CN=${config.networking.hostName}" \
+        -addext "subjectAltName=DNS:${config.networking.hostName},DNS:localhost,IP:127.0.0.1" \
+        -batch
+
+      chmod 600 "$key"
+      chmod 644 "$cert"
+    '';
+  };
 in
 {
   options.maiko.remote-desktop = {
@@ -89,8 +187,8 @@ in
         message = "maiko.remote-desktop.enable requires services.desktopManager.plasma6.enable (KRDP is a Plasma component).";
       }
       {
-        assertion = config.security.pam.services.kde.kwallet.enable;
-        message = "KRDP stores RDP passwords in KWallet, which requires kwallet-pam (Plasma normally enables this for you).";
+        assertion = config.security.pam.services.login.kwallet.enable;
+        message = "KRDP authenticates against the 'login' PAM service, whose kwallet module must be enabled so the RDP password can be read from KWallet.";
       }
     ];
 
@@ -125,7 +223,8 @@ in
 
         [Service]
         Type=exec
-        ExecStart=${lib.getBin kdePackages.krdp}/bin/krdpserver
+        ExecStartPre=${lib.getExe certificateScript} %h/.local/share/krdpserver
+        ExecStart=${lib.getBin kdePackages.krdp}/bin/krdpserver --plasma --certificate %h/.local/share/krdpserver/krdp.crt --certificate-key %h/.local/share/krdpserver/krdp.key
         Restart=on-abnormal
 
         [Install]
