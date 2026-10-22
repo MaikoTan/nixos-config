@@ -43,7 +43,6 @@ in
               ];
             })
             fcitx5-gtk
-            fcitx5-mozc
           ];
           settings = {
             inputMethod = {
@@ -68,9 +67,6 @@ in
               };
               "Groups/0/Items/4" = {
                 "Name" = "rime";
-              };
-              "Groups/0/Items/5" = {
-                "Name" = "mozc";
               };
               "GroupOrder" = {
                 "0" = "Default";

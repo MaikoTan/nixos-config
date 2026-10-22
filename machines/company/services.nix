@@ -61,8 +61,13 @@
     };
   };
 
+  # TEMPORARILY DISABLED (uncommitted, 2026-10-22): the upstream package's poetry
+  # metadata pins `urwid<4.0.0,>=3.0.3` while nixpkgs ships urwid 4.0.11, so
+  # nixpkgs' pythonRuntimeDepsCheck fails the build and takes the whole system
+  # closure (system-path -> system-generators -> nixos-system) down with it.
+  # Re-enable once upstream relaxes the urwid pin or nixpkgs downgrades urwid.
   programs.auto-cpufreq = {
-    enable = true;
+    enable = false;
     settings = {
       charger = {
         governor = "performance";
