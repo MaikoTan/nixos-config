@@ -97,7 +97,12 @@ stdenv.mkDerivation rec {
     cp -r opt/freedownloadmanager $out
     cp -r usr/share $out
     wrapProgram $out/freedownloadmanager/fdm \
-      --prefix PATH : ${lib.makeBinPath [ python3 deno ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          python3
+          deno
+        ]
+      }
     ln -s $out/freedownloadmanager/fdm $out/bin/${pname}
 
     substituteInPlace $out/share/applications/freedownloadmanager.desktop \
