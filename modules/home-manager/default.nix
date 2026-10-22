@@ -9,7 +9,6 @@
 {
   imports = [
     # External
-    inputs.android-nixpkgs.hmModule
     inputs.plasma-manager.homeModules.plasma-manager
     # Local feature modules
     ./agents/default.nix

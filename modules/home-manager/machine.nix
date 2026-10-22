@@ -19,7 +19,10 @@
     android = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Enable Android SDK and Android Studio (heavy, desktop only).";
+      description = ''
+        Enable the Android toolchain: the official `android` CLI and the
+        user-managed SDK under ~/Android/Sdk (desktop only).
+      '';
     };
 
     # Toggle groups that were previously always-on. Defaults preserve current

@@ -413,13 +413,6 @@
       kwinrulesrc."1f2f8d3f-609e-411a-9a14-a7778d406945".types = 1;
       kwinrulesrc."1f2f8d3f-609e-411a-9a14-a7778d406945".wmclass = "code-insiders";
       kwinrulesrc."1f2f8d3f-609e-411a-9a14-a7778d406945".wmclassmatch = 1;
-      kwinrulesrc."48078643-bc88-4ed8-995e-e3eb5518aaeb".Description = "Android Studio";
-      kwinrulesrc."48078643-bc88-4ed8-995e-e3eb5518aaeb".layerrule = 2;
-      kwinrulesrc."48078643-bc88-4ed8-995e-e3eb5518aaeb".opacityactive = 95;
-      kwinrulesrc."48078643-bc88-4ed8-995e-e3eb5518aaeb".opacityactiverule = 2;
-      kwinrulesrc."48078643-bc88-4ed8-995e-e3eb5518aaeb".wmclass = "jetbrains-studio jetbrains-studio";
-      kwinrulesrc."48078643-bc88-4ed8-995e-e3eb5518aaeb".wmclasscomplete = true;
-      kwinrulesrc."48078643-bc88-4ed8-995e-e3eb5518aaeb".wmclassmatch = 1;
       kwinrulesrc."77aa9995-0618-45ba-b709-183b3b362a46".Description = "Remmina";
       kwinrulesrc."77aa9995-0618-45ba-b709-183b3b362a46".opacityactive = 92;
       kwinrulesrc."77aa9995-0618-45ba-b709-183b3b362a46".opacityactiverule = 2;

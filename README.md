@@ -96,6 +96,33 @@ Verify with
 `nix build .#nixosConfigurations.company.config.system.build.toplevel` and
 confirm the package's `outPath` is unchanged from before the move.
 
+## Android toolchain
+
+The Android toolchain is split in two: the command-line tools come from Nix, the
+SDK itself is a plain directory in the home folder.
+
+- **Nix side** — `pkgs.android-studio-tools` provides the official `android` CLI
+  (plus `sdkmanager` / `avdmanager`), `pkgs.android-tools` provides `adb`.
+  Android Studio is intentionally not installed: the CLI covers the same
+  workflows with a much smaller footprint.
+- **SDK side** — the SDK lives in `~/Android/Sdk` and is _not_ managed by Nix.
+  It is writable, so components installed with `android sdk install` survive
+  rebuilds. `ANDROID_HOME` and `ANDROID_SDK_ROOT` point at it, and
+  `platform-tools` / `emulator` from the SDK are added to `PATH` via
+  `home.sessionPath`.
+
+```bash
+android info              # show the resolved SDK path
+android sdk install       # install/upgrade SDK components
+android emulator list     # list AVDs
+```
+
+The SDK ships its own `platform-tools` and `emulator` binaries, but they are
+plain dynamically linked executables and need the X11/GL/audio system libraries.
+Those are provided through `programs.nix-ld.libraries` in `profiles/base.nix`,
+so the emulator works without a wrapper. Note that the system-level `nix-ld`
+library set only takes effect after a `nixos-rebuild`.
+
 ## Secrets
 
 Secrets are managed with [sops-nix](https://github.com/Mic92/sops-nix) using age

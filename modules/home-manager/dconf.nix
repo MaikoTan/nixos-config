@@ -229,10 +229,6 @@ with lib.hm.gvariant;
       ];
     };
 
-    "org/gnome/desktop/notifications/application/android-studio" = {
-      application-id = "android-studio.desktop";
-    };
-
     "org/gnome/desktop/notifications/application/clash-verge" = {
       application-id = "Clash Verge.desktop";
     };

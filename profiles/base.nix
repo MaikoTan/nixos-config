@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 {
   imports = [
@@ -27,6 +27,47 @@
   # This is required for vscode-server to work properly,
   # and it also makes other programs easier to be used in WSL.
   programs.nix-ld.enable = true;
+
+  # 额外提供 X11/xcb 等图形库，让用户自管的 Android SDK（~/Android/Sdk）
+  # 中的 emulator 能在 NixOS 上直接运行（其二进制没有指向 nix store 的 RPATH）。
+  programs.nix-ld.libraries = with pkgs; [
+    libx11
+    libxcb
+    libxcb-cursor
+    libxcb-image
+    libxcb-keysyms
+    libxcb-render-util
+    libxcb-wm
+    libxcomposite
+    libxcursor
+    libxdamage
+    libxext
+    libxfixes
+    libxi
+    libxkbcommon
+    libxkbfile
+    libxrandr
+    libxrender
+    libxshmfence
+    libxtst
+    libice
+    libsm
+    alsa-lib
+    dbus
+    expat
+    fontconfig
+    freetype
+    libbsd
+    libdrm
+    libgbm
+    libGL
+    libpng
+    libtiff
+    ncurses
+    nss
+    nspr
+    libpulseaudio
+  ];
 
   i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
   console = {

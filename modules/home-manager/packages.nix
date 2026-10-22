@@ -38,6 +38,5 @@
     ))
     ++ (lib.optionals config.maiko.hm.android [
       pkgs.android-tools
-      pkgs.android-studio
     ]);
 }

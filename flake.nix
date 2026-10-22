@@ -68,11 +68,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    android-nixpkgs = {
-      url = "github:tadfisher/android-nixpkgs/stable";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     statix = {
       url = "github:oppiliappan/statix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -111,7 +106,6 @@
 
           # 顺序即优先级：第三方 -> 本地 -> 第三方，不可随意重排。
           overlays = [
-            inputs.android-nixpkgs.overlays.default
             inputs.angrr.overlays.default
             inputs.statix.overlays.default
           ]
@@ -123,7 +117,6 @@
           nixpkgsConfig = {
             allowUnfree = true;
             allowUnfreePredicate = _: true;
-            android_sdk.accept_license = true;
           };
 
           nixosModule = {

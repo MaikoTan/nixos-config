@@ -102,7 +102,6 @@
 
   users.users.maiko.extraGroups = [
     "samba"
-    "adbusers"
     "video"
   ];
 }
