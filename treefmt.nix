@@ -15,7 +15,10 @@
           shellcheck.enable = true;
           deno = {
             enable = true;
-            excludes = [ "packages/_sources/*.json" ];
+            excludes = [
+              "packages/_sources/*.json"
+              "secrets/*.json"
+            ];
           };
           ruff = {
             check = true;

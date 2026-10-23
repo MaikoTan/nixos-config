@@ -45,5 +45,15 @@
       default = true;
       description = "Enable background services (gpg-agent, remmina).";
     };
+
+    magpie = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = ''
+        Enable the Magpie AI gateway: the CLI, the user service running
+        `magpie serve`, and the SOPS backup helper for its provider
+        configuration (which Magpie itself maintains at runtime).
+      '';
+    };
   };
 }

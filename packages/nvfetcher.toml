@@ -17,3 +17,10 @@ fetch.url = "https://files2.freedownloadmanager.org/6/latest/freedownloadmanager
 src.github = "github/app"
 src.prefix = "v"
 fetch.url = "https://github.com/github/app/releases/download/v$ver/GitHub-Copilot-linux-x64.deb"
+
+# Magpie CLI 是闭源独立二进制；不执行官方安装脚本中的自动更新逻辑，
+# 由 nvfetcher 固定版本与 hash。上游程序名为 magpie。
+[magpie-cli]
+src.github = "yetone/magpie-releases"
+src.prefix = "v"
+fetch.url = "https://github.com/yetone/magpie-releases/releases/download/v$ver/magpie-cli-linux-amd64"

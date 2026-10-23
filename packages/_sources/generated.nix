@@ -22,4 +22,12 @@
       sha256 = "sha256-aKLj7yMMrKSOYMm+vWC0Mv1w63pFKR/OI0B1ilhmgqM=";
     };
   };
+  magpie-cli = {
+    pname = "magpie-cli";
+    version = "0.1.1328";
+    src = fetchurl {
+      url = "https://github.com/yetone/magpie-releases/releases/download/v0.1.1328/magpie-cli-linux-amd64";
+      sha256 = "sha256-efeQnBrLHP5cp6bf/aCvg74BWBF5O8iq2MXJH3IXhpg=";
+    };
+  };
 }

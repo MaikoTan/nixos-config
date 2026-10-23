@@ -3,6 +3,7 @@
 [
   (import ./rime-tlpa.nix { inherit rime-patched-pkgs; })
   (import ./freedownloadmanager.nix)
+  (import ./magpie.nix)
   (import ./miku-cursors.nix)
   (import ./github-copilot-app.nix)
 ]

@@ -28,5 +28,20 @@
             "url": "https://github.com/github/app/releases/download/v1.1.30/GitHub-Copilot-linux-x64.deb"
         },
         "version": "1.1.30"
+    },
+    "magpie-cli": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "magpie-cli",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-efeQnBrLHP5cp6bf/aCvg74BWBF5O8iq2MXJH3IXhpg=",
+            "type": "url",
+            "url": "https://github.com/yetone/magpie-releases/releases/download/v0.1.1328/magpie-cli-linux-amd64"
+        },
+        "version": "0.1.1328"
     }
 }

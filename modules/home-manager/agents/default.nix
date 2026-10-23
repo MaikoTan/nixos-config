@@ -9,6 +9,7 @@
   imports = [
     inputs.hermes-agent.homeManagerModules.default
     ./agents
+    ./magpie.nix
   ];
 
   programs = {
@@ -17,9 +18,7 @@
       enable = true;
       package = pkgs.claude-code;
       enableMcpIntegration = true;
-      settings = {
-        includeCoAuthoredBy = false;
-      };
+      # settings 交给 Magpie 托管（它需要写 ~/.claude/settings.json）
     };
 
     # https://github.com/github/copilot-cli
