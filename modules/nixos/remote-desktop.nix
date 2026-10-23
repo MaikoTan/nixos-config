@@ -178,6 +178,37 @@ in
       default = true;
       description = "Open the RDP port in the NixOS firewall.";
     };
+
+    # Create a virtual monitor instead of capturing a physical one.
+    #
+    # This is the closest thing KRDP has to a headless mode: it asks KWin for
+    # a `zkde_screencast_stream_unstable_v1` *virtual output* rather than
+    # mirroring an existing one, so the RDP client gets its own screen that
+    # does not have to exist as hardware.
+    #
+    # What it does NOT do is make a broken compositor work. The virtual stream
+    # is still served by KWin's screencast implementation, so if KWin has lost
+    # its DRM master (no /dev/dri/card* fd open, `kscreen-doctor -o` prints
+    # nothing) the server starts, binds the port, and then sits there with no
+    # stream at all -- the log only shows Qt's "There are no outputs -
+    # creating placeholder screen", which is about the *client* side, not the
+    # stream. Verified on 6.8.0: with the monitor physically unplugged, both
+    # this and the default path produce zero PipeWire screencast nodes.
+    #
+    # So: useful when a monitor is attached but you want a separate RDP screen
+    # (or a fixed resolution independent of the panel), not a substitute for
+    # having a working output. Format is WIDTHxHEIGHT@SCALE, e.g. 1920x1080@1.
+    virtualMonitor = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      example = "1920x1080@1";
+      description = ''
+        Resolution of a virtual monitor to create for the RDP session, in
+        WIDTHxHEIGHT@SCALE form. When null, the physical workspace is captured
+        instead. Requires a working KWin output; it does not enable headless
+        operation on its own.
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -224,7 +255,9 @@ in
         [Service]
         Type=exec
         ExecStartPre=${lib.getExe certificateScript} %h/.local/share/krdpserver
-        ExecStart=${lib.getBin kdePackages.krdp}/bin/krdpserver --plasma --certificate %h/.local/share/krdpserver/krdp.crt --certificate-key %h/.local/share/krdpserver/krdp.key
+        ExecStart=${lib.getBin kdePackages.krdp}/bin/krdpserver --plasma --certificate %h/.local/share/krdpserver/krdp.crt --certificate-key %h/.local/share/krdpserver/krdp.key ${
+          lib.optionalString (cfg.virtualMonitor != null) "--virtual-monitor ${cfg.virtualMonitor}"
+        }
         Restart=on-abnormal
 
         [Install]
