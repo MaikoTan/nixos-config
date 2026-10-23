@@ -36,11 +36,16 @@ in
     #   WEBKIT_DISABLE_DMABUF_RENDERER=0        any other value disables the whole acceleration
     #   WEBKIT_DMABUF_RENDERER_FORCE_SHM=0      any other value drops the Hardware transfer mode
     #   WEBKIT_DISABLE_COMPOSITING_MODE=0       any other value disables accelerated compositing
+    #
+    # Also inject GST_PLUGIN_PATH so WebKitWebProcess can find GStreamer
+    # audio plugins (pulseaudio, pipewire, alsa). Without them,
+    # MediaPlayerPrivateGStreamer::createAudioSink aborts with SIGABRT.
     preFixup = (oldAttrs.preFixup or "") + ''
       gappsWrapperArgs+=(
         --set WEBKIT_DISABLE_DMABUF_RENDERER 0
         --set WEBKIT_DMABUF_RENDERER_FORCE_SHM 0
         --set WEBKIT_DISABLE_COMPOSITING_MODE 0
+        --set GST_PLUGIN_PATH /nix/store/4wcvpxq1gqy0fwyygwyzg4jxj7lsl0wr-gst-plugins-good-1.28.7/lib/gstreamer-1.0:/nix/store/90a5m7w1mjg6sh7g82dx34dnypn1476q-gst-plugins-base-1.28.7/lib/gstreamer-1.0:/nix/store/dsa4ky2h1m6khl1hf0g1vvl4bvx4hxg8-pipewire-1.6.9/lib/gstreamer-1.0
       )
     '';
 
