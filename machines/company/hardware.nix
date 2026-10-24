@@ -118,21 +118,20 @@ in
       };
     };
 
-  # Enable zram swap for better performance on systems with low RAM
+  # 使用 zram 提供压缩交换空间，逻辑上限为物理内存的 100%
   zramSwap = {
     enable = true;
-    memoryPercent = 300;
+    memoryPercent = 100;
     algorithm = "zstd";
     priority = 100;
+    swapDevices = 1;
   };
 
   boot.kernel.sysctl = {
-    # Increase swappiness to use swap more aggressively
-    # See: https://wiki.archlinux.org/title/Zram#Optimizing_swap_on_zram
-    "vm.swappiness" = 180;
+    # 平衡内存与交换空间的使用倾向
+    "vm.swappiness" = 100;
     "vm.vfs_cache_pressure" = 50;
-    "vm.watermark_boost_factor" = 0;
-    "vm.watermark_scale_factor" = 125;
+    # zram 没有寻道延迟，单页换入可降低延迟
     "vm.page-cluster" = 0;
     # Enable BBR congestion control
     "net.core.default_qdisc" = "fq";
@@ -149,13 +148,13 @@ in
     "vm.dirty_ratio" = 20;
   };
 
-  swapDevices = [
-    # create a 8 GB swap file
-    {
-      device = "/swapfile";
-      size = 8 * 1024;
-    }
-  ];
+  # 仅使用 zram，避免额外的磁盘交换空间
+  swapDevices = [ ];
+
+  systemd.oomd = {
+    enable = true;
+    settings.OOM.SwapUsedLimit = "80%";
+  };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
