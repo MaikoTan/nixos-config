@@ -14,6 +14,7 @@
     ../modules/nixos/miku-cursors/default.nix
     ../modules/nixos/remote-desktop.nix
     ../modules/nixos/sunshine/default.nix
+    ../modules/nixos/vkms-display/default.nix
     ../modules/nixos/networking/dev-ports.nix
     ../modules/nixos/boot/grub.nix
   ];
@@ -30,6 +31,7 @@
     miku-cursors.enable = true;
     remote-desktop.enable = true;
     sunshine.enable = true;
+    vkms-display.enable = true;
     dev-ports.enable = true;
   };
 
