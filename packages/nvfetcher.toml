@@ -7,10 +7,12 @@
 #   nix run nixpkgs#nvfetcher -- -c packages/nvfetcher.toml --filter 'github-copilot-app'
 
 [freedownloadmanager]
-# 上游只提供 latest URL（无版本化路径），因此版本固定为 manual，
-# 升级时手动修改版本号并重新运行 nvfetcher 即可更新 hash。
-src.manual = "6.35.1"
-fetch.url = "https://files2.freedownloadmanager.org/6/latest/freedownloadmanager.deb"
+# 上游的 files2 主机只提供 latest URL，内容随发布变化，会导致已固定的
+# hash 失效。改用官方 Debian 仓库 debrepo.freedownloadmanager.org 的
+# 版本化路径，并从目录页自动检测最新版本，无需手动改版本号。
+src.webpage = "https://debrepo.freedownloadmanager.org/pool/main/f/freedownloadmanager/"
+src.regex = "freedownloadmanager_([0-9.]+)_amd64\\.deb"
+fetch.url = "https://debrepo.freedownloadmanager.org/pool/main/f/freedownloadmanager/freedownloadmanager_$ver_amd64.deb"
 
 [github-copilot-app]
 # 自动追踪 github/app 的最新 release。

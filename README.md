@@ -88,13 +88,30 @@ Home Manager configurations are keyed by `user@hostname` in `flake.nix`
 ### Adding a local package
 
 1. Put the derivation under `packages/<name>/` (use `nvfetcher.toml` +
-   `_sources/` if the upstream has no versioned URL).
+   `packages/_sources/` if the upstream has no versioned URL).
 2. Add `overlays/<name>.nix` exposing it via `final.callPackage`.
 3. Register it in the list returned by `overlays/default.nix`.
 
 Verify with
 `nix build .#nixosConfigurations.company.config.system.build.toplevel` and
 confirm the package's `outPath` is unchanged from before the move.
+
+### Updating nvfetcher-managed sources
+
+Run from the repository root:
+
+```sh
+nix run nixpkgs#nvfetcher -- -c packages/nvfetcher.toml -o packages/_sources
+```
+
+The `-o` flag matters: nvfetcher writes to `./_sources` by default, while the
+repository keeps the generated files under `packages/_sources`.
+
+Prefer versioned upstream URLs. A `latest` URL always serves the newest
+artifact, so its hash breaks as soon as upstream publishes a release. When no
+versioned URL is available, look for a versioned mirror (for example
+`debrepo.freedownloadmanager.org` for Free Download Manager) and detect the
+version from its directory listing with `src.webpage` plus `src.regex`.
 
 ## Android toolchain
 
