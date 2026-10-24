@@ -20,26 +20,6 @@
         "type": "github"
       }
     },
-    "auto-cpufreq": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1792080051,
-        "narHash": "sha256-HTSn+R0ClnJwmhQMC1iT1n5/G9sYwdGxRpGyDTZQFjU=",
-        "owner": "AdnanHodzic",
-        "repo": "auto-cpufreq",
-        "rev": "aa2c5ad2d1798da1c65f81cb0eb95ea933a074c6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "AdnanHodzic",
-        "repo": "auto-cpufreq",
-        "type": "github"
-      }
-    },
     "code-insiders": {
       "inputs": {
         "nixpkgs": [
@@ -364,7 +344,6 @@
     "root": {
       "inputs": {
         "angrr": "angrr",
-        "auto-cpufreq": "auto-cpufreq",
         "code-insiders": "code-insiders",
         "flake-parts": "flake-parts",
         "hermes-agent": "hermes-agent",

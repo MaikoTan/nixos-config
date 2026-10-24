@@ -61,21 +61,6 @@
     };
   };
 
-  # TEMPORARILY DISABLED (uncommitted, 2026-10-22): the upstream package's poetry
-  # metadata pins `urwid<4.0.0,>=3.0.3` while nixpkgs ships urwid 4.0.11, so
-  # nixpkgs' pythonRuntimeDepsCheck fails the build and takes the whole system
-  # closure (system-path -> system-generators -> nixos-system) down with it.
-  # Re-enable once upstream relaxes the urwid pin or nixpkgs downgrades urwid.
-  programs.auto-cpufreq = {
-    enable = false;
-    settings = {
-      charger = {
-        governor = "performance";
-        turbo = "always";
-      };
-    };
-  };
-
   # ZeroTier's default MTU is 2800, which causes issues on Windows side. Set it to 1280 to be safe.
   # This systemd.network config name is taken from nixpkgs, see
   # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/networking/zerotierone.nix

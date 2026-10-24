@@ -7,7 +7,6 @@
   imports = [
     # Import common configuration from nixos
     inputs.nixos-hardware.nixosModules.common-cpu-intel
-    inputs.auto-cpufreq.nixosModules.default
 
     ./hardware.nix
     # company-specific capability modules
