@@ -35,8 +35,12 @@
 # (the server log shows "Failed to register with host portal"). With
 # `--plasma` krdpserver uses Plasma's own protocols instead: it binds
 # `zkde_screencast_unstable_v1` for screen capture and
-# `org_kde_kwin_fake_input` for input injection, both of which KWin serves to
-# non-sandboxed local clients.
+# `org_kde_kwin_fake_input` for input injection, both of which KWin only serves
+# to clients running in the *user* slice. With KWin 6.8+ (which dropped the
+# screencast permission dialog entirely) `KWinDisplay::allowInterface()` still
+# rejects everything in app.slice / sandboxes, so the unit below sets
+# `Slice=user.slice`; without it PAM succeeds, no screencast node is created,
+# and the client is disconnected right after login (a flash and nothing).
 #
 # KRDP authentication: when `--username` is NOT passed (our case), the server
 # reads `SystemUserEnabled` from ~/.config/krdpserverrc (default false). If
@@ -254,6 +258,11 @@ in
 
         [Service]
         Type=exec
+        # KWin 6.8 的 `KWinDisplay::allowInterface()` 只给 user.slice 里的
+        # 客户端绑定 `zkde_screencast_unstable_v1` / `org_kde_kwin_fake_input`；
+        # 放在 /etc/systemd/user 下的单元默认落到 app.slice，KWin 会拒绝，
+        # 结果是认证通过后拿不到 screen stream、客户端立刻断开（画面闪一下就没）。
+        Slice=user.slice
         ExecStartPre=${lib.getExe certificateScript} %h/.local/share/krdpserver
         ExecStart=${lib.getBin kdePackages.krdp}/bin/krdpserver --plasma --certificate %h/.local/share/krdpserver/krdp.crt --certificate-key %h/.local/share/krdpserver/krdp.key ${
           lib.optionalString (cfg.virtualMonitor != null) "--virtual-monitor ${cfg.virtualMonitor}"
