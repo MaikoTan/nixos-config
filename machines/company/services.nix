@@ -22,10 +22,6 @@
     # profiles/desktop.nix. Do not enable services.gnome.gnome-remote-desktop
     # here: GNOME's remote desktop competes with KRDP for port 3389, and the
     # GNOME implementation does not support a Wayland session.
-    displayManager.autoLogin = {
-      enable = true;
-      user = "maiko";
-    };
     getty.autologinUser = null;
     samba = {
       # package = pkgs.samba4Full; # Full featured samba with AD support break the Python bindings
