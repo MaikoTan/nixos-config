@@ -50,5 +50,7 @@
   home.packages = with pkgs; [
     obscura # Minimal browser for agents
     github-copilot-app
+    # https://www.deepseek.com/
+    dsh # DeepSeek Agent CLI
   ];
 }
