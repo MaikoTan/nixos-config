@@ -6,4 +6,5 @@
   (import ./magpie.nix)
   (import ./miku-cursors.nix)
   (import ./github-copilot-app.nix)
+  (import ./dsh.nix)
 ]

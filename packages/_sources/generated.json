@@ -1,4 +1,19 @@
 {
+    "dsh": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "dsh",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-QOPQJcAkDEMW/0Le6b7cdwnA+ziuoQVDtHB27Sr1Lh0=",
+            "type": "url",
+            "url": "https://registry.npmjs.org/@deepseek-ai/dsh/-/dsh-0.2.1-rc.2.tgz"
+        },
+        "version": "0.2.1-rc.2"
+    },
     "freedownloadmanager": {
         "cargoLock": null,
         "date": null,

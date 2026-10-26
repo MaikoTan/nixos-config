@@ -6,6 +6,14 @@
   dockerTools,
 }:
 {
+  dsh = {
+    pname = "dsh";
+    version = "0.2.1-rc.2";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/@deepseek-ai/dsh/-/dsh-0.2.1-rc.2.tgz";
+      sha256 = "sha256-QOPQJcAkDEMW/0Le6b7cdwnA+ziuoQVDtHB27Sr1Lh0=";
+    };
+  };
   freedownloadmanager = {
     pname = "freedownloadmanager";
     version = "6.35.2.7075";

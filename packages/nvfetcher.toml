@@ -26,3 +26,11 @@ fetch.url = "https://github.com/github/app/releases/download/v$ver/GitHub-Copilo
 src.github = "yetone/magpie-releases"
 src.prefix = "v"
 fetch.url = "https://github.com/yetone/magpie-releases/releases/download/v$ver/magpie-cli-linux-amd64"
+# DeepSeek SH CLI。npm tarball 即完整可分发产物（预打包 CJS），
+# 版本与 hash 由上游 registry 固定。npm 依赖闭包不归 nvfetcher 管，
+# 见 packages/dsh/package-lock.json。
+[dsh]
+# registry 的 tarball 路径带 publish 版本号，从 dist-tags JSON 里取。
+src.webpage = "https://registry.npmjs.org/@deepseek-ai/dsh"
+src.regex = "\"latest\":\"([0-9][^\"]*)\""
+fetch.url = "https://registry.npmjs.org/@deepseek-ai/dsh/-/dsh-$ver.tgz"
