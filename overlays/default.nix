@@ -7,4 +7,6 @@
   (import ./miku-cursors.nix)
   (import ./github-copilot-app.nix)
   (import ./dsh.nix)
+  (import ./node-addon-require-builtin.nix)
+  (import ./node-addon-api.nix)
 ]

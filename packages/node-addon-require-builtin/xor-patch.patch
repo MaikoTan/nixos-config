@@ -1,0 +1,43 @@
+--- a/packages/native/src/runtime_probe/getter_decoder.cc
++++ b/packages/native/src/runtime_probe/getter_decoder.cc
+@@ -54,6 +54,7 @@ namespace {
+   kRet,         // c3
+   kMovRegMem,   // REX.W 8b /r            reg <- [base + disp]
+   kMovMemReg,   // REX.W 89 /r            [base + disp] <- reg
+   kMovRegReg,   // REX.W 89|8b /r, mod=11 reg <-> reg
++  kXorRegReg,   // 31/33 /r, mod=11       XOR reg, reg
+   kUnknown,
+ };
+
+@@ -110,6 +111,16 @@ X64Insn DecodeX64(const uint8_t* p, size_t remaining) {
+   if (p[0] == 0xc3) {
+     insn.op = X64Op::kRet;
+     insn.length = 1;
+     return insn;
+   }
+
++  // Check for XOR reg, reg (opcode 0x31 or 0x33 with mod=3) - no REX prefix needed
++  // This handles Node.js 22+'s builtin_module_require which has `xor edi, edi`
++  if (remaining >= 2 && (p[0] == 0x31 || p[0] == 0x33)) {
++    const uint8_t modrm = p[1];
++    if ((modrm >> 6) == 0x3) {  // mod == 3 (register mode)
++      insn.op = X64Op::kXorRegReg;
++      insn.length = 2;
++      insn.reg = (modrm >> 3) & 0x7;
++      insn.base = modrm & 0x7;
++      return insn;
++    }
++  }
++
+   // The remaining forms are all REX.W (0x48) MOV r/m64 instructions. Restrict
+   // to REX.W with no register extensions (0x48); the getters only touch the
+   // legacy low-8 registers, so a wider REX means "not a getter we understand".
+@@ -183,6 +194,7 @@ X64Body WalkX64Getter(const uint8_t* code, size_t size, uint8_t this_reg) {
+       case X64Op::kEndbr64:
+       case X64Op::kPushRbp:
+       case X64Op::kPopRbp:
+       case X64Op::kMovRegReg:
++      case X64Op::kXorRegReg:
+         break;  // prologue / epilogue / register shuffling: no effect on offset
+       case X64Op::kMovRegMem:
+         if (insn.base != this_reg) return body;  // reads an unexpected object

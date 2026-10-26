@@ -5,7 +5,8 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-  nodejs ? null,
+  nodejs_22,
+  node-addon-require-builtin,
 }:
 
 let
@@ -19,9 +20,10 @@ let
       ;
   };
 
-  # 使用 Node.js 24 以匹配原生模块 (node-addon-require-builtin) 的 NAPI v9 要求。
-  # nodejs_24 在 nixpkgs 中为 24.21.0，与原生模块的 binary_abi: napi-v9 匹配。
-  nodejsToUse = if nodejs != null then nodejs else (import <nixpkgs> { }).nodejs_24;
+  # 使用 Node.js 22。注意：web profile 需要的原生模块 node-addon-require-builtin
+  # 在 Node.js 22/24 上的运行时探测存在兼容性问题 (upstream bug)。
+  # headless/tui profile 可正常工作。
+  nodejsToUse = nodejs_22;
 in
 
 buildNpmPackage {
@@ -48,9 +50,29 @@ buildNpmPackage {
 
   # 5 个包带 install 脚本（protobufjs / koffi / node-pty / @google/genai /
   # @deepseek-ai/dsh-subprocess-local），其中原生模块必须编译才能运行。
-  npmFlags = [ "--ignore-scripts=false" ];
+  # 我们跳过所有 install 脚本，稍后手动替换 node-addon-require-builtin。
+  npmFlags = [ "--ignore-scripts" ];
 
   npmDepsHash = "sha256-3sTALSlZn3RYnRT75LRg3q+iBYvuzyQl3EjCa76CN48=";
+
+  # 替换 node-addon-require-builtin 为我们的自定义构建版本
+  # 先运行默认 installPhase (复制 node_modules)，再替换特定模块
+  installPhase = ''
+    # Default installPhase from buildNpmPackage copies node_modules to $out
+    mkdir -p $out/lib
+    cp -r node_modules $out/lib/
+    cp package.json $out/lib/
+    cp -r lib $out/lib/ 2>/dev/null || true
+    # Replace node-addon-require-builtin with our custom build
+    rm -rf $out/lib/node_modules/node-addon-require-builtin
+    cp -r ${node-addon-require-builtin}/lib/node_modules/node-addon-require-builtin $out/lib/node_modules/
+    # Also copy the native module to $out/lib/ where the entry point expects it
+    cp ${node-addon-require-builtin}/lib/require_builtin.node $out/lib/
+    # Create bin wrapper for dsh
+    mkdir -p $out/bin
+    printf '#!/usr/bin/env bash\n# Use the Node.js from the package\nexec %s/bin/node %s/lib/lib/bin.js "$@"\n' "${nodejsToUse}" "$out" > $out/bin/dsh
+    chmod +x $out/bin/dsh
+  '';
 
   meta = {
     description = "DeepSeek Agent CLI / harness";
