@@ -24,10 +24,10 @@
   };
   magpie-cli = {
     pname = "magpie-cli";
-    version = "0.1.1456";
+    version = "0.1.1560";
     src = fetchurl {
-      url = "https://github.com/yetone/magpie-releases/releases/download/v0.1.1456/magpie-cli-linux-amd64";
-      sha256 = "sha256-6+sFYzNA5ujKt7h0OauNnEcXZwTMvwvk7SpMBj5p1E8=";
+      url = "https://github.com/yetone/magpie-releases/releases/download/v0.1.1560/magpie-cli-linux-amd64";
+      sha256 = "sha256-4Ym5+ExL7WOBOKp5LTbSAx+FvQ/z1ZSblhsTD9EEOdk=";
     };
   };
 }
