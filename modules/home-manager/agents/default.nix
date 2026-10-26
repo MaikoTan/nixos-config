@@ -10,6 +10,7 @@
     inputs.hermes-agent.homeManagerModules.default
     ./agents
     ./magpie.nix
+    ./dsh.nix
   ];
 
   programs = {

@@ -5,6 +5,7 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
+  nodejs ? null,
 }:
 
 let
@@ -17,6 +18,10 @@ let
       dockerTools
       ;
   };
+
+  # 使用 Node.js 24 以匹配原生模块 (node-addon-require-builtin) 的 NAPI v9 要求。
+  # nodejs_24 在 nixpkgs 中为 24.21.0，与原生模块的 binary_abi: napi-v9 匹配。
+  nodejsToUse = if nodejs != null then nodejs else (import <nixpkgs> { }).nodejs_24;
 in
 
 buildNpmPackage {
@@ -24,6 +29,9 @@ buildNpmPackage {
   version = sources.dsh.version;
 
   src = sources.dsh.src;
+
+  # 指定 Node.js 24，避免原生模块 NAPI 版本不匹配 (node-addon-require-builtin 要求 napi-v9 / Node 24)。
+  nodejs = nodejsToUse;
 
   # npm tarball 只带 package.json，没有 lockfile。闭包含 86 个直接依赖、
   # 60+ 个同版本的 @deepseek-ai/dsh-* 子包，必须用同一 registry 解析出的
