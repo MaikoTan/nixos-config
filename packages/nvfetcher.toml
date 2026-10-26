@@ -34,3 +34,11 @@ fetch.url = "https://github.com/yetone/magpie-releases/releases/download/v$ver/m
 src.webpage = "https://registry.npmjs.org/@deepseek-ai/dsh"
 src.regex = "\"latest\":\"([0-9][^\"]*)\""
 fetch.url = "https://registry.npmjs.org/@deepseek-ai/dsh/-/dsh-$ver.tgz"
+
+# Hatsune Miku 光标主题。上游是纯资源仓库（无构建系统），只需复制
+# miku-cursor-linux/ 下的图标文件。tag 不带 v 前缀（1.2.6 而非 v1.2.6），
+# 因此 src.prefix 留空；直接取 tag tarball。
+[miku-cursors]
+src.github = "supermariofps/hatsune-miku-windows-linux-cursors"
+src.prefix = ""
+fetch.url = "https://github.com/supermariofps/hatsune-miku-windows-linux-cursors/archive/refs/tags/$ver.tar.gz"

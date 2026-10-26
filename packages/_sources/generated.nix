@@ -38,4 +38,12 @@
       sha256 = "sha256-4Ym5+ExL7WOBOKp5LTbSAx+FvQ/z1ZSblhsTD9EEOdk=";
     };
   };
+  miku-cursors = {
+    pname = "miku-cursors";
+    version = "1.2.6";
+    src = fetchurl {
+      url = "https://github.com/supermariofps/hatsune-miku-windows-linux-cursors/archive/refs/tags/1.2.6.tar.gz";
+      sha256 = "sha256-sSJKgxo1FOOd4OgpjnZC12R+k4Krm7tYjPrGlvJCnVs=";
+    };
+  };
 }

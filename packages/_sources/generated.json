@@ -58,5 +58,20 @@
             "url": "https://github.com/yetone/magpie-releases/releases/download/v0.1.1560/magpie-cli-linux-amd64"
         },
         "version": "0.1.1560"
+    },
+    "miku-cursors": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "miku-cursors",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-sSJKgxo1FOOd4OgpjnZC12R+k4Krm7tYjPrGlvJCnVs=",
+            "type": "url",
+            "url": "https://github.com/supermariofps/hatsune-miku-windows-linux-cursors/archive/refs/tags/1.2.6.tar.gz"
+        },
+        "version": "1.2.6"
     }
 }
