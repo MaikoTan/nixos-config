@@ -1,17 +1,29 @@
 # dsh systemd user service module
 # Provides a user service for running DeepSeek Agent CLI (dsh) in the background.
 # The web profile requires external bundles that are installed on first start via `dsh plugin --profile web install`.
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.services.dsh;
+  cfgPrograms = config.programs.dsh;
 in
 {
+  # ── programs.dsh — the installation ────────────────────────────────────
+  options.programs.dsh = {
+    enable = lib.mkEnableOption ''
+      the dsh (DeepSeek Harness) command line application.
+
+      This adds `dsh` to home.packages.
+    '';
+
+    package = lib.mkOption {
+      type = lib.types.package;
+      default = pkgs.dsh;
+      description = "The dsh package to install.";
+    };
+  };
+
+  # ── services.dsh — the daemon ──────────────────────────────────────────
   options.services.dsh = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -20,6 +32,12 @@ in
         Enable the dsh (DeepSeek Harness) user service.
         Runs the web profile in the background.
       '';
+    };
+
+    package = lib.mkOption {
+      type = lib.types.package;
+      default = pkgs.dsh;
+      description = "The dsh package to use for the service.";
     };
 
     profile = lib.mkOption {
@@ -52,28 +70,40 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    # Ensure pnpm is available for bundle installation
-    home.packages = with pkgs; [ (import <nixpkgs> { }).pnpm ];
+  config = lib.mkMerge [
+    # ── programs.dsh — the installation ────────────────────────────────
+    (lib.mkIf cfgPrograms.enable {
+      home.packages = [ cfgPrograms.package ];
+    })
 
-    systemd.user.services.dsh = {
-      description = "DeepSeek Harness (dsh) - ${cfg.profile} profile";
-      after = [ "network.target" ];
-      wants = [ "network.target" ];
+    # ── services.dsh — the daemon ──────────────────────────────────────
+    (lib.mkIf cfg.enable {
+      # Ensure pnpm is available for bundle installation
+      home.packages = with pkgs; [ (import <nixpkgs> { }).pnpm ];
 
-      # Pre-start: install missing profile bundles if needed
-      serviceConfig = {
-        Type = "simple";
-        ExecStartPre = lib.mkIf cfg.autoInstallBundles ''
-          ${pkgs.dsh}/bin/dsh plugin --profile ${cfg.profile} install
-        '';
-        ExecStart = "${pkgs.dsh}/bin/dsh ${cfg.profile} ${lib.concatStringsSep " " cfg.extraArgs}";
-        Restart = "on-failure";
-        RestartSec = "10s";
-        Environment = lib.mapAttrsToList (k: v: "${k}=${v}") cfg.serviceEnvironment;
+      systemd.user.services.dsh = {
+        Unit = {
+          Description = "DeepSeek Harness (dsh) - ${cfg.profile} profile";
+          After = [ "network.target" ];
+          Wants = [ "network.target" ];
+        };
+
+        # Pre-start: install missing profile bundles if needed
+        Service = {
+          Type = "simple";
+          ExecStartPre = lib.mkIf cfg.autoInstallBundles ''
+            ${cfg.package}/bin/dsh plugin --profile ${cfg.profile} install
+          '';
+          ExecStart = "${cfg.package}/bin/dsh ${cfg.profile} ${lib.concatStringsSep " " cfg.extraArgs}";
+          Restart = "on-failure";
+          RestartSec = "10s";
+          Environment = lib.mapAttrsToList (k: v: "${k}=${v}") cfg.serviceEnvironment;
+        };
+
+        Install = {
+          WantedBy = [ "default.target" ];
+        };
       };
-
-      wantedBy = [ "default.target" ];
-    };
-  };
+    })
+  ];
 }
