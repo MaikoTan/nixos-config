@@ -57,6 +57,10 @@
       enable = true;
       profile = "web";
       autoInstallBundles = true;
+      # 服务常驻时不需要每次启动都把浏览器拉起来。
+      # 这是 web profile app 自己的 flag（dsh --profile web --help 可见，顶层
+      # dsh --help 里没有），所以放在 extraArgs 而不是模块默认值里。
+      extraArgs = [ "--no-open" ];
     };
   };
 

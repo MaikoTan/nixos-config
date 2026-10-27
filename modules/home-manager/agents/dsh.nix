@@ -79,7 +79,7 @@ in
     # ── services.dsh — the daemon ──────────────────────────────────────
     (lib.mkIf cfg.enable {
       # Ensure pnpm is available for bundle installation
-      home.packages = with pkgs; [ (import <nixpkgs> { }).pnpm ];
+      home.packages = [ pkgs.pnpm ];
 
       systemd.user.services.dsh = {
         Unit = {
