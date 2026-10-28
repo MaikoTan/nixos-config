@@ -21,11 +21,22 @@ nixos-install --option experimental-features 'nix-command flakes' --flake "/usr/
 
 - If you are not using first-time installation, run the following command to
   switch to the new configuration.
-  - If you encounter network issues, you may also try the mirror with option
-    `--mirror`.
 
 ```bash
-nixos-rebuild switch --option experimental-features 'nix-command flakes' --flake ".#<hostname>"
+nh os switch .
+```
+
+If `nh` is not installed yet, run it directly from nixpkgs instead:
+
+```bash
+nix run nixpkgs#nh -- os switch .
+```
+
+- If you encounter network issues, you can use China mirrors by passing extra
+  options to nix through `--`:
+
+```bash
+nh os switch . -- --option substituters 'https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store https://mirror.sjtu.edu.cn/nix-channels/store https://mirrors.ustc.edu.cn/nix-channels/store https://nix-community.cachix.org https://cache.nixos.org'
 ```
 
 - Reboot your system.
@@ -36,10 +47,18 @@ reboot
 
 ## Update
 
-- Run the following command to update the system.
+- Run the following command to update the system. `nh` resolves the flake via
+  the `NH_FLAKE` environment variable set in `modules/nixos/nh.nix`, so it can
+  be run from any directory.
 
 ```bash
-./switch.fish
+nh os switch
+```
+
+- To update only the Home Manager configuration:
+
+```bash
+nh home switch
 ```
 
 If you have changed anything managed by `dconf`, make sure to run the following
@@ -138,7 +157,7 @@ The SDK ships its own `platform-tools` and `emulator` binaries, but they are
 plain dynamically linked executables and need the X11/GL/audio system libraries.
 Those are provided through `programs.nix-ld.libraries` in `profiles/base.nix`,
 so the emulator works without a wrapper. Note that the system-level `nix-ld`
-library set only takes effect after a `nixos-rebuild`.
+library set only takes effect after the next system switch.
 
 ## Secrets
 
@@ -171,7 +190,7 @@ sops.secrets.mySecret = {
 - List all generations.
 
 ```bash
-nixos-rebuild list-generations
+nh os info
 ```
 
 ## License
