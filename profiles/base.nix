@@ -3,6 +3,7 @@
 {
   imports = [
     ../modules/nixos/nix
+    ../modules/nixos/nh.nix
     ../modules/nixos/packages/default.nix
     ../modules/nixos/openssh/default.nix
     ../modules/nixos/programs/default.nix
@@ -16,6 +17,7 @@
       enable = true;
       gc.enable = true;
     };
+    nh.enable = true;
     packages.enable = true;
     openssh.enable = true;
     programs.enable = true;
