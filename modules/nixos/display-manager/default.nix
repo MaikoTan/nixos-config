@@ -36,6 +36,16 @@ in
       elisa # Music player
     ];
 
+    # Desktop notifications and sound playback. The Claude Code notifier
+    # spawns notify-send for the banner and aplay for the sound; missing
+    # either one fails with spawn ENOENT. notify-send relies on Plasma's
+    # notification daemon, and alsa-utils is only meaningful on a desktop,
+    # so both belong here rather than in the system-wide package set.
+    environment.systemPackages = with pkgs; [
+      libnotify
+      alsa-utils
+    ];
+
     # Exclude unwanted GNOME applications
     environment.gnome.excludePackages = with pkgs; [
       baobab # Disk usage analyzer
