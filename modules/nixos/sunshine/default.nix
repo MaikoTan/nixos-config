@@ -3,11 +3,57 @@
   lib,
   pkgs,
   utils,
+  inputs,
   ...
 }:
 
 let
   cfg = config.maiko.sunshine;
+
+  # The nixpkgs sunshine module still configures mDNS publishing through the
+  # deprecated avahi options (services.avahi.publish.enable/userServices),
+  # which triggers "The option ... is obsolete" evaluation warnings. Upstream
+  # fix: https://github.com/NixOS/nixpkgs/pull/576824. Until it is merged, apply
+  # the same replacement to the module text here and disable the original
+  # module. The replacement happens at eval time, so it follows nixpkgs
+  # updates automatically; if the upstream text changes and no longer matches,
+  # evaluation fails loudly.
+  sunshineModulePath = "nixos/modules/services/networking/sunshine.nix";
+
+  # The match text must be the literal indentation of the upstream file
+  # (6/8 spaces). A '' string won't do: it strips the common leading
+  # indentation, so it can never produce multi-line text with leading
+  # spaces -- hence the explicit list join.
+  sunshineOld = lib.concatStringsSep "\n" [
+    "      publish = {"
+    "        enable = mkDefault true;"
+    "        userServices = mkDefault true;"
+    "      };"
+  ];
+
+  sunshineNew = lib.concatStringsSep "\n" [
+    "      settings.publish = {"
+    "        disable-publishing = mkDefault false;"
+    "        disable-user-service-publishing = mkDefault false;"
+    "        publish-addresses = mkDefault true;"
+    "      };"
+  ];
+
+  sunshineUpstream = builtins.readFile (inputs.nixpkgs + "/${sunshineModulePath}");
+  sunshinePatched = builtins.replaceStrings [ sunshineOld ] [ sunshineNew ] sunshineUpstream;
+
+  # builtins.toFile instead of pkgs.writeText: the latter introduces a
+  # dependency on pkgs at module-import time, which deadlocks against the
+  # nixosSystem evaluation and causes infinite recursion.
+  patchedSunshineModule =
+    if sunshinePatched == sunshineUpstream then
+      throw ''
+        nixpkgs sunshine.nix no longer matches the expected snippet.
+        Check whether https://github.com/NixOS/nixpkgs/pull/576824 was merged
+        and remove the patch in modules/nixos/sunshine/default.nix.
+      ''
+    else
+      builtins.toFile "sunshine.nix" sunshinePatched;
 
   # Sunshine needs to be told explicitly which capture backend to use.
   #
@@ -84,6 +130,13 @@ let
   };
 in
 {
+  # Replace the upstream module unconditionally (disabledModules must not
+  # live inside mkIf). Note: a bare string in disabledModules is resolved
+  # relative to modulesPath (nixpkgs/nixos/modules), so pass an absolute
+  # path here.
+  disabledModules = [ (inputs.nixpkgs + "/${sunshineModulePath}") ];
+  imports = [ patchedSunshineModule ];
+
   options.maiko.sunshine = {
     enable = lib.mkOption {
       type = lib.types.bool;
