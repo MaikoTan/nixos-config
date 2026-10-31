@@ -8,6 +8,10 @@
     # Import common configuration from nixos
     inputs.nixos-hardware.nixosModules.common-cpu-intel
 
+    # Disk layout, see ./disk.nix
+    inputs.disko.nixosModules.default
+    ./disk.nix
+
     ./hardware.nix
     # company-specific capability modules
     ./network.nix
