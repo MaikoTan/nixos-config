@@ -39,6 +39,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     code-insiders = {
       url = "github:iosmanthus/code-insiders-flake";
       inputs.nixpkgs.follows = "nixpkgs";

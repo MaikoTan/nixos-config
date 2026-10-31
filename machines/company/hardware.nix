@@ -56,22 +56,22 @@ in
     };
   };
 
+  # disko (./disk.nix) owns the disk layout, but it generates fileSystems
+  # entries pointing at /dev/disk/by-partlabel/disk-nvme-root and friends.
+  # Those partlabels only exist after a disko run: this machine was installed
+  # the regular way and its partitions carry filesystem labels instead
+  # (PARTLABEL is empty). Keep the runtime fstab on by-label devices, which
+  # resolve both now and after a future disko reinstall, because ./disk.nix
+  # creates the same labels ("nixos", "boot", "Data") with mkfs.
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-label/nixos";
-      fsType = "ext4";
+      device = lib.mkForce "/dev/disk/by-label/nixos";
     };
-
-    # Mount ESP to /boot/efi instead of /boot
-    # Ref: https://nixos.wiki/wiki/Bootloader#Limiting_amount_of_entries_with_grub_or_systemd-boot
     "/boot/efi" = {
-      device = "/dev/disk/by-label/boot";
-      fsType = "vfat";
+      device = lib.mkForce "/dev/disk/by-label/boot";
     };
-
     "/mnt/data" = {
-      device = "/dev/disk/by-label/Data";
-      fsType = "ext4";
+      device = lib.mkForce "/dev/disk/by-label/Data";
     };
   };
 
