@@ -5,8 +5,21 @@
   ...
 }:
 
+let
+  hm = config.maiko.hm;
+  # `magpie serve` 没有 `--web=false`，关闭页面只能不加这个参数；
+  # 只给 `--web` 时它自己用 127.0.0.1:3430。
+  webArg =
+    if hm.magpieWeb == null then
+      ""
+    else if hm.magpieWeb == "" then
+      " --web"
+    else
+      " --web=${hm.magpieWeb}";
+in
+
 {
-  config = lib.mkIf config.maiko.hm.magpie {
+  config = lib.mkIf hm.magpie {
     home.packages = with pkgs; [
       magpie-cli
       (writeShellApplication {
@@ -53,10 +66,11 @@
       };
 
       Service = {
-        ExecStart = "${pkgs.magpie-cli}/bin/magpie serve";
+        ExecStart = "${pkgs.magpie-cli}/bin/magpie serve${webArg}";
         Restart = "on-failure";
         RestartSec = "5s";
         UMask = "0077";
+        EnvironmentFile = lib.optional (hm.magpieWebKeyFile != null) hm.magpieWebKeyFile;
       };
 
       Install.WantedBy = [ "default.target" ];
