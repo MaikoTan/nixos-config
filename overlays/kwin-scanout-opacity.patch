@@ -1,0 +1,56 @@
+From 6a9b1e2f3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f Mon Sep 17 00:00:00 2001
+From: Maiko Tan <maiko.tan.coding@gmail.com>
+Date: Mon, 2 Nov 2026 00:00:00 +0800
+Subject: [PATCH] scene: exclude windows with a translucent ancestor from direct scanout
+
+Window opacity set via the opacity mouse shortcut, window rules or the
+translucency effect lives on the WindowItem, an ancestor of the
+SurfaceItem holding the client buffer. isCandidate() only checked the
+surface item's own opacity, so a semi-transparent window could still be
+selected as a direct scanout candidate -- and the scanout path does not
+apply item opacity (see the TODO), presenting the window fully opaque.
+When regular composition took over on the next frame, transparency came
+back. Chrome / VSCode windows with wheel-set opacity visibly flickered
+between transparent and opaque as the frame-time estimate pushed them in
+and out of the candidate set.
+
+Walk the parent chain and reject the candidate as soon as any ancestor
+item is translucent. Fully opaque windows keep direct scanout.
+---
+ src/scene/workspacescene.cpp | 25 ++++++++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
+
+--- a/src/scene/workspacescene.cpp
++++ b/src/scene/workspacescene.cpp
+@@ -260,11 +260,31 @@
+     return ret;
+ }
+ 
++// Window opacity (set through the opacity mouse shortcut, window rules or the
++// translucency effect) is applied to the WindowItem, an ancestor of the
++// SurfaceItem that holds the client buffer. The scanout path does not apply
++// item opacity (see the TODO below), so any translucent ancestor -- not just
++// the surface itself -- must keep the item off direct scanout. Otherwise the
++// window is presented fully opaque while it is scanned out and translucent
++// while it is composited, which flickers as its scanout candidacy toggles.
++static bool hasTranslucentAncestor(const Item *item)
++{
++    for (const Item *ancestor = item->parentItem(); ancestor; ancestor = ancestor->parentItem()) {
++        if (ancestor->opacity() < 1.0) {
++            return true;
++        }
++    }
++    return false;
++}
++
+ static bool isCandidate(SurfaceItem *item, const Rect &deviceRect, bool isOpaque, SceneView *view)
+ {
+     if (!item || !item->buffer() || !item->buffer()->dmabufAttributes()) {
+         return false;
+     }
++    if (hasTranslucentAncestor(item)) {
++        return false;
++    }
+     // TODO make the compositor handle item opacity as well
+     if (item->opacity() < 1.0) {
+         return false;

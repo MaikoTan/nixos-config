@@ -9,4 +9,5 @@
   (import ./dsh.nix)
   (import ./node-addon-require-builtin.nix)
   (import ./node-addon-api.nix)
+  (import ./kwin-scanout-opacity.nix)
 ]
