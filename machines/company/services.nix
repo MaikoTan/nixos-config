@@ -124,7 +124,25 @@ in
           fi
         '';
       };
+
+      # nix build processes all live in the /system.slice/nix-daemon.service
+      # cgroup (daemon mode; "nix store ping" reports Store URL: daemon). Cap
+      # that cgroup's memory: above MemoryHigh the kernel reclaims and throttles
+      # instead of killing, above MemoryMax only that cgroup gets OOM-killed -- a
+      # build dies instead of the whole user.slice freezing.
+      nix-daemon.serviceConfig = {
+        MemoryHigh = "6G";
+        MemoryMax = "10G";
+      };
     };
+
+    # systemd-oomd never fired here: swap-based killing stays off because
+    # ManagedOOMSwap remains "auto", and 80% memory pressure sustained for 30s
+    # was never reached before the kernel's global OOM took over. When it does
+    # fire it kills an entire descendant cgroup, which can be a whole VSCode
+    # window scope. hardware.nix's earlyoom covers the same ground with a much
+    # narrower target, so oomd is disabled.
+    oomd.enable = false;
   };
 
   sops.secrets.zerotierNetworks = {

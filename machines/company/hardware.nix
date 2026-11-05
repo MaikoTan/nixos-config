@@ -131,7 +131,7 @@ in
     # 6 个核心上：编译任务正在抢这些核，于是前台页面每次换入都要排队等解压，
     # 体感就是"点一下卡半秒"。降到 10，让 zram 退回兜底定位（内存真的吃不下
     # 才用），把 CPU 让给编译和前台交互。
-    # 代价是更容易触发 oomd，因此必须配合下方 ManagedOOMMemoryPressure 兜底。
+    # 代价是更容易见底，因此下方用 earlyoom 兜底。
     "vm.swappiness" = 10;
     "vm.vfs_cache_pressure" = 50;
     # zram 没有寻道延迟，单页换入可降低延迟
@@ -154,21 +154,30 @@ in
   # 仅使用 zram，避免额外的磁盘交换空间
   swapDevices = [ ];
 
-  systemd.oomd = {
+  # The kernel OOM killer only looks at oom_score_adj: nix sandbox processes
+  # carry 200, Chromium/Electron renderers 200-300, so whenever memory really
+  # runs out it kills Chrome/VSCode while the actual hogs (dozens of parallel
+  # cc1plus) survive. Once zram is full (Free swap 0) the kernel can only fall
+  # back to a global OOM kill.
+  #
+  # earlyoom picks victims by process name instead: once available memory and
+  # free swap are both below 10% it SIGTERMs compilers, letting a build fail
+  # and be retried rather than taking the foreground session. Acting early also
+  # avoids the whole machine stalling after zram is exhausted (which is the
+  # phase KWin reports as "The main thread was hanging temporarily!").
+  # This replaces systemd-oomd (disabled in services.nix); the nix-daemon
+  # memory cap lives there too.
+  services.earlyoom = {
     enable = true;
-    # 默认 enableUserSlices 为 false，VSCode/Chrome 所在的 user-1000.slice
-    # 并不在 oomd 的有效监控下（ManagedOOMMemoryPressure=auto、limit=0）。
-    # 降低 swappiness 后物理内存会更早见底，必须先让用户 slice 受管。
-    enableUserSlices = true;
-
-    settings.OOM = {
-      SwapUsedLimit = "80%";
-
-      # 内存压力持续超过阈值 30s 且无法缓解时，杀掉该 cgroup 里内存最多的
-      # 进程（通常是单个 renderer/extension host），保住整个桌面会话。
-      DefaultMemoryPressureLimit = "60%";
-      DefaultMemoryPressureDurationSec = "30s";
-    };
+    freeMemThreshold = 10;
+    freeSwapThreshold = 10;
+    extraArgs = [
+      "--sort-by-rss"
+      "--prefer"
+      "^(cc1plus|cc1|gcc|g\\+\\+|clang|clang\\+\\+|ld|lld|rustc|rustdoc|cargo)$"
+      "--avoid"
+      "^(systemd|systemd-journal|kwin_wayland|Xwayland|plasmashell|sddm|dbus-daemon)$"
+    ];
   };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
