@@ -31,41 +31,43 @@ in
       };
     };
 
-    # Exclude unwanted KDE applications
-    environment.plasma6.excludePackages = with pkgs.kdePackages; [
-      elisa # Music player
-    ];
+    environment = {
+      # Exclude unwanted KDE applications
+      plasma6.excludePackages = with pkgs.kdePackages; [
+        elisa # Music player
+      ];
 
-    # Desktop notifications and sound playback. The Claude Code notifier
-    # spawns notify-send for the banner and aplay for the sound; missing
-    # either one fails with spawn ENOENT. notify-send relies on Plasma's
-    # notification daemon, and alsa-utils is only meaningful on a desktop,
-    # so both belong here rather than in the system-wide package set.
-    environment.systemPackages = with pkgs; [
-      libnotify
-      alsa-utils
-    ];
+      # Desktop notifications and sound playback. The Claude Code notifier
+      # spawns notify-send for the banner and aplay for the sound; missing
+      # either one fails with spawn ENOENT. notify-send relies on Plasma's
+      # notification daemon, and alsa-utils is only meaningful on a desktop,
+      # so both belong here rather than in the system-wide package set.
+      systemPackages = with pkgs; [
+        libnotify
+        alsa-utils
+      ];
 
-    # Exclude unwanted GNOME applications
-    environment.gnome.excludePackages = with pkgs; [
-      baobab # Disk usage analyzer
-      epiphany # Web browser
-      evince # Document viewer
-      gedit # Text editor
-      gnome-calculator # Calculator
-      gnome-calendar # Calendar
-      gnome-characters # Character map
-      gnome-clocks # Clocks
-      gnome-contacts # Contacts
-      gnome-maps # Maps
-      gnome-music # Music
-      gnome-photos # Photos
-      gnome-software # Software
-      gnome-weather # Weather
-      simple-scan # Scanner
-      totem # Video player
-      yelp # Help documentation
-    ];
+      # Exclude unwanted GNOME applications
+      gnome.excludePackages = with pkgs; [
+        baobab # Disk usage analyzer
+        epiphany # Web browser
+        evince # Document viewer
+        gedit # Text editor
+        gnome-calculator # Calculator
+        gnome-calendar # Calendar
+        gnome-characters # Character map
+        gnome-clocks # Clocks
+        gnome-contacts # Contacts
+        gnome-maps # Maps
+        gnome-music # Music
+        gnome-photos # Photos
+        gnome-software # Software
+        gnome-weather # Weather
+        simple-scan # Scanner
+        totem # Video player
+        yelp # Help documentation
+      ];
+    };
 
     # sddm-autologin 创建的会话不会触发 logind 的设备分配，
     # 导致 KWin 拿不到 DRM master，进而 screencast 无节点、KRDP 推流失败。
