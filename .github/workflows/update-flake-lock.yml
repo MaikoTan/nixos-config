@@ -12,10 +12,12 @@ jobs:
       id-token: write
       issues: write
       pull-requests: write
-    runs-on: ubuntu-latest
+    # ubuntu-latest is migrating to Ubuntu 26 on 2026-11-19; pin 24.04 to keep
+    # the image stable.
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: DeterminateSystems/determinate-nix-action@v3
-      - uses: DeterminateSystems/update-flake-lock@main
+      - uses: actions/checkout@v7
+      - uses: DeterminateSystems/determinate-nix-action@v3.24.1
+      - uses: DeterminateSystems/update-flake-lock@v29
         with:
           pr-title: "chore(flake): update Nix flake inputs"

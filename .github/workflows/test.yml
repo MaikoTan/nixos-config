@@ -10,13 +10,16 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    # ubuntu-latest is migrating to Ubuntu 26 on 2026-11-19; pin 24.04 so the
+    # runner image stops shifting under the Nix cache (paths built on 24.04
+    # would not necessarily be reused once the base image changes).
+    runs-on: ubuntu-24.04
 
     env:
       NIXPKGS_ALLOW_UNFREE: 1
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Set up Nix
         uses: cachix/install-nix-action@v31
@@ -26,7 +29,7 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
 
       - name: Use Cachix
-        uses: cachix/cachix-action@v16
+        uses: cachix/cachix-action@v17
         with:
           name: maiko-nixos-build
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
