@@ -130,9 +130,18 @@ in
       # that cgroup's memory: above MemoryHigh the kernel reclaims and throttles
       # instead of killing, above MemoryMax only that cgroup gets OOM-killed -- a
       # build dies instead of the whole user.slice freezing.
+      #
+      # nix.conf has cores=0 max-jobs=auto, so six parallel builders each
+      # believe they may use all six cores and starve the interactive session.
+      # Split-half weights (systemd default is 100 for services and slices
+      # alike) let Chrome/KWin win CPU and IO scheduling without capping
+      # build parallelism; the memory caps above bound how much they can
+      # hold while they run.
       nix-daemon.serviceConfig = {
         MemoryHigh = "6G";
         MemoryMax = "10G";
+        CPUWeight = 50;
+        IOWeight = 50;
       };
     };
 
