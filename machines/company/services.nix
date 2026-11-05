@@ -1,11 +1,20 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
   ...
 }:
 
+let
+  # randamu 下载目录依赖 maiko 的 home 目录，从 users 配置取值，避免硬编码
+  maikoHome = config.users.users.maiko.home;
+in
 {
+  imports = [
+    inputs.randamu.nixosModules.default
+  ];
+
   services = {
     power-profiles-daemon.enable = false;
     scx = {
@@ -58,6 +67,45 @@
         cups-browsed
       ];
     };
+    randamu = {
+      enable = true;
+      # 服务以 maiko 身份运行，直接下载到其 Pictures 目录
+      user = "maiko";
+      group = "users";
+      createUser = false;
+      imagesDir = "${maikoHome}/Pictures/pixiv";
+      stateDir = "${maikoHome}/.local/state/randamu";
+      refreshTokenFile = config.sops.secrets.pixivRefreshToken.path;
+      settings = {
+        sources = [
+          {
+            type = "bookmarks";
+            restrict = "public";
+            limit = 100;
+          }
+          {
+            type = "bookmarks";
+            restrict = "private";
+            limit = 100;
+          }
+          {
+            type = "recommended";
+            limit = 100;
+          }
+        ];
+        skip_ai = true;
+        skip_r18 = false;
+        skip_r18g = true;
+        blacklist_tags = [
+          "漫画"
+          "講座"
+          "描き方"
+          "MMD"
+          "3D"
+          "3Dカスタム少女"
+        ];
+      };
+    };
   };
 
   # ZeroTier's default MTU is 2800, which causes issues on Windows side. Set it to 1280 to be safe.
@@ -82,6 +130,12 @@
   sops.secrets.zerotierNetworks = {
     sopsFile = ../../secrets/network_bridges.yaml;
     key = "zerotier/networks";
+  };
+
+  # randamu 的 pixiv refresh token，通过 systemd LoadCredential 注入服务
+  sops.secrets.pixivRefreshToken = {
+    sopsFile = ../../secrets/randamu.yaml;
+    key = "pixiv_refresh_token";
   };
 
   users.users.maiko.extraGroups = [

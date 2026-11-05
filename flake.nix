@@ -44,6 +44,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    randamu = {
+      url = "github:MaikoTan/randamu";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     code-insiders = {
       url = "github:iosmanthus/code-insiders-flake";
       inputs.nixpkgs.follows = "nixpkgs";
