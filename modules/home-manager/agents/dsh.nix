@@ -1,7 +1,12 @@
 # dsh systemd user service module
 # Provides a user service for running DeepSeek Agent CLI (dsh) in the background.
 # The web profile requires external bundles that are installed on first start via `dsh plugin --profile web install`.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.services.dsh;
