@@ -2,8 +2,10 @@
 #
 # This mirrors the existing on-disk layout (ext4 root labelled "nixos",
 # ESP mounted at /boot/efi, a second 1TB drive as ext4 "Data"), with one
-# deliberate change: the old 7.6G Windows RECOVERY partition is not
-# recreated; its space goes to the root partition.
+# deliberate change: the old 7.6G Windows RECOVERY partition is recreated
+# as an ext4 "rescue" partition holding the flake's rescue system
+# (../machines/rescue/config.nix), booted from the firmware menu or a GRUB
+# chainload entry when the main system is unbootable.
 #
 # The devices are pinned by their hardware serials under /dev/disk/by-id
 # so that adding or reordering disks cannot make the layout apply to the
@@ -49,6 +51,19 @@
                 # efiInstallAsRemovable and expects the ESP at /boot/efi.
                 mountpoint = "/boot/efi";
                 mountOptions = [ "umask=0077" ];
+              };
+            };
+            rescue = {
+              # Holds the standalone rescue system (../machines/rescue).
+              # ext4 with the label the rescue config's fileSystems uses.
+              size = "8G";
+              content = {
+                type = "filesystem";
+                format = "ext4";
+                extraArgs = [
+                  "-L"
+                  "rescue"
+                ];
               };
             };
             root = {
