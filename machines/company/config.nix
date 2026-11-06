@@ -13,6 +13,8 @@
     ./disk.nix
 
     ./hardware.nix
+    # Keep ../rescue in sync with this flake on every nh os boot/switch.
+    ./rescue-sync.nix
     # company-specific capability modules
     ./network.nix
     ./services.nix
