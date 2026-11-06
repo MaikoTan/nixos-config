@@ -180,6 +180,21 @@
                 ./machines/nixos-vm/config.nix
               ];
             };
+
+            # Rescue system for the spare 7.6G partition (nvme0n1p2). Built
+            # without nixosModule on purpose: no overlays and no unfree config,
+            # so it stays buildable even when those are what break the main
+            # configuration.
+            rescue = nixpkgs.lib.nixosSystem {
+              system = "x86_64-linux";
+              # The shared nix module unconditionally imports angrr via
+              # inputs, so specialArgs must be provided even though the
+              # rescue system keeps maiko.nix.gc disabled.
+              specialArgs = { inherit inputs; };
+              modules = [
+                ./machines/rescue/config.nix
+              ];
+            };
           };
 
           homeConfigurations = {
