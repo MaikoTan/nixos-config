@@ -104,6 +104,23 @@ Home Manager configurations are keyed by `user@hostname` in `flake.nix`
 `machines/<host>/home.nix`, which toggles individual features via the
 `maiko.hm.*` options (e.g. `maiko.hm.desktop = true;`).
 
+### Syncing the rescue system
+
+`machines/rescue/` is a standalone NixOS system installed on the company
+machine's spare partition (`nvme0n1p2`, label `rescue`), chainloaded from the
+main GRUB menu. It is **not** part of the main system's closure: sync it
+explicitly whenever the rescue config or flake inputs change.
+
+```bash
+sudo ./scripts/sync-rescue.sh
+```
+
+The script builds the current rescue toplevel from the working tree (including
+uncommitted changes) and installs it with `nixos-install`, then prunes old
+generations. It is a no-op when the partition already holds that generation.
+Pass a repository path as the first argument if the script is invoked from
+elsewhere.
+
 ### Adding a local package
 
 1. Put the derivation under `packages/<name>/` (use `nvfetcher.toml` +
