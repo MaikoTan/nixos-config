@@ -53,6 +53,25 @@ in
 
       # In this case, we should also set the boot.loader.efi.efiSysMountPoint to /boot/efi as well.
       efi.efiSysMountPoint = "/boot/efi";
+
+      # GRUB entry for the independent rescue system on the spare 8G
+      # partition (see ./disk.nix and ../machines/rescue). It chainloads the
+      # rescue system's own EFI loader and never touches this menu, so the
+      # main GRUB and the rescue system stay independent.
+      grub.extraEntries = ''
+        menuentry "Rescue system (from nvme0n1p2)" {
+          # The rescue GRUB lives on the ESP (p1), not on the rescue
+          # partition (p2); p2 only holds the rescue root and its kernel.
+          insmod part_gpt
+          insmod fat
+          # Locate the ESP by its FAT filesystem UUID rather than a fixed
+          # hd0/gpt1 position, so the entry survives disk reordering.
+          # F169-DA3F is the ESP's FS UUID (see `blkid /boot/efi`).
+          search --no-floppy --fs-uuid --set=root F169-DA3F
+          echo "Loading rescue GRUB via chainload..."
+          chainloader /EFI/rescue/grubx64.efi
+        }
+      '';
     };
   };
 
