@@ -47,6 +47,16 @@ in
         --set WEBKIT_DISABLE_COMPOSITING_MODE 0
         --set GST_PLUGIN_PATH /nix/store/4wcvpxq1gqy0fwyygwyzg4jxj7lsl0wr-gst-plugins-good-1.28.7/lib/gstreamer-1.0:/nix/store/90a5m7w1mjg6sh7g82dx34dnypn1476q-gst-plugins-base-1.28.7/lib/gstreamer-1.0:/nix/store/dsa4ky2h1m6khl1hf0g1vvl4bvx4hxg8-pipewire-1.6.9/lib/gstreamer-1.0
       )
+
+      # 1.1.35 起 libfoundry_local.so 的 DT_NEEDED 登记为
+      # libonnxruntime.so.1，但 deb 内只提供无 SONAME 的
+      # libonnxruntime.so，auto-patchelf 会因找不到依赖而失败。
+      # 在 fixup 阶段前补一个 soname 软链。
+      # 上游修好后若自带 .so.1，ln -sf 会覆盖成指向同一文件的链接，仍然正确。
+      onnxDir="$out/lib/GitHub Copilot"
+      if [ -e "$onnxDir/libonnxruntime.so" ]; then
+        ln -sf libonnxruntime.so "$onnxDir/libonnxruntime.so.1"
+      fi
     '';
 
     # Fix the crash caused by an abort during initialisation of the voice

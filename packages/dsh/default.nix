@@ -53,7 +53,7 @@ buildNpmPackage {
   # 我们跳过所有 install 脚本，稍后手动替换 node-addon-require-builtin。
   npmFlags = [ "--ignore-scripts" ];
 
-  npmDepsHash = "sha256-3sTALSlZn3RYnRT75LRg3q+iBYvuzyQl3EjCa76CN48=";
+  npmDepsHash = "sha256-MMQ2SORFLF5YOUAoIdoPdn7vd2yBfRXp1BO9GhnW4dc=";
 
   # 替换 node-addon-require-builtin 为我们的自定义构建版本
   # 先运行默认 installPhase (复制 node_modules)，再替换特定模块

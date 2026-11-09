@@ -8,10 +8,10 @@
 {
   dsh = {
     pname = "dsh";
-    version = "0.2.1-rc.2";
+    version = "0.2.2-rc.1";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@deepseek-ai/dsh/-/dsh-0.2.1-rc.2.tgz";
-      sha256 = "sha256-QOPQJcAkDEMW/0Le6b7cdwnA+ziuoQVDtHB27Sr1Lh0=";
+      url = "https://registry.npmjs.org/@deepseek-ai/dsh/-/dsh-0.2.2-rc.1.tgz";
+      sha256 = "sha256-rSGWiu0DN6MmuFNQeiOzDqy77E1nqwfztv3mm3WxnNY=";
     };
   };
   freedownloadmanager = {
@@ -24,18 +24,18 @@
   };
   github-copilot-app = {
     pname = "github-copilot-app";
-    version = "1.1.32";
+    version = "1.1.35";
     src = fetchurl {
-      url = "https://github.com/github/app/releases/download/v1.1.32/GitHub-Copilot-linux-x64.deb";
-      sha256 = "sha256-bOfgGPjdn4TgKbnYHutfBd6u8j1U+WKhB0t3iRv/VBU=";
+      url = "https://github.com/github/app/releases/download/v1.1.35/GitHub-Copilot-linux-x64.deb";
+      sha256 = "sha256-wsxvA4l0ezQsZL5WE7P/w/VuPb4dEdyC9JbmZaYTQE8=";
     };
   };
   magpie-cli = {
     pname = "magpie-cli";
-    version = "0.1.1560";
+    version = "0.1.3354";
     src = fetchurl {
-      url = "https://github.com/yetone/magpie-releases/releases/download/v0.1.1560/magpie-cli-linux-amd64";
-      sha256 = "sha256-4Ym5+ExL7WOBOKp5LTbSAx+FvQ/z1ZSblhsTD9EEOdk=";
+      url = "https://github.com/yetone/magpie-releases/releases/download/v0.1.3354/magpie-cli-linux-amd64";
+      sha256 = "sha256-5EKNlHbxOVBBQmlVYbYf6rMi0KV/VfBR3HweHGR9m50=";
     };
   };
   miku-cursors = {
