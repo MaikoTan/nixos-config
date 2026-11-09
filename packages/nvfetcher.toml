@@ -1,10 +1,10 @@
 # 合并的 nvfetcher 配置，管理所有 nixpkgs 上游未收录或需覆盖的包。
 #
 # 在仓库根目录运行：
-#   nix run nixpkgs#nvfetcher -- -c packages/nvfetcher.toml
+#   nix run nixpkgs#nvfetcher -- -c packages/nvfetcher.toml -o packages/_sources
 #
 # 如果只想更新某个包，加 --filter：
-#   nix run nixpkgs#nvfetcher -- -c packages/nvfetcher.toml --filter 'github-copilot-app'
+#   nix run nixpkgs#nvfetcher -- -c packages/nvfetcher.toml -o packages/_sources --filter 'github-copilot-app'
 
 [freedownloadmanager]
 # 上游的 files2 主机只提供 latest URL，内容随发布变化，会导致已固定的
@@ -28,7 +28,8 @@ src.prefix = "v"
 fetch.url = "https://github.com/yetone/magpie-releases/releases/download/v$ver/magpie-cli-linux-amd64"
 # DeepSeek SH CLI。npm tarball 即完整可分发产物（预打包 CJS），
 # 版本与 hash 由上游 registry 固定。npm 依赖闭包不归 nvfetcher 管，
-# 见 packages/dsh/package-lock.json。
+# 见 packages/dsh/package-lock.json——所以升级 dsh 必须用
+# ./scripts/update-dsh.sh（会连带重建 lockfile 和 npmDepsHash）。
 [dsh]
 # registry 的 tarball 路径带 publish 版本号，从 dist-tags JSON 里取。
 src.webpage = "https://registry.npmjs.org/@deepseek-ai/dsh"
