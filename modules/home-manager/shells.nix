@@ -33,6 +33,9 @@ in
     dust
     duf
     sd
+
+    python3
+    uv
   ]);
 
   programs = {

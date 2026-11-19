@@ -17,11 +17,7 @@
     # https://claude.ai/
     claude-code = {
       enable = true;
-      package = pkgs.claude-code.overrideAttrs (old: {
-        postFixup = (old.postFixup or "") + ''
-          wrapProgram $out/bin/claude --prefix PATH : ${pkgs.python3}/bin
-        '';
-      });
+      package = pkgs.claude-code;
       enableMcpIntegration = true;
       # settings 交给 Magpie 托管（它需要写 ~/.claude/settings.json）
     };
