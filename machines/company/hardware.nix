@@ -136,22 +136,25 @@ in
       };
     };
 
-  # 使用 zram 提供压缩交换空间，逻辑上限为物理内存的 100%
+  # zram swap, logical capacity = 175% of RAM. zstd compresses ~3.7x here, so
+  # 0.5 * 3.7 ≈ 1.85; 175% leaves a margin.
   zramSwap = {
     enable = true;
-    memoryPercent = 100;
+    memoryPercent = 175;
     algorithm = "zstd";
     priority = 100;
     swapDevices = 1;
   };
 
+  # Cap the compressed data that may stay resident at 50% of RAM, so the
+  # aggressive logical size cannot starve the rest of the system if the
+  # compression ratio drops.
+  services.zram-generator.settings.zram0.zram-resident-limit = "ram / 2";
+
   boot.kernel.sysctl = {
-    # swappiness=100 会让内核尽早把匿名页赶进 zram，把压缩/解压的开销全压在
-    # 6 个核心上：编译任务正在抢这些核，于是前台页面每次换入都要排队等解压，
-    # 体感就是"点一下卡半秒"。降到 10，让 zram 退回兜底定位（内存真的吃不下
-    # 才用），把 CPU 让给编译和前台交互。
-    # 代价是更容易见底，因此下方用 earlyoom 兜底。
-    "vm.swappiness" = 10;
+    # 100 is the usual zram value: swap-in latency is low, so keep more cold
+    # anonymous pages out of RAM. The resident limit above bounds the cost.
+    "vm.swappiness" = 100;
     "vm.vfs_cache_pressure" = 50;
     # zram 没有寻道延迟，单页换入可降低延迟
     "vm.page-cluster" = 0;

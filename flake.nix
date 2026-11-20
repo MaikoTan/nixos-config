@@ -213,10 +213,7 @@
               extraSpecialArgs = { inherit inputs; };
               modules = [
                 ./modules/home-manager
-                {
-                  maiko.hm.desktop = true;
-                  maiko.hm.android = true;
-                }
+                ./machines/company/home.nix
               ];
             };
 
