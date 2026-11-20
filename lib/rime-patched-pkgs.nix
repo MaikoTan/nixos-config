@@ -1,5 +1,5 @@
 # nixpkgs 实例，应用 nixpkgs PR #501829 补丁（rime-prelude 相关修复），
-# 并放开 unfree 限制。仅供 rime-flypy / rime-tlpa 使用。
+# 并放开 unfree 限制。仅供 rime-flypy 使用。
 { nixpkgs }:
 let
   pkgs = import nixpkgs { system = "x86_64-linux"; };

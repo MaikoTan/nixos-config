@@ -1,8 +1,6 @@
-# 注入 rime-flypy，并从打了补丁的 nixpkgs 提供 rime-prelude。
+# 注入 rime-flypy（其依赖 rime-prelude，来自打了补丁的 nixpkgs）。
 { rime-patched-pkgs }:
 _final: _prev: {
   inherit (rime-patched-pkgs) rime-flypy;
-  rime-tlpa = _final.callPackage ../packages/rime-tlpa {
-    inherit (rime-patched-pkgs) rime-prelude;
-  };
+  rime-tlpa = _final.callPackage ../packages/rime-tlpa { };
 }

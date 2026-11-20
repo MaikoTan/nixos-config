@@ -10,7 +10,8 @@
             schema_list:
               - schema: double_pinyin
               - schema: luna_pinyin
-              - schema: tlpa_peh_ue
+              - schema: phing_im_tlpa
+              - schema: phing_im_poj
               - schema: flypy
               - schema: japanese
         '';

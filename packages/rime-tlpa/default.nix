@@ -2,44 +2,30 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  librime,
-  rime-prelude,
   nix-update-script,
 }:
 stdenvNoCC.mkDerivation {
   pname = "rime-tlpa";
-  version = "0.1";
+  version = "0.2.0";
+
+  __structuredAttrs = true;
+  strictDeps = true;
 
   src = fetchFromGitHub {
     owner = "AlanJui";
     repo = "rime-tlpa";
-    rev = "9f48c9b8ef7a1313fdcf824a34a35497f680f9d9";
-    hash = "sha256-t+dX93x2iSQz9isnpyv3W7A8NYAcIXmh/ludEqcq8yk=";
+    rev = "a54b48207f3e075bc96a59f46040b78ed3e9a4ba";
+    hash = "sha256-1QFiazZBuWk++AODeqaz8A1U9eYE8rzD57K8LAVXSBg=";
   };
-
-  nativeBuildInputs = [ librime ];
-  prePatch = "cp -r ${rime-prelude}/* .";
-
-  buildPhase = ''
-    runHook preBuild
-
-    ls ./*.schema.yaml | while read f; do
-      rime_deployer --compile "$f"
-    done
-
-    runHook postBuild
-  '';
 
   installPhase = ''
     runHook preInstall
 
-    rm -rf build/*.txt > /dev/null 2>&1 || true
-
     mkdir -p $out/share/rime-data/lua
-    mkdir -p $out/share/rime-data/build
-    install -Dm644 -t $out/share/rime-data/lua ./*.lua
-    install -Dm644 -t $out/share/rime-data/ ./*.schema.yaml ./*.dict.yaml
-    install -Dm644 -t $out/share/rime-data/build ./build/*.bin ./build/*.yaml
+    install -Dm644 -t $out/share/rime-data/ ./*.yaml ./*.lua
+    if ls ./lua/*.lua >/dev/null 2>&1; then
+      install -Dm644 -t $out/share/rime-data/lua ./lua/*.lua
+    fi
 
     runHook postInstall
   '';
@@ -49,16 +35,24 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "Rime input method schema for Taiwanese Language Phonetic Alphabet (TLPA)";
     longDescription = ''
-      Rime input method schema for Taiwanese Language Phonetic Alphabet (TLPA),
-      providing support for inputting Taiwanese Hokkien (Bân-lâm-gú / 閩南語)
-      with Pinyin (拼音) romanization system including 台語拼音 (TLPA), 台語拼音二式 (WSL)
-      and 閩拼方案 (MP), as well as Zhuyin (注音) and Fanqie (反切) phonetic annotations.
+      Rime input method schemas for Taiwanese Hokkien (Bân-lâm-gú / 閩南語).
+      Ships 17 schemas grouped into five families:
+
+      - 按鍵練習 (keyboard practice): 方音符號, 國際音標注音, 羅馬拼音字母
+      - 拼音輸入法 (romanization): 台語音標 (TLPA), 台羅拼音 (Tâi-lô),
+        白話字 (POJ), 閩拼方案 (BP), 台語注音二式 (BPM2)
+      - 十五音輸入法 (fifteen-initial): 台語注音二式, 台羅拼音, 方音符號
+      - 十八音輸入法 (eighteen-initial): 台語注音二式, 台羅拼音, 方音符號
+      - 注音輸入法 (zhuyin): 台語注音符號, 台語注音二式, 方音符號
+
+      Supports phonetic annotation with TLPA+, Tâi-lô, POJ, BP and BPM2,
+      as well as extended Bopomofo (方音符號) and IPA, via bundled Lua
+      converters for annotated output.
     '';
     homepage = "https://github.com/AlanJui/rime-tlpa";
 
-    # Packages are assumed unfree unless explicitly indicated otherwise
-    license = lib.licenses.unfree;
+    license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ maikotan ];
-    platforms = lib.platforms.all;
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }
